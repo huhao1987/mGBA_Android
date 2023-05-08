@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/rBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btnbackgroud"
+        android:paddingStart="17dp"
+        android:paddingTop="7dp"
+        android:text="R"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/lBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btnbackgroud"
+        android:paddingStart="17dp"
+        android:paddingTop="7dp"
+        android:text="L"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <include
+        android:id="@+id/dpad"
+        layout="@layout/dpad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lBtn"
+        android:layout_marginTop="80dp" />
+
+    <TextView
+        android:id="@+id/aBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/dpad"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btnbackgroud"
+        android:paddingStart="17dp"
+        android:paddingTop="7dp"
+        android:text="A"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/bBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/dpad"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="50dp"
+        android:layout_toLeftOf="@+id/aBtn"
+        android:background="@drawable/btnbackgroud"
+        android:paddingStart="17dp"
+        android:paddingTop="7dp"
+        android:text="B"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/selectBtn"
+        android:layout_below="@+id/dpad"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btnbackgroud"
+        android:paddingStart="35dp"
+        android:paddingTop="5dp"
+        android:text="select"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/startBtn"
+        android:layout_below="@+id/dpad"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="55dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btnbackgroud"
+        android:paddingStart="35dp"
+        android:paddingTop="5dp"
+        android:text="start"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+</RelativeLayout>

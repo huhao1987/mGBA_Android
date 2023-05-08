@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:id="@+id/dpadlayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/centerPoint"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/upBtn"
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@+id/leftBtn" />
+    <ImageView
+        android:id="@+id/upBtn"
+        android:src="@drawable/baseline_arrow_circle_up_24"
+        android:layout_alignLeft="@+id/centerPoint"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <ImageView
+        android:id="@+id/downBtn"
+        android:layout_below="@+id/centerPoint"
+        android:layout_alignLeft="@+id/centerPoint"
+        android:src="@drawable/baseline_arrow_circle_down_24"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <ImageView
+        android:id="@+id/leftBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/centerPoint"
+        android:src="@drawable/baseline_arrow_circle_left_24"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <ImageView
+        android:id="@+id/rightBtn"
+        android:layout_toRightOf="@+id/centerPoint"
+        android:layout_alignTop="@+id/centerPoint"
+        android:src="@drawable/baseline_arrow_circle_right_24"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+</RelativeLayout>
+</RelativeLayout>

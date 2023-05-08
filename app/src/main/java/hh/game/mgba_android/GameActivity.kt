@@ -1,0 +1,127 @@
+package hh.game.mgba_android
+
+import android.media.Image
+import android.os.Bundle
+import android.util.Log
+import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.RelativeLayout.LayoutParams
+import android.widget.TextView
+import androidx.core.widget.TextViewCompat
+import org.libsdl.app.SDLActivity
+import kotlin.math.roundToInt
+
+
+class GameActivity : SDLActivity() {
+    private var surfaceparams : LayoutParams?=null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mFullscreenModeActive = false
+        Log.d("GameActivity::","create")
+        updateScreenPosition()
+        addGameControler()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("GameActivity::","stop")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("GameActivity::","stop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("GameActivity::","stop")
+    }
+    fun updateScreenPosition() {
+        if(surfaceparams==null) {
+            surfaceparams = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+            )
+            val screenWidth = windowManager.defaultDisplay.width
+            surfaceparams?.topMargin = 0
+            surfaceparams?.leftMargin = 0
+            surfaceparams?.width = screenWidth
+            surfaceparams?.height = (screenWidth * 0.7).roundToInt()
+            mSurface.layoutParams = surfaceparams
+        }
+    }
+
+    private fun addGameControler() {
+        val inflater = LayoutInflater.from(this)
+        val relativeLayout =
+            inflater.inflate(R.layout.padboard, mLayout, false) as RelativeLayout
+        val layoutParams = RelativeLayout.LayoutParams(
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+        layoutParams.bottomMargin = 30.dpToPx()
+        layoutParams.leftMargin = 10.dpToPx()
+        layoutParams.rightMargin = 10.dpToPx()
+        mLayout.addView(relativeLayout, layoutParams)
+        relativeLayout.findViewById<ImageView>(R.id.rBtn).setGBAKeyListener()
+        relativeLayout.findViewById<ImageView>(R.id.lBtn).setGBAKeyListener()
+        relativeLayout.findViewById<ImageView>(R.id.aBtn).setGBAKeyListener()
+        relativeLayout.findViewById<ImageView>(R.id.bBtn).setGBAKeyListener()
+        relativeLayout.findViewById<ImageView>(R.id.selectBtn).setGBAKeyListener()
+        relativeLayout.findViewById<ImageView>(R.id.startBtn).setGBAKeyListener()
+        relativeLayout.findViewById<ImageView>(R.id.upBtn).setGBAKeyListener()
+        relativeLayout.findViewById<ImageView>(R.id.downBtn).setGBAKeyListener()
+        relativeLayout.findViewById<ImageView>(R.id.leftBtn).setGBAKeyListener()
+        relativeLayout.findViewById<ImageView>(R.id.rightBtn).setGBAKeyListener()
+    }
+
+    private fun Int.dpToPx(): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            resources.displayMetrics
+        ).toInt()
+    }
+
+    private fun View.setGBAKeyListener() {
+        var keyText = getKey(
+            when (this.id) {
+                R.id.upBtn -> "up"
+                R.id.downBtn -> "down"
+                R.id.leftBtn -> "left"
+                R.id.rightBtn -> "right"
+                R.id.rBtn -> "R"
+                R.id.lBtn -> "L"
+                R.id.aBtn -> "A"
+                R.id.bBtn -> "B"
+                R.id.selectBtn -> "select"
+                R.id.startBtn -> "start"
+                else -> ""
+            }
+        )
+        this.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    onNativeKeyDown(keyText)
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    onNativeKeyUp(keyText)
+                }
+            }
+            true
+        }
+    }
+
+
+}
+
