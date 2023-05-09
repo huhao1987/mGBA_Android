@@ -5,9 +5,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 #ifndef SDL_MAIN_H
 #define SDL_MAIN_H
-
-#define BUILD_GLES2
-
 #include <mgba-util/common.h>
 
 CXX_GUARD_START

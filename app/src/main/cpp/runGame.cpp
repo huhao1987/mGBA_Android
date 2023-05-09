@@ -1,24 +1,8 @@
-/* Copyright (c) 2013-2015 Jeffrey Pfau
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 #include "android/sdl/main.h"
-
 #include <mgba/internal/debugger/cli-debugger.h>
-
-#ifdef USE_GDB_STUB
-#include <mgba/internal/debugger/gdb-stub.h>
-#endif
-#ifdef USE_EDITLINE
-#include "feature/editline/cli-el-backend.h"
-#endif
 #ifdef ENABLE_SCRIPTING
 #include <mgba/core/scripting.h>
 
-#ifdef ENABLE_PYTHON
-#include "platform/python/engine.h"
-#endif
 #endif
 
 #include <mgba/core/cheats.h>
@@ -39,7 +23,7 @@
 
 #define PORT "sdl"
 #include <android/log.h>
-
+#include "android/sdl/android_sdl_events.h"
 #define TAG "mgba_android_Test:::"
 
 #define LOG_E(...) __android_log_print(ANDROID_LOG_ERROR,    TAG, __VA_ARGS__)
@@ -179,7 +163,7 @@ int main(int argc, char** argv) {
     }
 
     renderer.player.bindings = &renderer.core->inputMap;
-    mSDLInitBindingsGBA(&renderer.core->inputMap);
+    mSDLInitBindingsGBAforAndroid(&renderer.core->inputMap);
     mSDLInitEvents(&renderer.events);
     mSDLEventsLoadConfig(&renderer.events, mCoreConfigGetInput(&renderer.core->config));
     mSDLAttachPlayer(&renderer.events, &renderer.player);
