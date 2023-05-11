@@ -1,20 +1,16 @@
-package hh.game.mgba_android
+package hh.game.mgba_android.activity
 
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
-import android.widget.TextView
-import androidx.core.widget.TextViewCompat
+import hh.game.mgba_android.R
+import hh.game.mgba_android.utils.getKey
 import org.libsdl.app.SDLActivity
 import kotlin.math.roundToInt
 
@@ -27,21 +23,6 @@ class GameActivity : SDLActivity() {
         Log.d("GameActivity::","create")
         updateScreenPosition()
         addGameControler()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("GameActivity::","stop")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("GameActivity::","stop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("GameActivity::","stop")
     }
     fun updateScreenPosition() {
         if(surfaceparams==null) {
@@ -122,6 +103,11 @@ class GameActivity : SDLActivity() {
         }
     }
 
+    override fun getArguments(): Array<String> {
+        var gamepatch = intent.getStringExtra("gamepatch")
+        return if(gamepatch!=null) arrayOf(gamepatch)
+        else emptyArray<String>()
+    }
 
 }
 

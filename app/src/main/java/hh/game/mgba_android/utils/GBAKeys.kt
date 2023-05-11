@@ -1,4 +1,4 @@
-package hh.game.mgba_android
+package hh.game.mgba_android.utils
 
 import android.view.KeyEvent
 
@@ -23,7 +23,7 @@ fun getKey(text:String):Int =
         "R" -> GBAKeys.GBA_KEY_R.key
         "L" -> GBAKeys.GBA_KEY_L.key
         "select" -> GBAKeys.GBA_KEY_SELECT.key
-        "start" ->GBAKeys.GBA_KEY_START.key
+        "start" -> GBAKeys.GBA_KEY_START.key
         "up" -> GBAKeys.GBA_KEY_UP.key
         "down" -> GBAKeys.GBA_KEY_DOWN.key
         "left" -> GBAKeys.GBA_KEY_LEFT.key

@@ -24,6 +24,8 @@
 #define PORT "sdl"
 #include <android/log.h>
 #include "android/sdl/android_sdl_events.h"
+#include <jni.h>
+
 #define TAG "mgba_android_Test:::"
 
 #define LOG_E(...) __android_log_print(ANDROID_LOG_ERROR,    TAG, __VA_ARGS__)
@@ -42,10 +44,7 @@ static void _loadState(struct mCoreThread* thread) {
     mCoreLoadStateNamed(thread->core, _state, SAVESTATE_RTC);
 }
 
-int main(int argc, char** argv) {
-#ifdef _WIN32
-    AttachConsole(ATTACH_PARENT_PROCESS);
-#endif
+int runGame(char* fname){
     struct mSDLRenderer renderer = {0};
 
     struct mCoreOptions opts = {
@@ -65,22 +64,12 @@ int main(int argc, char** argv) {
     struct mSubParser subparser;
 
     mSubParserGraphicsInit(&subparser, &graphicsOpts);
-    bool parsed = mArgumentsParse(&args, argc, argv, &subparser, 1);
-    args.fname = "sdcard/gba/game.gba";
+    bool parsed = false;
+    args.fname = fname;
     args.frameskip = 0;
 //    args.patch = "sdcard/gba/hjty.gba";
     if (!args.fname && !args.showVersion) {
         parsed = false;
-    }
-    if (!parsed || args.showHelp) {
-        usage(argv[0], NULL, NULL, &subparser, 1);
-        mArgumentsDeinit(&args);
-        return !parsed;
-    }
-    if (args.showVersion) {
-        version(argv[0]);
-        mArgumentsDeinit(&args);
-        return 0;
     }
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -142,14 +131,14 @@ int main(int argc, char** argv) {
 		mSDLGLCreate(&renderer);
 	} else
 #elif defined(BUILD_GLES2) || defined(USE_EPOXY)
-    #ifdef BUILD_RASPI
-	mRPIGLCommonInit(&renderer);
+#ifdef BUILD_RASPI
+    mRPIGLCommonInit(&renderer);
 #else
-	if (mSDLGLCommonInit(&renderer))
+    if (mSDLGLCommonInit(&renderer))
 #endif
-	{
-		mSDLGLES2Create(&renderer);
-	} else
+    {
+        mSDLGLES2Create(&renderer);
+    } else
 #endif
     {
         mSDLSWCreate(&renderer);
@@ -282,7 +271,7 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
         }
 #if SDL_VERSION_ATLEAST(2, 0, 0)
         mSDLResumeScreensaver(&renderer->events);
-		mSDLSetScreensaverSuspendable(&renderer->events, false);
+        mSDLSetScreensaverSuspendable(&renderer->events, false);
 #endif
 
         mCoreThreadJoin(&thread);
@@ -309,3 +298,9 @@ static void mSDLDeinit(struct mSDLRenderer* renderer) {
 
     SDL_Quit();
 }
+int main(int argc, char** argv) {
+    char** a=argv;
+    a;
+    return runGame(argv[1]);
+}
+

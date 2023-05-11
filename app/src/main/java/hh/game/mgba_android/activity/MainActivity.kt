@@ -1,4 +1,4 @@
-package hh.game.mgba_android
+package hh.game.mgba_android.activity
 
 import android.content.Intent
 import android.os.Build
@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import hh.game.mgba_android.databinding.ActivityMainBinding
 
@@ -28,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.launchbtn.setOnClickListener {
-            startActivity(Intent(this,GameActivity::class.java))
+            startActivity(Intent(this, GameListActivity::class.java))
         }
     }
 

@@ -13,6 +13,7 @@ add_subdirectory(mgba)
 
 INCLUDE_DIRECTORIES("SDL2/include" "mgba/include" "mgba/src" "mgba/src/platform/sdl" "android/opengl" "android/sdl")
 file(GLOB PLATFORM_SRC mgba/src/platform/sdl/sdl-*.c)
+file(GLOB GBA_UTIL_SRC android/utils/*.cpp)
 add_library(${CMAKE_PROJECT_NAME} SHARED
 		runGame.cpp
 		mgba/src/platform/sdl/sw-sdl2.c
@@ -20,6 +21,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 		android/sdl/gles2-sdl.c
 		android/sdl/android_sdl_events.cpp
 		${PLATFORM_SRC}
+		${GBA_UTIL_SRC}
 		)
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
