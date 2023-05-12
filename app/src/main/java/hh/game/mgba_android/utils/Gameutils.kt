@@ -12,6 +12,7 @@ class Gameutils(var context: Context, var path: String) {
         init {
             System.loadLibrary("mgba_android")
         }
+        external fun getFPS():Int
     }
 
     fun init(): Gameutils {
@@ -47,6 +48,7 @@ class Gameutils(var context: Context, var path: String) {
     external fun initCore(path: String)
     external fun getGameTitle(): String
     external fun getGameCode(): String
+
 }
 
 interface GameDetailsListener {

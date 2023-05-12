@@ -69,38 +69,6 @@ class GameListActivity : AppCompatActivity() {
                         ||
                         it.getAbsolutePath(this).contains(".gb", ignoreCase = true)
             }?.toList())
-            documentfile?.listFiles()?.filter {
-                it.getAbsolutePath(this).contains(".gba", ignoreCase = true)
-                        ||
-                        it.getAbsolutePath(this).contains(".gb", ignoreCase = true)
-            }?.forEach {
-                runBlocking {
-                    var gbaUtil = Gameutils(this@GameListActivity,it.getAbsolutePath(this@GameListActivity)).init()
-                    var gameType = when{
-                        it.getAbsolutePath(this@GameListActivity).contains(".gba",true) -> Gametype.GBA
-                        it.getAbsolutePath(this@GameListActivity).contains(".gb",true) -> Gametype.GB
-                        else -> null
-                    }
-                    gbaUtil.loadGames(gameType,object : GameDetailsListener{
-                        override fun onGetDetails(gameDetails: Any?) {
-                            if(gameDetails != null) {
-                                var gameTitle =
-                                    when (gameDetails) {
-                                        is GBAgame -> (gameDetails as GBAgame).ChiGamename
-                                        else -> {
-                                            (gameDetails as GBgame).EngGamename
-                                        }
-                                    }
-                                Log.d("thegamedetail:::", (gameTitle?:it.name).toString())
-
-                            }
-                            else
-                                Log.d("thegamedetail:::",gbaUtil.getGameCode())
-                        }
-                    })
-                }
-
-            }
             gamelist?.apply {
                 it.updateList(this)
                 it.itemClickListener = { position ->

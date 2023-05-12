@@ -22,6 +22,7 @@ class GameListAdapter(var context: Context, var list : ArrayList<DocumentFile>) 
     var itemClickListener : ItemClickListener?=null
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val gamename = view.findViewById<TextView>(R.id.gamename)
+        val gametype = view.findViewById<TextView>(R.id.gametype)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -44,8 +45,14 @@ class GameListAdapter(var context: Context, var list : ArrayList<DocumentFile>) 
                     if(gameDetails != null) {
                         var gameTitle =
                             when (gameDetails) {
-                                is GBAgame -> (gameDetails as GBAgame).ChiGamename
+                                is GBAgame -> {
+                                    holder.gametype.background = context.getDrawable(R.drawable.icon_bg_gba)
+                                    holder.gametype.text = "GBA"
+                                    (gameDetails as GBAgame).ChiGamename
+                                }
                                 else -> {
+                                    holder.gametype.background = context.getDrawable(R.drawable.icon_bg_gb)
+                                    holder.gametype.text = "GB"
                                     (gameDetails as GBgame).EngGamename
                                 }
                             }

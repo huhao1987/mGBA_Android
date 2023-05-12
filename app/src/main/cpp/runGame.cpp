@@ -49,13 +49,13 @@ int runGame(char* fname){
 
     struct mCoreOptions opts = {
             .useBios = true,
+            .logLevel = mLOG_WARN | mLOG_ERROR | mLOG_FATAL,
             .rewindEnable = false,
             .rewindBufferCapacity = 600,
-            .audioBuffers = 2048,
-            .videoSync = true,
-            .audioSync = true,
+            .audioBuffers = 4096,
             .volume = 0x100,
-            .logLevel = mLOG_WARN | mLOG_ERROR | mLOG_FATAL,
+            .videoSync = true,
+            .audioSync = true
     };
 
     struct mArguments args;
@@ -64,12 +64,10 @@ int runGame(char* fname){
     struct mSubParser subparser;
 
     mSubParserGraphicsInit(&subparser, &graphicsOpts);
-    bool parsed = false;
     args.fname = fname;
     args.frameskip = 0;
 //    args.patch = "sdcard/gba/hjty.gba";
     if (!args.fname && !args.showVersion) {
-        parsed = false;
     }
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -235,7 +233,6 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
     thread.logger.logger = &_logger.d;
 
     bool didFail = !mCoreThreadStart(&thread);
-
     if (!didFail) {
 //#if SDL_VERSION_ATLEAST(2, 0, 0)
         renderer->core->desiredVideoDimensions(renderer->core, &renderer->width, &renderer->height);
@@ -273,7 +270,6 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
         mSDLResumeScreensaver(&renderer->events);
         mSDLSetScreensaverSuspendable(&renderer->events, false);
 #endif
-
         mCoreThreadJoin(&thread);
     } else {
         LOG_D("Could not run game. Are you sure the file exists and is a compatible game?\n");
@@ -299,8 +295,6 @@ static void mSDLDeinit(struct mSDLRenderer* renderer) {
     SDL_Quit();
 }
 int main(int argc, char** argv) {
-    char** a=argv;
-    a;
     return runGame(argv[1]);
 }
 
