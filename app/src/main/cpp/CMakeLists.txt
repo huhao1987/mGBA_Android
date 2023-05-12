@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.22.1)
 project("mgba_android")
 
 set(ANDROID ON)
+set (OBOE_DIR ./oboe)
+add_subdirectory (${OBOE_DIR} ./oboe)
 
 add_definitions(-DHAVE_STRTOF_L=1)
 add_definitions(-DHAVE_LOCALE=1)
@@ -11,7 +13,7 @@ add_definitions(-DUSE_PTHREADS=1)
 add_subdirectory(SDL2)
 add_subdirectory(mgba)
 
-INCLUDE_DIRECTORIES("SDL2/include" "mgba/include" "mgba/src" "mgba/src/platform/sdl" "android/opengl" "android/sdl")
+INCLUDE_DIRECTORIES("SDL2/include" "mgba/include" "mgba/src" "mgba/src/platform/sdl" "android/opengl" "android/sdl" "android/oboe" "${OBOE_DIR}/include")
 file(GLOB PLATFORM_SRC mgba/src/platform/sdl/sdl-*.c)
 file(GLOB GBA_UTIL_SRC android/utils/*.cpp)
 add_library(${CMAKE_PROJECT_NAME} SHARED
@@ -20,6 +22,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 		android/sdl/gl-common.c
 		android/sdl/gles2-sdl.c
 		android/sdl/android_sdl_events.cpp
+		android/oboe/aaudio.cpp
 		${PLATFORM_SRC}
 		${GBA_UTIL_SRC}
 		)
@@ -30,4 +33,5 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 		android
 		GLESv2
 		OpenSLES
-		log)
+		log
+		oboe)

@@ -2,6 +2,7 @@
 #include <mgba/internal/debugger/cli-debugger.h>
 #ifdef ENABLE_SCRIPTING
 #include <mgba/core/scripting.h>
+#include <oboe/Oboe.h>
 
 #endif
 
@@ -25,7 +26,7 @@
 #include <android/log.h>
 #include "android/sdl/android_sdl_events.h"
 #include <jni.h>
-
+#include "android/oboe/aaudio.h"
 #define TAG "mgba_android_Test:::"
 
 #define LOG_E(...) __android_log_print(ANDROID_LOG_ERROR,    TAG, __VA_ARGS__)
@@ -245,6 +246,7 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
         mSDLSetScreensaverSuspendable(&renderer->events, renderer->core->opts.suspendScreensaver);
         mSDLSuspendScreensaver(&renderer->events);
 //#endif
+//        initAudio();
         if (mSDLInitAudio(&renderer->audio, &thread)) {
             if (args->savestate) {
                 struct VFile* state = VFileOpen(args->savestate, O_RDONLY);
