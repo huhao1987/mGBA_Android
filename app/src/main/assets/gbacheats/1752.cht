@@ -1,0 +1,10 @@
+[金币]
+ON=6588,28
+
+[关卡全开]
+ON=B0BC,1;B0D0,1;B0E4,1;B0F8,1;B11C,1;B130,1;B144,1;B158,1;B16C,1;B190,1;B1A4,1;B1B8,1;B1CC,1;B1E0,1;B204,1;B218,1;B22C,1;B240,1;B254,1;B268,1
+
+[GameInfo]
+Name=1752 - Shrek 2 Puss n Bots (E)
+System=GBA
+Text=vicente

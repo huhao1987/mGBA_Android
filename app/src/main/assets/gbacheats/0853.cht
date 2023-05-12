@@ -1,0 +1,33 @@
+[全关卡+全人物]
+ON=34D,FF
+
+[人数]
+ON=352,63
+
+[M数]
+ON=41821,9
+
+[能量]
+ON=419EC,5
+
+[武器]
+Turbo=41848,0
+Invincibility=41848,2
+Nitrogen=41848,3
+Magnet=41848,4
+Homing Missile=41848,5
+Electric Shock=41848,6
+Fireball=41848,7
+Flamethrower=41848,8
+Rocket=41848,9
+Frying Pan=41848,A
+Mine=41848,B
+Boxing Glove=41848,C
+
+[快速过关]
+ON=419CF,9
+
+[GameInfo] 
+Name=0853 - Micro Machines (E) （小小赛车）（M） RCG 32
+System=GBA 
+Text=vicente

@@ -1,0 +1,28 @@
+[Infinite Health]
+ON=03000FC8,09
+
+[Have Hover Bomb]
+ON=03001879,05
+
+[Have Fire Bomb]
+ON=0300187B,0A
+
+[Have Remote Wasp]
+ON=0300187D,08
+
+[Have Heal Potion]
+ON=0300187F,04
+
+[Have Levitator]
+ON=03001881,06
+
+[Have Bridge Key]
+ON=03001883,07
+
+[Have Iron Key]
+ON=03001885,02
+
+[GameInfo]
+Name=1168 - Blackthorne (U)（黑色荆棘）（E） ACT 32
+System=GBA
+Text=大胖子 整理提供

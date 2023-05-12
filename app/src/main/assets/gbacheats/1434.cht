@@ -1,0 +1,13 @@
+[命x9]
+ON=325BC,9
+
+[体力不减]
+ON=325BE,80;32808,80
+
+[无敌]
+ON=326B6,64
+
+[GameInfo]
+Name=1434 - Dexters Laboratory-Deesaster Strikes (E)（德克斯特幸运的实验室）（E）ACT 32 
+System=GBA
+TEXT=HOTSUMA

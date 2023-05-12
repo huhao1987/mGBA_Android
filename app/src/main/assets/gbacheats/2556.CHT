@@ -1,0 +1,25 @@
+[快速胜利]
+ON=2C6E9,1
+
+[购物点数]
+ON=814,3F,42,F
+
+[全人物]
+ON=C5A,FF,FF
+
+[全关卡]
+ON=C58,FF,FF
+
+[全赛车解锁]
+ON=C56,FF
+
+[全赛车购买]
+ON=81A,FF,FF
+
+[全强化项解锁]
+ON=C35,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=2556 - Need for Speed Carbon: Own the City (U)
+System=GBA
+Text=vicente

@@ -1,0 +1,23 @@
+[人数]
+ON=4795A,9
+
+[无敌]
+ON=4799F,20
+
+[时间]
+ON=479F8,4
+
+[金币]
+ON=4795C,9
+
+[状态]
+ON=47956,2
+
+[身高]
+高个=47954,0
+矮个=47954,1
+
+[GameInfo]
+Name=1383 - Famicom Mini Vol. 01 - Super Mario Bros.
+System=GBA
+Text=vicente

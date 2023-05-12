@@ -1,0 +1,16 @@
+[攻击力255]
+ON=05778,ff
+
+[快速集气]
+ON=0577a,62
+
+[不遇敌]
+ON=01ddc,0
+
+[血9999]
+ON=37294,7,3E
+
+[GameInfo]
+Name=0787 - Rockman Exe 3 (J)（洛克人EXE 3）（J）A·RPG 64
+System=GBA
+Text=windzxw

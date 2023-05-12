@@ -1,0 +1,16 @@
+[人数]
+ON=1CD,9
+
+[体力]
+ON=1CE,6
+
+[钥匙]
+ON=1C0,9
+
+[全关卡]
+ON=1D5,1F;1D9,6,6,6,6,6;1DE,04
+
+[GameInfo]
+Name=1533 - Woody Woodpecker in Crazy Castle 5
+System=GBA
+Text=vicente

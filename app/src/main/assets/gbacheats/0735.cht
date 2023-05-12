@@ -1,0 +1,18 @@
+[1P生命只数]
+ON=42C60,63
+
+[1P无敌]
+ON=42CA2,C8;42C5E,20
+
+[1P枪]
+小米=42CA8,0
+S=42CA8,1
+C=42CA8,2
+H=42CA8,3
+F=42CA8,4
+L=42CA8,5
+
+[GameInfo]
+Name=0735 - Contra Hard Spirits (J)（魂斗罗）（J）ACT 32
+System=GBA
+Text=大胖子 整理提供

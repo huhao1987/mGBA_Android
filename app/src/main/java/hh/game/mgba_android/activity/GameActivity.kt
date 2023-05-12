@@ -12,6 +12,7 @@ import android.widget.RelativeLayout.LayoutParams
 import hh.game.mgba_android.R
 import hh.game.mgba_android.utils.getKey
 import org.libsdl.app.SDLActivity
+import java.nio.charset.Charset
 import kotlin.math.roundToInt
 
 
@@ -105,6 +106,8 @@ class GameActivity : SDLActivity() {
 
     override fun getArguments(): Array<String> {
         var gamepatch = intent.getStringExtra("gamepatch")
+        val gameNum = intent.getStringExtra("cheat")
+        Log.d("thecheatfile::",this.assets.open("gbacheats/$gameNum.cht").reader(Charset.forName("GB2312")).readText())
         return if(gamepatch!=null) arrayOf(gamepatch)
         else emptyArray<String>()
     }

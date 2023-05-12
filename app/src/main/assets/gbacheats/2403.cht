@@ -1,0 +1,25 @@
+[L金钱]
+ON=5404,7F,96,98
+
+[L拥有轿车]
+ON=541C,1
+
+[L拥有房子]
+ON=5420,1
+
+[L无限移动]
+ON=5C14,3
+
+[P金钱]
+ON=5444,7F,96,98
+
+[P无限移动]
+ON=5430,3
+
+[Y积分]
+ON=545C,FF,E0,F5,5
+
+[GameInfo]
+Name=2403 - Life - Yahtzee - Payday (U)
+System=GBA
+Text=vicente 

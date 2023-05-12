@@ -1,0 +1,29 @@
+[第一个小游戏的时间]
+ON=41FB6,0
+
+[选择小游戏]
+1=41FAC,0
+2=41FAC,1
+3=41FAC,2
+4=41FAC,3
+*5=41FAC,4
+6=41FAC,5
+7=41FAC,6
+8=41FAC,7
+9=41FAC,8
+10=41FAC,9
+11=41FAC,A
+*12=41FAC,B
+13=41FAC,C
+14=41FAC,D
+15=41FAC,E
+16=41FAC,F
+17=41FAC,10
+*18=41FAC,11
+19=41FAC,12
+20=41FAC,13
+
+[GameInfo]
+Name=1431 - Franklin The Turtle（E）（海龟富兰克林）（E）PUZ 32
+System=GBA
+Text=大胖子 整理提供

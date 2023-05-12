@@ -1,0 +1,10 @@
+[TIME]
+ON=3050,3B;3054,3B
+
+[血]
+ON=1B9DC,64
+
+[GameInfo]
+Name=0708 - Reign Of Fire (U)（火焰统治）（M）FPS 64
+System=GBA
+Text=大胖子 整理提供

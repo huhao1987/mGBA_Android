@@ -1,0 +1,22 @@
+[生命]
+ON=33C50,C
+
+[隐身]
+ON=3416F,FF
+
+[经验]
+ON=33C56,2D
+
+[全技能]
+ON=33C59,3,3,3,3
+
+[全道具]
+ON=43490,FF,FF,FF,FF
+
+[全图鉴]
+ON=434A2,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=2255 - WinX Club (E)
+System=GBA
+Text=vicente

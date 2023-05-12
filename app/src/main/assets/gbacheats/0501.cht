@@ -1,0 +1,16 @@
+[飞机数]
+ON=40AF8,5
+
+[炸弹]
+ON=45AFC,32
+
+[燃料]
+ON=40500,2A
+
+[装甲]
+ON=471F8,2A
+
+[GameInfo]
+Name=0501 - Top Gun Firestorm Advance (U)（捍卫战士）（M）STG 32
+System=GBA
+Text=marysmith

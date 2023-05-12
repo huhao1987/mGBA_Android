@@ -1,0 +1,17 @@
+[比赛时间（这个是真正的，不用理会显示的那个）]
+ON=37FC,64
+
+[主队进球]
+99=5CE2,63
+9=5CE2,9
+0=5CE2,0
+
+[客队进球]
+0=5D86,0
+9=5D86,9
+99=5D86,63
+
+[GameInfo]
+Name=0248 - Jikkyou World Soccer Pocket (J)（实况世界足球口袋版）（J）SPG 64
+System=GBA
+Text=大胖子 整理提供

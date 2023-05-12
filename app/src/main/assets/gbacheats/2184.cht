@@ -1,0 +1,19 @@
+[C模式人数]
+ON=42DB1,9
+
+[C模式积分]
+ON=42DB4,FF,E0,F5,5
+
+[B模式人数]
+ON=44774,9
+
+[B模式积分]
+ON=4476C,3F,42,F
+
+[W模式积分]
+ON=44A90,7F,96,98
+
+[GameInfo]
+Name=2184 - Centipede - Breakout - Warlords (E)
+System=GBA
+Text=vicente

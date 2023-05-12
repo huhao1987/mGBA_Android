@@ -1,0 +1,8 @@
+[指针位置]
+CARD INFO=47E04,1
+READ CARD=47E04,0
+
+[GameInfo]
+Name=0400 - Card E Reader (J)（卡片读取机）（E）ECT 32
+System=GBA
+Text=大胖子 整理提供

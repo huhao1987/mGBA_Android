@@ -1,0 +1,13 @@
+[只数]
+ON=12F40,9
+
+[状态正常]
+ON=19EDA,0;19F96,0
+
+[隐形]
+ON=19EDC,84;19F98,84
+
+[GameInfo]
+Name=1153 - Scooby Doo - Mystery Mayhem (U)（史诺比鬼屋历险-隐秘的罪证）（E） AVG 32
+System=GBA
+Text=大胖子

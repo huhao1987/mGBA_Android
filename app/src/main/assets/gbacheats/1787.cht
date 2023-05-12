@@ -1,0 +1,22 @@
+[MOTO时间]
+ON=45F44,0;45F48,0
+
+[MOTO名次]
+ON=41BD0,1
+
+[MOTO快速过关]
+ON=41BCD,1,1
+
+[GTA3全关卡]
+ON=41780,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GTA3全赛车]
+ON=417A0,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GTA3全配件]
+ON=41CF0,7F;41CF2,7F
+
+[GameInfo]
+Name=1787 - 2 Games in 1: Moto GP + GT3 Advance
+System=GBA
+Text=vicente

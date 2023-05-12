@@ -1,0 +1,30 @@
+[体力]
+ON=4405A,14
+
+[隐身]
+ON=43FE6,FF
+
+[全关卡]
+ON=41DB8,FF,FF,FF,FF
+
+[全图片]
+ON=41DBC,FF,FF,FF,FF
+
+[GameInfo]
+Name=1641 - Finding Nemo - The Continuing Adventures
+System=GBA
+Text=vicente
+------------------------------------------------------------------
+[HP]
+ON=4405A,14
+
+[全关卡]
+ON=41DB8,FF,FF,FF,FF
+
+[全图片]
+ON=41DBC,FF,FF,FF,FF 
+
+[GameInfo]
+Name=1641 - Finding Nemo - The Continuing Adventures (U)（海底总动员-连续冒险）（E）AVG 32
+System=GBA
+Text=大胖子 整理提供

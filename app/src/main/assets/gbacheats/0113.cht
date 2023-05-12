@@ -1,0 +1,14 @@
+[生命数]
+ON=4526C,5
+
+[体力心]
+ON=45220,3
+
+[透明]
+OFF=4525E,0;4527B,0
+ON=4525E,39;4527B,1
+
+[GameInfo]
+Name=0113 - Klonoa - Empire of Dreams (U)（风之克罗帝亚-梦见帝国）（E）ACT 32
+System=GBA
+Text=大胖子 整理提供

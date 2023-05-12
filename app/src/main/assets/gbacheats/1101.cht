@@ -1,0 +1,31 @@
+[Max Gun Ammo ]
+ON=201b7e6,e7,3e
+
+[No Ship Damage ]
+ON=201b970,2a,32
+
+[Inf 1st Missiles ]
+ON=201b808,0f,27
+
+[Inf 2nd Missiles ]
+ON=201b80a,0f,27
+
+[Inf 3rd Missiles ]
+ON=201b80c,0f,27
+
+[Infinite Shields ]
+ON=201b960,00,d2
+
+[Infinite Afterburner ]
+ON=201b989,00,68
+
+[Infinite Gun Power ]
+ON=201b954,00,ff
+
+[Infinite Decoys ]
+ON=201b996,63
+
+[GameInfo]
+Name=1101 - Wing Commander Prophecy (E) （银河飞将-预言）（M6） STG 32
+System=GBA
+Text=大胖子 整理提供

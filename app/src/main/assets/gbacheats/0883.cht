@@ -1,0 +1,25 @@
+[气力槽]
+ON=234E,80
+
+[血]
+ON=234D,28
+
+[隐身]
+ON=439DA,64
+
+[箭]
+ON=2357,63
+
+[宝石]
+ON=2340,E7,3
+
+[钥匙]
+ON=234F,9
+
+[？（宝石和箭中间的东西）]
+ON=2323,63
+
+[GameInfo]
+Name=0883 - The Legend Of Zelda - A Link To The Past - Four Swords (E) （塞尔达传说-时空隧道）（M） A·RPG 64
+System=GBA
+Text=大胖子 整理提供

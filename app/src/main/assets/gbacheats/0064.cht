@@ -1,0 +1,22 @@
+[游戏1人数]
+ON=14B5E,6
+
+[游戏1变身时间]
+ON=131EC,55,1
+
+[游戏2人数]
+ON=CF48,6
+
+[游戏3等级]
+ON=F110,9
+
+[游戏3REST]
+ON=F0D8,9
+
+[游戏4人数]
+ON=16C71,6
+
+[GameInfo]
+Name=0064 - Pac-Man Collection 小精灵全集
+System=GBA
+Text=vicente

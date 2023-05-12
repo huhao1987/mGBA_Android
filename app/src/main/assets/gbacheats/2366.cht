@@ -1,0 +1,22 @@
+[生命]
+ON=424F0,3
+
+[人数]
+ON=42360,9
+
+[隐身]
+ON=424CF,FF
+
+[能量]
+ON=424C6,C6,1D
+
+[超级状态]
+ON=424D6,1
+
+[面包]
+ON=424F1,9,9
+
+[GameInfo]
+Name=2366 - The Morning Adventure (S)
+System=GBA
+Text=vicente 

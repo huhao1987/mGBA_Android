@@ -1,0 +1,19 @@
+[当前人物体力]
+ON=225C,B4
+
+[当前人物能量]
+ON=229D,40
+
+[全队员]
+ON=424AC,0;424B8,0;424C4,0;424D0,0;424DC,0
+
+[全员满体力]
+ON=424A4,B4;424B0,B4;424BC,B4;424C8,B4;424D4,B4
+
+[全员满能量]
+ON=424A9,40;424B5,40;424C1,40;424CD,40;424D9,40
+
+[GameInfo]
+Name=2029 - Power Rangers - La Force du Temps (F)
+System=GBA
+Text=vicente 

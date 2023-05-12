@@ -1,0 +1,10 @@
+[血]
+ON=404B4,FF
+
+[子弹]
+ON=4051C,FF;40520,FF;40524,FF;40528,FF
+
+[GameInfo]
+Name=0155 - Doom (U)（毁灭战士）（E）FPS 64
+System=GBA
+Text=大胖子 整理提供

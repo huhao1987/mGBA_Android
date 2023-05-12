@@ -1,0 +1,19 @@
+[命不减]
+ON=22D0,9
+
+[体力上限（需先接到一枚金羽毛）]
+ON=217F;F
+
+[体力不减（进入游戏再开启,过关解锁）]
+ON=217E;F
+
+[红果实255]
+ON=21DD;FF
+
+[羊]
+ON=21BF;6
+
+[GameInfo]
+Name=1413 - Tak and The Power of JuJu (E)（塔克和符咒的神力）（E）ACT 64
+System=GBA
+text=HOTSUMA

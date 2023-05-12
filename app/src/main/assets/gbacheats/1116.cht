@@ -1,0 +1,25 @@
+[血]
+ON=431C4,64
+
+[机枪]
+ON=431D0,C8
+
+[喷火器]
+ON=431D2,C8
+
+[火箭筒]
+ON=431D4,C8
+
+[手雷]
+ON=431CC,63
+
+[只数]
+ON=4314C,9
+
+[武器4]
+ON=431D6,C8
+
+[GameInfo]
+Name=1116 - CT Special Forces 2 (E) （CT特种部队2）（M6） ACT 64
+System=GBA
+Text=大胖子

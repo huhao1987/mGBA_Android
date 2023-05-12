@@ -1,0 +1,22 @@
+[时间]
+ON=40132,0,0
+
+[快速过关]
+ON=474F4,8
+
+[全竞赛关]
+ON=400EE,FF,FF
+
+[全挑战关]
+ON=400E0,FF,FF,FF
+
+[全收集关]
+ON=400F6,FF,FF
+
+[全赛车]
+ON=40104,FF,FF,FF
+
+[GameInfo]
+Name=2313 - Ford Racing 3 (E)
+System=GBA
+Text=vicente 

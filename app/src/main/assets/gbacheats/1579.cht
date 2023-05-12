@@ -1,0 +1,25 @@
+[HEALTH]
+ON=16326,64
+
+[ARMOR]
+ON=16322,64
+
+[BULL]
+ON=16348,C8
+
+[SHEL]
+ON=1634A,32
+
+[ROKT]
+ON=1634C,32
+
+[CELL]
+ON=1634E,2C,1
+
+[È«ÎäÆ÷]
+ON=16344,FF,FF
+
+[GameInfo]
+Name=1579 - Doom 2
+System=GBA
+Text=vicente

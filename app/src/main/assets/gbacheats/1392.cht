@@ -1,0 +1,25 @@
+[时间]
+ON=47293,C8
+
+[生命]
+ON=47268,9
+
+[炸弹威力]
+ON=47273,50
+
+[炸弹数]
+ON=47274,9
+
+[快速行走]
+ON=47275,1
+
+[遥控炸弹]
+ON=47277,1
+
+[无敌]
+ON=4725C,0
+
+[GameInfo]
+Name=1392 - Famicom Mini Vol. 09 - Bomberman
+System=GBA
+Text=vicente

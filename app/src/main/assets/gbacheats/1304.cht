@@ -1,0 +1,54 @@
+[钱]
+ON=4950,FF,FF,FF
+
+[黄球]
+ON=4953,10
+
+[蓝球]
+ON=4954,10
+
+[红球]
+ON=4955,10
+
+[所有怪物及物品]
+ON=48E2,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1304 - Gachaste! Dino Device 2 Phoenix (J)（怪兽蛋2-凤凰）（J） S·RPG 32
+System=GBA
+Text=大胖子 整理提供
+------------------------------------------------------------------------------
+[金兽币]
+ON=4953,63
+
+[银兽币]
+ON=4954,63
+
+[铜兽币]
+ON=4955,63
+
+[第一HP]
+ON=44D2,27,0F
+
+[第二HP]
+ON=44E2,27,0F
+
+[$$]
+ON=4951,7F,96,98
+
+[EXP (需要每次改)]
+ON=4972,AE,12
+
+[电池1]
+ON=44D6,2C,1
+
+[电池2]
+ON=44E6,2C,1
+
+[电池容量]
+ON=467A,64,64,64
+
+[GameInfo]
+Name=1304 - Gachaste! Dino Device 2 Phoenix (J)（怪兽蛋2-凤凰）（J） S·RPG 32
+System=GBA
+Text=Frisco

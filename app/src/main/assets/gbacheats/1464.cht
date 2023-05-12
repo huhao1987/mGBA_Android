@@ -1,0 +1,24 @@
+[店雾气]
+ON=6C,7
+
+[体调]
+ON=6D,1F
+
+[元气全满]
+ON=4F,7,7,7,7,7
+
+[自信全满]
+ON=59,7,7,7,7,7
+
+[隐藏要素开启]
+ON=1BD5,1
+
+[全CG]
+ON=1BD6,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1464 - Pia Carrot he Youkoso!! 3.3
+System=GBA
+Text=vicente
+
+

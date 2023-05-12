@@ -1,0 +1,16 @@
+[雷]
+ON=10160,63
+
+[得分]
+ON=10074,FF,E0,F5,5
+
+[耐久度]
+ON=10148,32
+
+[只数]
+ON=10078,9
+
+[GameInfo]
+Name=1282 - Star Wars Flight of the Falcon (U) （星球大战-猎鹰飞行队）（E）STG 64
+System=GBA
+Text=大胖子

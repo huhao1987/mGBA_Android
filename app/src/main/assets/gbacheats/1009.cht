@@ -1,0 +1,30 @@
+[Everything Unlocked]
+ON=03000059,05
+ON=0300005B,FF
+
+[Start on Galaxy 2]
+ON=00800059,00
+ON=03000059,01
+
+[Start on Galaxy 3]
+ON=00800059,00
+ON=03000059,02
+
+[Start on Galaxy 4]
+ON=00800059,00
+ON=03000059,03
+
+[Start on Galaxy 5]
+ON=00800059,00
+ON=03000059,04
+
+[Invincible]
+ON=00000000,32
+ON=00000000,00
+ON=00000000,C0
+ON=00000000,00
+
+[GameInfo]
+Name=1009 - Iridion II (U) （伊登战机II）（E） STG 64
+System=GBA
+Text=大胖子 整理提供

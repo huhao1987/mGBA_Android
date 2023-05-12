@@ -1,0 +1,22 @@
+[生命]
+ON=931,20
+
+[人数]
+ON=2748,9
+
+[隐身]
+ON=933,FF
+
+[全关卡]
+ON=2D3C,FF,FF
+
+[全相片]
+ON=2D3E,FF,FF
+
+[全小游戏]
+ON=2D40,FF
+
+[GameInfo]
+Name=2059 - Charlie and the Chocolate Factory (U)
+System=GBA
+Text=vicente

@@ -1,0 +1,19 @@
+[体力]
+ON=44ACC,50
+
+[体力上限]
+ON=44A0C,50
+
+[生命]
+ON=44AF0,9
+
+[金币]
+ON=41508,63
+
+[全字母]
+ON=3BB4,1;3BB8,1;3BBC,1;3BC0,1
+
+[GameInfo]
+Name=1562 - Around the World In 80 Days
+System=GBA
+Text=vicente

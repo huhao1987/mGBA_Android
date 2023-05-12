@@ -1,0 +1,25 @@
+[生命]
+ON=42A02,32
+
+[人数]
+ON=43DA9,9
+
+[能量]
+ON=40D84,58,2
+
+[全必杀]
+ON=43DAA,1F
+
+[隐藏要素全开]
+ON=47420,FF
+
+[附加剧情开启]
+ON=43DAD,FF
+
+[直接通关]
+ON=43DA8,12
+
+[GameInfo]
+Name=2527 - Justice League Heroes The Flash (U)
+System=GBA
+Text=vicente

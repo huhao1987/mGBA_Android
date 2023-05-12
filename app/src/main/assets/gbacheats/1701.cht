@@ -1,0 +1,18 @@
+[积分]
+ON=9F28,FF,E0,F5,5
+
+[时间]
+ON=9FD7,3
+
+[全S点]
+ON=93EE,63;9472,63;94F6,63;957A,63;95FE,63;9682,63;9706,63
+
+[全关卡]
+ON=9824,1;9828,1;982C,1;9830,1;9834,1
+
+[GameInfo]
+Name=1701 - Wakeboarding Unleashed (U)
+System=GBA
+Text=vicente
+
+

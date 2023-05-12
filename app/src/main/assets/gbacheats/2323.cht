@@ -1,0 +1,25 @@
+[人数]
+ON=11444,9
+
+[体力]
+ON=1144B,5
+
+[能量]
+ON=35EFE,2C,1
+
+[全卡片]
+ON=1144E,FF,FF,FF,FF,FF,FF
+
+[收集]
+ON=11442,63
+
+[敌人]
+ON=11443,63
+
+[全道具+全关卡]
+ON=11447,FF
+
+[GameInfo]
+Name=2323 - Disney's Kim Possible 2: Drakken's Demise (E)
+System=GBA
+Text=vicente

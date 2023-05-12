@@ -1,0 +1,105 @@
+[生命]
+ON=2AEA,A0
+
+[生命上限]
+ON=2AEB,A0
+
+[宝石]
+ON=2B00,E7,3
+
+[宝石上限]
+ON=2AE8,3
+
+[全剑技]
+ON=4402C,FF,FF
+
+[全卷轴]
+ON=2B44,FF,FF
+
+[炸弹数]
+ON=2AEC,63
+
+[弓箭数]
+ON=2AED,63
+
+[海螺数]
+ON=2B02,E7,3
+
+[钥匙数]
+ON=2E9D,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63
+
+[迷宫辅助道具]
+ON=2EAD,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7
+
+[A键武器]
+无=2AF4,0
+Smith's Sword=2AF4,1
+White Sword=2AF4,2
+White Sword(Two Elements)=2AF4,3
+White Sword(Three Elements)=2AF4,4
+...(灯)=2AF4,5
+Four Sword=2AF4,6
+Bombs=2AF4,7
+Romote Bombs=2AF4,8
+Bow=2AF4,9
+Light Arrow=2AF4,A
+Boomerang=2AF4,B
+Magical Boomerang=2AF4,C
+Small Shield=2AF4,D
+Mirror Shield=2AF4,E
+Flame Lantern=2AF4,F
+燃烧的灯=2AF4,10
+Gust Jar=2AF4,11
+Cane of Pacci=2AF4,12
+Mole Mitts=2AF4,13
+Roc's Cape=2AF4,14
+Pegasus Boots=2AF4,15
+魔杖=2AF4,16
+Ocarina of Wind=2AF4,17
+Empty Bottle=2AF4,1C
+
+
+[B键武器]
+无=2AF5,0
+Smith's Sword=2AF5,1
+White Sword=2AF5,2
+White Sword(Two Elements)=2AF5,3
+White Sword(Three Elements)=2AF5,4
+...(灯)=2AF5,5
+Four Sword=2AF5,6
+Bombs=2AF5,7
+Romote Bombs=2AF5,8
+Bow=2AF5,9
+Light Arrow=2AF5,A
+Boomerang=2AF5,B
+Magical Boomerang=2AF5,C
+Small Shield=2AF5,D
+Mirror Shield=2AF5,E
+Flame Lantern=2AF5,F
+燃烧的灯=2AF5,10
+Gust Jar=2AF5,11
+Cane of Pacci=2AF5,12
+Mole Mitts=2AF5,13
+Roc's Cape=2AF5,14
+Pegasus Boots=2AF5,15
+魔杖=2AF5,16
+Ocarina of Wind=2AF5,17
+Empty Bottle=2AF5,1C
+
+[部分武器(慎用)]
+ON=2B34,15,51,54,45
+
+[身体大小]
+大=43FB0,0
+小=43FB0,80
+
+[地图全开]
+ON=2A80,FF,FF,1
+
+[全图鉴]
+ON=2B0E,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1865 - Legend of Zelda, The - The Minish Cap (U)
+System=GBA
+Text=vicente

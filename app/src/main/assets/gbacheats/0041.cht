@@ -1,0 +1,56 @@
+[能源]
+HOT VIOLET=12DEB,64
+FIRE BALL=12EB7,64
+J.B.CRYSTAL=12F83,64
+CRAZY HOUSE=1304F,64
+
+[速度] 
+HOT VIOLET=12DD4,FF,14
+FIRE BALL=12EA0,FF,14
+J.B.CRYSTAL=12F6C,FF,64
+CRAZY HOUSE=13038,FF,14
+
+[GameInfo]
+Name=0041 - F-Zero - Maximum Velocity (U)（最高时速）（E）RCG 32
+System=GBA
+Text=大胖子 整理提供
+----------------------------------------------------------------
+[隐藏要素全开&可选所有MACHINE]
+ON=8957,FF
+
+[0HV速度]
+最高速=12DD4,FF,7F
+最低速=12DD4,0,0
+
+[0HV能源]
+无限Power=12DEB,64
+无Power=12DEB,0
+
+[0HV即时胜利]
+ON=12E0C,5
+
+[0HV无限加速]
+ON=12E17,3
+
+[9JV最高速]
+ON=13500,FF,7F
+
+[无限命(SPARE MACHINE)]
+ON=42B6A,4
+
+[使用中的MACHINE]
+Hot Violet(紫)=42E11,0
+Fireball(红)=42E11,1
+J.B. Crystal(淡绿)=42E11,2
+Crazy Horse(啡)=42E11,3
+Dirty Joker(绿)=42E11,4
+The Stingray(白&青)=42E11,5
+Silver Thunder(银)=42E11,6
+Falcon MK-II(蓝)=42E11,7
+Fighting Comet(白&紫)=42E11,8
+Jet Vermilion(橙)=42E11,9
+
+[GameInfo]
+Name=0041 - F-Zero - Maximum Velocity (U)（最高时速）（E）RCG 32
+System=GBA
+Text=169

@@ -1,0 +1,19 @@
+[BGG对方得分]
+ON=47B68,0
+
+[BGG我方得分]
+ON=47B64,64
+
+[SAB隐身能量]
+ON=40F04,16
+
+[SAB全关卡+隐藏要素]
+ON=404C0,F,0,0,0
+
+[SAB全收集]
+ON=404CA,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+
+[GameInfo]
+Name=2162 - 2 Games in 1 - Barbie Groovy Games + Secret Agent Barbie - Royal Jewels Mission (E)
+System=GBA
+Text=vicente

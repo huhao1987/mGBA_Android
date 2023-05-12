@@ -1,0 +1,19 @@
+[我方连锁最大]
+ON=BAB4,F,27
+
+[我方火热发动]
+ON=95DA,6
+
+[对方连锁不能]
+ON=B4F2,0,0
+
+[对方火热不能]
+ON=B502,0
+
+[对战全人物]
+ON=82F9,1,1
+
+[GameInfo]
+Name=1592 - Puyo Puyo Fever
+System=GBA
+Text=vicente

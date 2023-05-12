@@ -1,0 +1,19 @@
+[时间（钓鱼游戏）]
+ON=467F8,EC,13
+
+[等级（钓鱼游戏）]
+ON=4677C,10;46780,10
+
+[得分（钓鱼游戏）]
+ON=46795,A4,9C
+
+[时间]
+ON=41045,3B
+
+[带小猩猩]
+ON=40FD6,1
+
+[GameInfo]
+Name=1013 - Donkey Kong Country (E) （大金刚）（M5） ACT 64
+System=GBA
+Text=大胖子

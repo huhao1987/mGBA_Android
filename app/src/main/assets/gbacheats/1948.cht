@@ -1,0 +1,32 @@
+[我方连锁最大]
+ON=BAB4,F,27
+
+[我方火热发动]
+ON=95DA,6
+
+[对方连锁不能]
+ON=B4F2,0,0
+
+[对方火热不能]
+ON=B502,0
+
+[对战全人物]
+ON=82F9,1,1
+
+[GameInfo]
+Name=1948 - Puyo Pop Fever (E)
+System=GBA
+Text=vicente
+----------------------------------------------------------------
+[我方得分]
+max=9B70,FF,E0,F5,5
+0=9B70,0,0,0,0
+
+[对方得分]
+0=BA98,0,0,0,0
+max=BA98,FF,E0,F5,5
+
+[GameInfo]
+Name=1948 - Puyo Puyo Fever (E)（魔法气泡大会战）（E）TAB 64
+System=GBA
+Text=大胖子 整理提供

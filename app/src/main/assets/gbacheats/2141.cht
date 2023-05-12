@@ -1,0 +1,13 @@
+[Gauntlet时间]
+ON=40AFC,F,27;40B1C,F,27;40B3C,F,27;40B5C,F,27
+
+[Gauntlet积分]
+ON=40B00,9F,86,1;40B20,9F,86,1;40B40,9F,86,1;40B60,9F,86,1
+
+[Rampart思考时间]
+ON=40D5C,63
+
+[GameInfo]
+Name=2141 - Gauntlet Rampart (U)
+System=GBA
+Text=vicente 

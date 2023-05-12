@@ -1,0 +1,16 @@
+[生命]
+ON=1DBF5,20
+
+[能量]
+ON=1DC41,20
+
+[人数]
+ON=1D5FB,9
+
+[无敌]
+ON=1D5B1,FF
+
+[GameInfo]
+Name=1906 - Increibles, Los (S)
+System=GBA
+Text=vicente

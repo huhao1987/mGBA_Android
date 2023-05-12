@@ -1,0 +1,19 @@
+[LIVES(生命)]
+ON=20A0,9
+
+[FUEL(燃料)]
+ON=2098,D0,7
+
+[HYDS(导弹)]
+ON=B1B6,D0,7
+
+[ARMOR(装甲)]
+ON=5DCC,70,17
+
+[GUNS(子弹)]
+ON=B1DA,B8,B
+
+[GameInfo]
+Name=0423 - Desert Strike Advance (U)（沙漠风暴）（E）STG 32
+System=GBA
+Text=marysmith

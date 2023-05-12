@@ -1,0 +1,41 @@
+[无限时间(奖励关时请解锁)]
+OFF=0000,0
+ON=2160C,1E
+
+[P1 生命数]
+ON=24EDF,9
+
+[P1 体力值]
+ON=24E5E,4D
+
+[P1 透明]
+OFF=0000,0
+ON=24E58,91
+
+[GameInfo]
+Name=0026 - Final Fight One (J)（快打旋风ONE）（J）FTG 32
+System=GBA
+Text=大胖子 整理提供
+---------------------------------------------------------
+[分数最高]
+ON=21360,7F,96,98
+
+[无限接关]
+ON=215F5,3
+
+[无限时间]
+ON=21608,1E
+
+[无敌]
+ON=24E54,9
+
+[无限血]
+ON=24E5A,4D
+
+[无限命]
+ON=24EDB,5
+
+[GameInfo]
+Name=0026 - Final Fight One (J)（快打旋风ONE）（J）FTG 32
+System=GBA
+Text=169

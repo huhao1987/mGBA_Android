@@ -1,0 +1,33 @@
+[钱]
+ON=30,F,27
+
+[血]
+ON=104D,5
+
+[隐形]
+ON=10B8,C8
+
+[GameInfo]
+Name=1143 - Densetsu No Stafi 2 (J)（传说的斯塔菲2）（J） ACT 128
+System=GBA
+Text=大胖子 整理提供
+-----------------------------------------------------------------
+[BOSS HP]
+ON=477DC,5
+
+[HP]
+ON=104D,5
+
+[时间无限]
+ON=479DC,63
+
+[无限跳]
+ON=10A8,1
+
+[头不昏]
+ON=10A4,1
+
+[GameInfo]
+Name=1143 - Densetsu No Stafi 2 (J)（传说的斯塔菲2）（J） ACT 128
+System=GBA
+Text=关羽一号

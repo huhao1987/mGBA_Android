@@ -1,0 +1,25 @@
+[生命]
+ON=44AF4:63
+
+[人数]
+ON=44AFC:63
+
+[全道具]
+ON=44B10,1,63,0,0,1,63,0,0,1,63,0,0,1,63,0,0,1,63,0,0,1,63,0,0,1,63,0,0,1,63,0,0,1,63,0,0,1,63
+
+[辅助道具]
+ON=44B40,FF,FF;44B44,FF,FF
+
+[银币数]
+ON=44A68,63
+
+[钥匙数]
+ON=44BA8,63
+
+[全能力]
+ON=44A64,9;44AD4:09;44B80,9;44A70,1;44BCC,1;44BBC,1
+
+[GameInfo]
+Name=1869 - Hobbit no Bouken Lord of the Rings Hajimari no Monogatari
+System=GBA
+Text=vicente

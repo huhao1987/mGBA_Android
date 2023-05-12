@@ -1,0 +1,15 @@
+[左队得分]
+最多=432DC,63
+最少=432DC,0
+
+[右队得分]
+最多=432E0,63
+最少=432E0,0
+
+[快速结束]
+ON=432B8,0,18
+
+[GameInfo]
+Name=1804 - Premier Manager 2004-2005
+System=GBA
+Text=vicente

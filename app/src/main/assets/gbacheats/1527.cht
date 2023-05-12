@@ -1,0 +1,16 @@
+[血格]
+99=41536,63
+
+[导弹]
+15=41538,f
+
+[超级导弹]
+2=4153A,2
+
+[超加速状态(需会技能后用)]
+ON=41353,FF;413DC,FF
+
+[GameInfo]
+Name=1527 - Metroid Zero Mission (J)（银河战士-零点任务）（J）ACT 64
+System=GBA
+Text=大胖子 整理提供

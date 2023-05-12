@@ -1,0 +1,20 @@
+[主队积分]
+最多=A004,63
+最少=A004,0
+
+[客队积分]
+最多=A005,63
+最少=A005,0
+
+[主队能量]
+最多=9FDC,60,6
+最少=9FDC,0,0
+
+[客队能量]
+最多=9FE0,60,6
+最少=9FE0,0,0
+
+[GameInfo]
+Name=1021 - Disney Sports Football (E) （迪斯尼全明星体育系列-足球）（M5） SPG 128
+System=GBA
+Text=vicente

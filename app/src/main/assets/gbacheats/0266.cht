@@ -1,0 +1,16 @@
+[自己体力值(对应级别15)]
+180=42E76,B4
+
+[对方体力值为零]
+ON=42F82,0
+
+[金钱数]
+ON=43AD8,9F,86,1
+
+[级别15]
+ON=43BEB,1F
+
+[GameInfo]
+Name=0266 - Angelic Layer (J)（天使领域）（J）RPG 64
+System=GBA
+Text=大胖子 整理提供

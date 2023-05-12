@@ -1,0 +1,30 @@
+[气力]
+ON=E64,C8
+
+[体力]
+ON=E5C,32
+
+[GameInfo]
+Name=2513 - Avatar The Last Airbender (U)
+System=GBA
+Text=2513 - Avatar The Last Airbender (U)
+---------------------------------------------------
+[全道具]
+ON=F52,FF
+
+[全员满生命]
+ON=E5C,50;E6C,50;E7C,50
+
+[全员满生命上限]
+ON=E60,50;E70,50;E80,50
+
+[全员满气力]
+ON=E64,64;E74,64;E84,64
+
+[全员满技能]
+ON=E6B,FF;E7B,FF;E8B,FF
+
+[GameInfo]
+Name=2513 - Avatar: The Last Airbender (U)
+System=GBA
+Text=vicente

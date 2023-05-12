@@ -1,0 +1,33 @@
+[子弹]
+ON=477C2,99
+
+[血]
+ON=477AA,A
+
+[隐身（只针对第一小关）]
+ON=43FEC,0
+
+[GameInfo]
+Name=1626 - Tom Clancys Splinter Cell Pandora Tomorrow (U)（分裂细胞：明日潘多拉）（M3）AVG 64
+System=GBA
+Text=大胖子 整理提供
+--------------------------------------------------------------------------
+[体力]
+ON=477AA,A
+
+[子弹]
+ON=477C2,99
+
+[闪光弹+磁卡]
+闪光弹MAX=477C3,28
+闪光弹MAX+红色磁卡=477C3,29
+闪光弹MAX+黄色磁卡=477C3,2A
+闪光弹MAX+绿色磁卡=477C3,2C
+
+[关卡全开]
+ON=477AC,99
+
+[GameInfo]
+Name=1626 - Tom Clancy's Splinter Cell - Pandora Tomorrow (U)
+System=GBA
+Text=vicente

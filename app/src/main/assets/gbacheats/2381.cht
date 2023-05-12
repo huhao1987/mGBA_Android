@@ -1,0 +1,31 @@
+[生命]
+ON=43B34,78
+
+[能量]
+ON=43B60,78
+
+[隐身]
+ON=43B20,1;43B7E,B4
+
+[经验]
+ON=41C28,F,27
+
+[等级]
+ON=41C53,A
+
+[BOSS速死]
+ON=43CB0,1
+
+[Credits开启]
+ON=41CEF,2
+
+[难度全开]
+ON=41CB1,1
+
+[关卡全开]
+ON=41E5B,2;41E63,14
+
+[GameInfo]
+Name=2381 - Danny Phantom - The Ultimate Enemy (E)
+System=GBA
+Text=vicente制作 密码VLAD RUSH 

@@ -1,0 +1,19 @@
+[生命]
+ON=5CE,6
+
+[人数]
+ON=5CD,C6
+
+[糖果杖]
+ON=644,63
+
+[雪车铃]
+ON=640,3
+
+[关卡全开]
+ON=62C,FF
+
+[GameInfo]
+Name=1754 - The Polar Express
+System=GBA
+Text=vicente

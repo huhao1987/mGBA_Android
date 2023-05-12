@@ -1,0 +1,19 @@
+[生命]
+ON=358,64
+
+[人数]
+ON=EC,9
+
+[隐身]
+ON=35D,FF
+
+[全道具]
+ON=F8,FF
+
+[快速过关]
+ON=F4,FF,FF
+
+[GameInfo]
+Name=2523 - Princess Natasha (U)
+System=GBA
+Text=vicente 

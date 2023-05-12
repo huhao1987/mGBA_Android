@@ -1,0 +1,21 @@
+[时间]
+ON=3A99C,22,23
+
+[子弹]
+ON=3A998,12
+
+[耐久]
+ON=3A45A,0,1
+
+[Season全开]
+ON=3E0F1,FF
+
+[GameMode全开]
+ON=3E0F5,FF
+
+[GameInfo]
+Name=1697 - Starsky & Hutch (U)
+System=GBA
+Text=vicente
+
+

@@ -1,0 +1,19 @@
+[时间]
+ON=400E0,F,27
+
+[积分]
+ON=400F8,F,27
+
+[单词]
+ON=400E2,0
+
+[等级]
+ON=400B8,14
+
+[MinL]
+ON=4010A,FF
+
+[GameInfo]
+Name=1994 - Scrabble Blast (U)
+System=GBA
+Text=vicente

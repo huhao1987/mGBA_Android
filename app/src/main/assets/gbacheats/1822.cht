@@ -1,0 +1,13 @@
+[第1关生命]
+ON=1D4B1,4B
+
+[第1关护甲]
+ON=1D4B5,64
+
+[第1关全武器]
+ON=1D72C,63;1D734,63;1D738,63;1D73C,63
+
+[GameInfo]
+Name=1822 - Dead to Rights (E)
+System=GBA
+Text=vicente

@@ -1,0 +1,16 @@
+[时间70]
+ON=443F9,10
+
+[生命5]
+ON=A048,A
+
+[总时间]
+ON=443E5,10
+
+[炮弹10]
+ON=443D7,A
+
+[GameInfo]
+Name=0767 - Silent Scope (J)（沉默的狙击手）（E）FPS 64
+System=GBA
+text=大胖子 整理提供

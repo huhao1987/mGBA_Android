@@ -1,0 +1,16 @@
+[挑战赛全破]
+ON=15C06,1,8,FF,F;15C12,1,8,FF,F;15C1E,1,8,FF,F;15C2A,1,8,FF,F;15C36,1,8,FF,F;15C42,1,8,FF,F;15C4E,1,8,FF,F
+
+[循环赛全破]
+ON=15BCA,1,8;15BD6,1,8;15BE2,1,8;15BEE,1,8;15BFA,1,8
+
+[全颜色]
+ON=15C58,63
+
+[隐藏循环赛开启]
+ON=15C5A,FF
+
+[GameInfo]
+Name=2477 - Cars (I)
+System=GBA
+Text=vicente 

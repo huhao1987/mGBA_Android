@@ -1,0 +1,16 @@
+[手雷]
+ON=41A02,63
+
+[血]
+ON=419D8,64
+
+[无敌]
+ON=419CD,2
+
+[机枪子弹]
+ON=419EC,63;419EE,5
+
+[GameInfo]
+Name=0176 - Alienators - Evolution Continues (U)（进化特区）（E）ACT 32
+System=GBA
+Text=大胖子 整理提供

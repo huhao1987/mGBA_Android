@@ -1,0 +1,16 @@
+[飞机耐久]
+ON=401A3,5
+
+[飞机架数]
+ON=45ABC,5
+
+[导弹]
+ON=401D8,63
+
+[全战役]
+ON=441E0,10
+
+[GameInfo]
+Name=1911 - Super Army War (U)
+System=GBA
+Text=vicente

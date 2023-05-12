@@ -1,0 +1,19 @@
+[生命]
+ON=43350,A
+
+[人数]
+ON=4155C,63
+
+[隐身]
+ON=42B20,FF
+
+[积分]
+ON=41540,9,9,9,9,9,9
+
+[敌人静止]
+ON=414C0,0,3,0,0,0,3,0,0,0,3
+
+[GameInfo]
+Name=2212 - Sky Dancers (U)
+System=GBA
+Text=vicente

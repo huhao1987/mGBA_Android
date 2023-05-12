@@ -1,0 +1,18 @@
+[行动点数]
+最大=43484,9;434E0,9;4353C,9
+最小=43484,0;434E0,0;4353C,0
+
+[关卡全开]
+正义=44948,FF,FF,FF,FF
+邪恶=44940,FF,FF,FF,FF
+
+[强化点数]
+正义=2DC8,E7,03;2DF0,E7,03;2E18,E7,03;2E40,E7,03;2E68,E7,03;2E90,E7,03;2EB8,E7,03;2EE0,E7,03
+邪恶=2C48,E7,03;2C70,E7,03;2C98,E7,03;2CC0,E7,03;2CE8,E7,03;2D10,E7,03;2D38,E7,03;2D60,E7,03
+
+[GameInfo]
+Name=1850 - The Load of the Rings - Nakatsukuni Daisanki
+System=GBA
+Text=vicente
+
+

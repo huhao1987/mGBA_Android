@@ -1,0 +1,24 @@
+[TIME]
+ON=44AAC,10,E
+
+[GameInfo]
+Name=2509 - Disney Princess Royal Adventure (U)
+System=GBA
+Text=2509 - Disney Princess Royal Adventure (U)
+---------------------------------------------------------
+[附加项全开]
+ON=44920,4
+
+[全小游戏]
+ON=44922,6
+
+[全图片]
+ON=44921,6
+
+[全难度]
+ON=44923,3
+
+[GameInfo]
+Name=2509 - Disney Princess Royal Adventure (U)
+System=GBA
+Text=vicente

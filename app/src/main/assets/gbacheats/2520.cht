@@ -1,0 +1,22 @@
+[TIME不变(开始后再锁定)]
+ON=41F98,64,64
+
+[GameInfo]
+Name=2520 - ATV Thunder Ridge Riders (U)
+System=GBA
+Text=2520 - ATV Thunder Ridge Riders (U)
+---------------------------------------------------------
+[快速胜利]
+ON=427DC,4
+
+[金钱]
+ON=417C4,3F,42,F
+
+[配件全改造]
+ON=417C8,6,6,6,6
+
+[GameInfo]
+Name=2520 - ATV Thunder Ridge Riders (U)
+System=GBA
+Text=vicente
+

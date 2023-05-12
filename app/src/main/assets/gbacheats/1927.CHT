@@ -1,0 +1,16 @@
+[人数]
+ON=458E4,9
+
+[耐久]
+ON=456F0,40,1
+
+[导弹]
+ON=458D0,63;458D4,63
+
+[积分]
+ON=458E8,FF,E0,F5,5
+
+[GameInfo]
+Name=1927 - Blades of Thunder (U)
+System=GBA
+Text=vicente

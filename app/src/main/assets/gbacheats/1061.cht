@@ -1,0 +1,21 @@
+[三振]
+ON=40018,3
+
+[四坏球]
+ON=40016,4
+
+[单局快速结束]
+ON=4001A,3
+
+[主队积分]
+最多=4005A,63
+最少=4005A,0
+
+[客队积分]
+最多=4002E,63
+最少=4002E,0
+
+[GameInfo]
+Name=1061 - Little League Baseball 2002 (U) （小型棒球联赛2002）（M2）SPG 64
+System=GBA
+Text=vicente

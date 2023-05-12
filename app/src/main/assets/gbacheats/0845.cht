@@ -1,0 +1,16 @@
+[钱]
+ON=03002B71,FF
+
+[徽章1exp]
+ON=03000BE2,00 
+
+[徽章2exp]
+ON=03000C22,00 
+
+[徽章3exp]
+ON=03000C62,00
+
+[GAMEINFO]
+NAME=0845 - Medabots Metabee Version (E)（金属机器人大战-蓝蜂版）（E）S·RPG 64
+SYSTEM=GBA
+Text=大胖子 整理提供

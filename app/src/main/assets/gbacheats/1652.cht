@@ -1,0 +1,22 @@
+[无敌]
+ON=B2CC,40
+
+[生命]
+ON=B2D8,0
+
+[人数]
+ON=40078,63
+
+[收集品]
+ON=40074,FF,FF
+
+[道具开启]
+ON=40071,1
+
+[全道具]
+ON=4007C,FF,FF,FF,FF
+
+[GameInfo]
+Name=1652 - Jimmy Neutron: Attack of the Twonkies
+System=GBA
+Text=vicente

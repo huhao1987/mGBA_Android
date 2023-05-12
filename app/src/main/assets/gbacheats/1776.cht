@@ -1,0 +1,117 @@
+[生命MAX]
+ON=405E4,63
+
+[香蕉MAX]
+ON=405F6,E7,3
+
+[香蕉金币MAX]
+ON=4065A,63
+
+[带小金刚]
+ON=405F2,1
+
+[第一关无敌]
+ON=11ACA,63;BA12,63;9EBA,63;104EE,63;C3B2,63;93E2;63
+
+[第二关无敌]
+ON=12196,63;152AE,63;17982,63;C7E2,63;EC4A,63;FC5E,63
+
+[第三关无敌]
+ON=138C2,63;14CAE,63;2683A,63;74D6,63;7ED2,63;80CE,63;98BE,63
+
+[第四关无敌]
+ON=14836,63;156EE,63;1EDAA,63;AB6E,63;BDF2,63;C61A,63
+
+[第五关无敌]
+ON=161BE,63;16B3E,63;16BEA,63;9FA2,63;A36E,63
+
+[第六关无敌]
+ON=112AE,63;61EA,63;62EA,63;774E,63;8F92,63;FF1A,63
+
+[最终BOSS无敌]
+ON=826E,63
+
+[道具收集率MAX]
+ON=40650,FF;40658,FF,FF,63,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF;40674,FF
+
+[每关KONG字母获得]
+ON=401E4,2;401E8,2;401EC,2;401F0,2
+
+[小游戏时间不减]
+ON=2F3E,63
+
+[全关卡解锁]
+ON=40640,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[小游戏Bag a Bug时间不减]
+ON=8150,50
+
+[小游戏Bag a Bug虫子MAX]
+ON=8174,63
+
+[小游戏Bag a Bug无敌]
+ON=817C,63
+
+[小游戏Funky's Flyghts能量不减]
+ON=46148,64
+
+[小游戏Expresso's Racing草帽MAX]
+ON=12048,4
+
+[Time Track 1无敌]
+ON=10602,63;11BDE,63;9FCE,63;BB26,63;C4C6,63
+
+[Time Track 2无敌]
+ON=122AA,63;153C2,63;17A96,63;C8F6,63;ED5E,63
+
+[Time Track 3无敌]
+ON=139D6,63;14DC2,63;15DAA,63;75EA,63;7FE6,63;81E2,63
+
+[Time Track 4无敌]
+ON=1494A,63;15802,63;1EEBE,63;AC82,63;C72E,63
+
+[Time Track 5无敌]
+ON=162D2,63;16C52,63;16CFE,63;A0B6,63
+
+[Time Track 6无敌]
+ON=1002E,63;113C2,63;62FE,63;63FE,63;90A6,63
+
+[Time Track 7无敌]
+ON=16556,63
+
+[GameInfo]
+Name=1776 - Donkey Kong Country 2 (U)（大金刚2）（E） ACT 64
+System=GBA
+Text=大胖子 整理提供
+-----------------------------------------------------------------------------------
+[人数]
+ON=405E4,63
+
+[香蕉]
+ON=405F6,F,27
+
+[拥有伙伴]
+ON=405F2,1
+
+[KONG字母]
+ON=401E4,2;401E8,2;401EC,2;401F0,2
+
+[全关卡]
+ON=40640,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[全收集]
+ON=4065A,63,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[附加模式开启]
+ON=4067E,FF,FF
+
+[全图片]
+ON=40674,FF,FF,FF,FF,FF
+
+[HELP全开启]
+ON=40680,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1776 - Donkey Kong Country 2 (U)
+System=GBA
+Text=vicente

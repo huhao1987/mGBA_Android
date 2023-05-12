@@ -1,0 +1,19 @@
+[撞倒数]
+1=7E4,1
+4=7E4,4
+
+[暂停时间]
+ON=7DA,32
+
+[主队积分]
+最少=208E,0
+最多=208E,63
+
+[客队积分]
+最少=21DE,0
+最多=21DE,63
+
+[GameInfo]
+Name=1131 - Madden NFL 2004 (U) （美式橄榄球2004）（E） SPG 32
+System=GBA
+Text=cmgsccc.com

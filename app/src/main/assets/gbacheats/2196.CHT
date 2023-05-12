@@ -1,0 +1,25 @@
+[CB2生命]
+ON=26F0,2
+
+[CB2人数]
+ON=26EC,63
+
+[CB2箱子]
+ON=26E8,63
+
+[CB2苹果]
+ON=26E4,63
+
+[CNK时间]
+ON=1E70,0,0
+
+[CNK苹果]
+ON=4457C,A
+
+[CNK快速过关]
+ON=44580,2
+
+[GameInfo]
+Name=2196 - 2 Games in 1 - Crash Bandicoot 2 - N-Tranced + Crash Nitro Kart (U)
+System=GBA
+Text=vicente

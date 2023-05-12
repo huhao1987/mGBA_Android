@@ -1,0 +1,25 @@
+[生命]
+ON=346BC,BC,2
+
+[生命上限]
+ON=3463C,6
+
+[全武器]
+ON=3463B,2
+
+[收集品]
+ON=34670,10,27
+
+[隐身]
+ON=346D1,FF
+
+[全关卡+商店开启]
+ON=3465F,FF,FF,FF;34665,FF
+
+[全道具]
+ON=34668,FF,FF,FF,FF
+
+[GameInfo]
+Name=2308 - Drill Dozer (U)
+System=GBA
+Text=vicente 

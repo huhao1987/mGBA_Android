@@ -1,0 +1,19 @@
+[人数]
+ON=4347C,63
+
+[不死]
+ON=43480,1
+
+[积分]
+ON=41140,FF,E0,F5,5
+
+[舞台选择]
+青蛙=4685F,0
+小狗=4685F,1
+虫子=4685F,2
+小丑=4685F,3
+
+[GameInfo]
+Name=2017 - Muppet Pinball Mayhem (E)
+System=GBA
+Text=vicente 

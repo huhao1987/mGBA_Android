@@ -1,0 +1,13 @@
+[BGH关卡全开]
+ON=113CD,FF
+
+[RPF关卡全开]
+ON=1138A,FF,FF
+
+[RPF水族馆全开]
+ON=11398,FF,FF;113A0,FF,FF;113A8,FF,FF;113B0,FF,FF;113B8,FF,FF;113C0,FF,FF
+
+[GameInfo]
+Name=2575 - 2in1 Cabelas Sportsmans Pack (U)
+System=GBA
+Text=vicente

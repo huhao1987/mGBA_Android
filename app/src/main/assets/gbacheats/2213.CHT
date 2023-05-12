@@ -1,0 +1,16 @@
+[游戏1快速过关]
+ON=5C70,1
+
+[游戏1积分]
+ON=168,7F,96,98
+
+[游戏2积分]
+ON=437D8,3F,42,F
+
+[游戏2时间]
+ON=437E4,0,0,0,0
+
+[GameInfo]
+Name=2213 - Dr. Mario & Puzzle League (E)
+System=GBA
+Text=vicente

@@ -1,0 +1,13 @@
+[MM时间]
+ON=413B0,3C
+
+[KLAX积分]
+ON=1238,FF,E0,F5,05
+
+[KLAX生命]
+ON=10CD,3
+
+[GameInfo]
+Name=2111 - Marble Madness-Klax (U)
+System=GBA
+Text=vicente 

@@ -1,0 +1,36 @@
+[生命]
+ON=A048,A
+
+[时间]
+ON=443F8,BF,12
+
+[BOSS一击死]
+ON=ACA4,1;B59C,1
+
+[附加模式开启]
+ON=41628,1,1
+
+[全设定项]
+ON=41617,8;41619,5;4161B,6
+
+[GameInfo]
+Name=1919 - Silent Scope (E)
+System=GBA
+Text=vicente
+-----------------------------------------------------
+[时间70]
+ON=443F9,10
+
+[生命5]
+ON=A048,A
+
+[总时间]
+ON=443E5,10
+
+[炮弹10]
+ON=443D7,A
+
+[GameInfo]
+Name=1919 - Silent Scope (U)（沉默的狙击手）（U）FPS 64
+System=GBA
+text=大胖子 整理提供

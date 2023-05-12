@@ -1,0 +1,22 @@
+[生命]
+ON=1DB2,C
+
+[隐身]
+ON=BB6,FF
+
+[能量]
+ON=1DB4,A0,8C
+
+[持枪]
+ON=964,80
+
+[弹药]
+ON=C54,E7,3
+
+[关卡全开]
+ON=2458,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=2565 - The Grim Adventures of Billy and Mandy (U)
+System=GBA
+Text=vicente

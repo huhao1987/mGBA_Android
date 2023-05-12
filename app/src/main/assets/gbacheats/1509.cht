@@ -1,0 +1,16 @@
+[苹果MAX]
+ON=6E4C,F,27
+
+[开启所有关卡]
+ON=6E10,FF,FF,0
+
+[所有关底解锁]
+ON=6DEC,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[开启所有小游戏]
+ON=6DFA,D2;6DFC,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,DF;EFC4,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1509 - Crash Bandicoot Purple Riptos Rampage (U)（古惑狼与紫色宝贝龙）（E）ACT 128
+System=GBA
+Text=魔剑士但丁

@@ -1,0 +1,13 @@
+[第1关生命]
+ON=44C48,0
+
+[第1关时间]
+ON=44D8E,0,0
+
+[关卡全开]
+ON=410A0,9
+
+[GameInfo]
+Name=2294 - La famille Delajungle, le film (F)
+System=GBA
+Text=vicente 

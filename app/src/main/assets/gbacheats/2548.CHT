@@ -1,0 +1,19 @@
+[生命]
+ON=F61,10
+
+[门票]
+ON=F74,64
+
+[门全开]
+ON=103C,FF
+
+[小游戏全开
+ON=45551,1,1,1
+
+[大关全开]
+ON=4554E,D
+
+[GameInfo]
+Name=2548 - Fosters Home for Imaginary Friends (U)
+System=GBA
+Text=vicente

@@ -1,0 +1,13 @@
+[生命]
+ON=3B73A,FF
+
+[时间]
+ON=3B93E,0,9
+
+[全武器]
+ON=3C804,1,9,9,1,9,9,1,9,9,1,9,9,1,9,9,1,9,9,1,9,9
+
+[GameInfo]
+Name=2210 - Driver 3 (U)
+System=GBA
+Text=vicente

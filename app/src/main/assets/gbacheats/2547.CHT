@@ -1,0 +1,32 @@
+[生命]
+ON=70B0,80,1
+
+[必杀]
+ON=70B4,3
+
+[生命上限]
+ON=7971,FF,FF,FF
+
+[力量上限]
+ON=7975,FF,FF,FF,FF
+
+[连携攻击上限]
+ON=7979,FF
+
+[全人物]
+ON=7970,3F
+
+[全关卡]
+ON=7105,C
+
+[选人]
+Robin=56A,6
+Cyborg=56A,7
+Beast Boy=56A,8
+Raven=56A,9
+Starfire=56A,A
+
+[GameInfo]
+Name=2547 - Teen Titans 2 (U)
+System=GBA
+Text=vicente

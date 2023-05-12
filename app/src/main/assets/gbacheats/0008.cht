@@ -1,0 +1,100 @@
+[最高时速]
+ON=45529,FF
+
+[总时间]
+ON=45BE8,0,0
+
+[单圈时间]
+ON=45BEC,0,0
+
+[GameInfo]
+Name=0008 - Advance GTA (J)（GTA赛车A）（E）RCG 64
+System=GBA
+Text=大胖子 整理提供
+--------------------------------------------------
+[可玩全BEGINNER'S关卡]
+ON=420B8,8
+
+[可玩全MIDDLE关卡]
+ON=420B9,8
+
+[可玩全HIGH SPEED关卡]
+ON=420BA,8
+
+[可玩全PROFESSIONAL关卡]
+ON=420BB,8
+
+[全车]
+ON=420BC,FF,FF,FF,FF,FF,FF
+
+[全ENGINE]
+ON=420CC,3
+
+[全SUS]
+ON=420CD,3
+
+[全MUFFLER]
+ON=420CE,3
+
+[LSD]
+ON=420CF,1
+
+[CPU]
+ON=420D0,1
+
+[Light]
+ON=420D1,1
+
+[SEAT]
+ON=420D2,1
+
+[FILTER]
+ON=420D3,1
+
+[AERO]
+ON=420D4,1
+
+[关卡获金]
+Circuit-1 Hornet=421F4,1
+Winding-1 Cross=42240,1
+Highway-1 Nightwalk=4228C,1
+City-1 Main Street=422D8,1
+Dirt-1 Zero=42324,1
+Highway-2 Bayside=42370,1
+Dirt-2 Halfdump1=423BC,1
+Winding-2 Speedstar=42408,1
+Circuit-2 Bullet=42454,1
+Winding-3 Turnpike=424A0,1
+Highway-3 Freeway=424EC,1
+City-2 Dash=42538,1
+Dirt-3 Dirt Park=42584,1
+Circuit-3 Big Trap=425D0,1
+Winding-4 Caution=4261C,1
+City-3 Running Free=42668,1
+Circuit-4 Drift Park=426B4,1
+Winding-5 Doglake=42700,1
+Highway-4 Outburn=4274C,1
+City-4 Yellow Post=42798,1
+Dirt-4 Response=427E4,1
+Circuit-5 Rough=42830,1
+Highway-5 Stardust=4287C,1
+Dirt-5 Inline Four=428C8,1
+Circuit-6 Fox=42914,1
+Winding-6 Skyline=42960,1
+Highway-6 Black Eye=429AC,1
+City-5 Good Line=429F8,1
+Dirt-6 Halfdump2=42A44,1
+Circuit-7 Free Speed=42A90,1
+Winding-7 Wild Boar=42ADC,1
+City-6 Barracuda=42B28,1
+
+[Total Time00:00:00]
+ON=45BE8,0,0,0,0
+
+[Lap Time 00:00:00]
+ON=45BEC,0,0,0,0
+
+[GameInfo]
+Name=0008 - Advance GTA (J)（GTA赛车A）（E）RCG 64
+System=GBA
+Text=169

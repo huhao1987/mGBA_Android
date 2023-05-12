@@ -1,0 +1,13 @@
+[游戏3残余方块]
+ON=8320,0
+
+[游戏3积分]
+ON=8E78,6,27
+
+[游戏3快速结束]
+ON=9260,0,0 
+
+[GameInfo]
+Name=1029 - Okaitoku Series 5 - Puzzle & Tantei Collection (J) （方块和侦探游戏合集）（J） ECT 64
+System=GBA
+Text=vicente

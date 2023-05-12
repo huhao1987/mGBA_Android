@@ -1,0 +1,17 @@
+[比赛时间]
+ON=44ADC,0,0,0,0
+
+[我方进球]
+99=4381A,63
+9=4381A,9
+0=4381A,0
+
+[对方进球]
+0=43AD6,0
+9=43AD6,9
+99=43AD6,63
+
+[GameInfo]
+Name=0239 - World Advance Soccer - Road to Win (J)（世界足球-迈向胜利之路）（J）SPG 64
+System=GBA
+Text=大胖子 整理提供

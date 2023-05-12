@@ -1,0 +1,13 @@
+[子弹]
+ON=3530A,63
+
+[血]
+ON=352EA,64
+
+[避弹衣]
+ON=352EC,64
+
+[GameInfo]
+Name=0640 - Ecks vs. Sever (E)（艾克斯VS瑟娃）（M）FPS 64
+System=GBA
+Text=大胖子 整理提供

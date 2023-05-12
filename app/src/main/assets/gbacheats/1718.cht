@@ -1,0 +1,25 @@
+[耐久]
+ON=15556,0,20
+
+[速度]
+ON=15540,B8,B
+
+[快速胜利]
+ON=15578,2
+
+[全人物]
+ON=8064,FF,FF,FF,FF
+
+[全模式]
+ON=806C,FF;8070,FF,FF,FF,FF,FF
+
+[故事线索全开]
+ON=8078,FF,FF,FF,FF,FF,FF,FF
+
+[角色资料全开]
+ON=80E8,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1718 - F-Zero Climax
+System=GBA
+Text=vicente

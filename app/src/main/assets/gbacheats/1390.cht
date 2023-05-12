@@ -1,0 +1,16 @@
+[S?]
+ON=47236,9
+
+[飞机架数]
+ON=47237,9
+
+[武器全满]
+ON=4723C,3,5
+
+[无敌]
+ON=47240,40
+
+[GameInfo]
+Name=1390 - Famicom Mini Vol. 10 - Star Soldier
+System=GBA
+Text=vicente

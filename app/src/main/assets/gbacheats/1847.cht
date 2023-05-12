@@ -1,0 +1,25 @@
+[生命]
+ON=DEA,7
+
+[生命上限]
+ON=DE8,7
+
+[隐身]
+ON=2343E,1E
+
+[全道具]
+ON=E00,FF,FF
+
+[全技能]
+ON=DEF,FF,FF,FF,FF
+
+[关卡全开]
+ON=E20,FF,FF,FF,FF,FF,FF,FF
+
+[全星星]
+ON=E04,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1847 - Zettai Zetsumei Dangerous Jiisan 3 Hateshinaki Mamonogatari
+System=GBA
+Text=vicente

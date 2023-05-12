@@ -1,0 +1,25 @@
+[耐久]
+ON=40E4C,FF
+
+[加速]
+ON=40EAC,FF
+
+[全武器弹药]
+ON=40E92,FF,FF;40E98,FF,FF;40E9E,FF,FF;40EA4,FF,FF
+
+[时间]
+ON=40C68,9;40C6C,3B
+
+[关卡全开]
+ON=407F0,7
+
+[作弊码全开]
+ON=407F4,FF,3
+
+[街机模式开启]
+ON=407F6,1
+
+[GameInfo]
+Name=2089 - Spy Hunter (E)
+System=GBA
+Text=vicente

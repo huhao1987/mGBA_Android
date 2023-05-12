@@ -1,0 +1,44 @@
+[速度]
+ON=4009A,32
+
+[时间]
+ON=1BFB4,0,0
+
+[GameInfo]
+Name=0043 - Konami Krazy Racers (E)（科拿米疯狂赛车手）（E）RCG 32
+System=GBA
+Text=大胖子 整理提供
+------------------------------------------------------------------
+[角色]
+角色1=1BCEA,0
+角色2=1BCEA,1
+角色3=1BCEA,2
+角色4=1BCEA,3
+角色5=1BCEA,4
+角色6=1BCEA,5
+角色7=1BCEA,6
+角色8=1BCEA,7
+角色9=1BCEA,8
+角色10=1BCEA,9
+角色11=1BCEA,A
+角色12=1BCEA,B
+
+[全车牌]
+ON=1BDBA,FF
+
+[揭示版全开]
+ON=1BDBC,FF,FF
+
+[S级]
+ON=1BE5C,2
+
+[金钱999]
+ON=1BE68,E7,3
+
+[金币999]
+ON=1BFC2,E7,3
+
+[GameInfo]
+Name=0043 - Konami Krazy Racers (E)（科拿米疯狂赛车手）（E）RCG 32
+System=GBA
+Text=169

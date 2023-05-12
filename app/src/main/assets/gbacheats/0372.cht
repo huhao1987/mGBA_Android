@@ -1,0 +1,19 @@
+[各种资源]
+ON=1B68,F,27;1B6C,F,27;1B70,F,27
+
+[基地HP]
+ON=9648,0F,27
+
+[P]
+ON=1BDC,0F,27
+
+[MR]
+ON=1B69,3
+
+[ES]
+ON=1B6D,3
+
+[GameInfo]
+Name=0372 - Kikaika Gunta - Mech Platoon (J)（机械化军队）（J）RTS 64
+System=GBA
+Text=大胖子 整理提供

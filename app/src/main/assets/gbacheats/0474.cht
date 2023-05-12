@@ -1,0 +1,16 @@
+[GREAT数量]
+ON=42BEE,E7,3;42BF4,E7,3
+
+[GOOD数量]
+ON=42BF0,E7,3;42BF6,E7,3
+
+[MISS数量]
+ON=42BF2,0;42BF8,0
+
+[所有图片及所有模式]
+ON=42BE8,FF,FF;42C28,FF,FF
+
+[GameInfo]
+Name=0474 - Britneys Dance Beat (E)（小甜甜布兰妮之舞蹈节拍）（M）ECT 64
+System=GBA
+Text=大胖子 整理提供

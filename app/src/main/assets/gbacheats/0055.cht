@@ -1,0 +1,30 @@
+[隐身]
+ON=4637A,96
+
+[金钱]
+ON=35408,50,C3
+
+[炮弹]
+ON=46377,32
+
+[GameInfo]
+Name=0055 - Choro Q Advance (J)（Q版赛车A）（J）RCG 32
+System=GBA
+Text=marysmith
+------------------------------------------------------
+[所持金99999G]
+ON=35408,9F,86,1
+
+[隐身]
+ON=4637A,96
+
+[子弹99]
+ON=46377,63
+
+[时间00'00''00]
+ON=41F60,0,0
+
+[GameInfo]
+Name=0055 - Choro Q Advance (J)（Q版赛车A）（J）RCG 32
+System=GBA
+Text=169

@@ -1,0 +1,15 @@
+[1P HP]
+MAX=40731,6D
+MIN=40731,0
+
+[TIME]
+ON=40E6C,63
+
+[2P HP]
+MIN=40771,0
+MAX=40771,6D
+
+[GameInfo]
+Name=0753 - Mortal Kombat Deadly Alliance (U)（真人快打-致命联盟）（M）FTG 128
+System=GBA
+Text=大胖子 整理提供

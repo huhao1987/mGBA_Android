@@ -1,0 +1,31 @@
+[礼物数量]
+ON=7A34,63
+
+[HP]
+ON=9641,A;B4D9,A;D019,A
+
+[隐身]
+ON=934C,C8;B1E4,C8;CD24,C8
+
+[GameInfo]
+Name=2516 - The Santa Clause 3 - The Escape Clause (U)
+System=GBA
+Text=2516 - The Santa Clause 3 - The Escape Clause (U)
+---------------------------------------------------------------
+[第1关生命]
+ON=9529,A
+
+[第1关隐身]
+ON=9234,FF
+
+[收集品]
+ON=7A34,14
+
+[关卡全开]
+ON=7AC6,4
+
+[GameInfo]
+Name=2516 - Santa Clause 3, The - The Escape Clause (U)
+System=GBA
+Text=vicente
+

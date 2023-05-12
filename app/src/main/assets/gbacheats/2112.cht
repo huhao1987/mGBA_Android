@@ -1,0 +1,19 @@
+[C模式人数]
+ON=42DB1,9
+
+[C模式积分]
+ON=42DB4,FF,E0,F5,5
+
+[B模式人数]
+ON=447AC,9
+
+[B模式积分]
+ON=447A4,3F,42,F
+
+[W模式积分]
+ON=44AEC,FF,E0,F5,5
+
+[GameInfo]
+Name=2112 - Centipede Breakout Warlords (U)
+System=GBA
+Text=vicente

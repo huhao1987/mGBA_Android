@@ -1,0 +1,19 @@
+[我方下一方块下部]
+方块1=443D7,1
+方块2=443D7,2
+方块3=443D7,3
+方块4=443D7,4
+
+[我方下一方块上部]
+方块1=443D6,1
+方块2=443D6,2
+方块3=443D6,3
+方块4=443D6,4
+
+[攻击力]
+ON=417B0,63
+
+[GameInfo]
+Name=1209 - Wagamama Fairy Mirumo De Pon Taisen Mahoudrama (J)（神奇彩球对战）（J） TAB 64
+System=GBA
+Text=大胖子

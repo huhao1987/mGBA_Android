@@ -1,0 +1,19 @@
+[飞镖数]
+ON=CA1,3
+
+[飞镖积分]
+ON=CA8,F5,1
+
+[飞镖剩余积分]
+ON=CBA,1,0
+
+[宝龄球积分]
+ON=2B38,F,27
+
+[摇球积分]
+ON=40C0C,F,27
+
+[GameInfo]
+Name=2557 - 3-in-1 - Majesco's Rec Room Challenge (U)
+System=GBA
+Text=vicente

@@ -1,0 +1,22 @@
+[1P进球数]
+99=36AC5,63
+10=36AC5,0A
+0=36AC5,00
+
+[2P进球数]
+99=36BA1,63
+10=36BA1,0A
+0=36BA1,00
+
+[双方对决]
+进攻方 Win=36C0A,01,20;36C6F,00
+防守方 Win=36C6E,02,20;36C0B,00
+
+[每回合球数]
+1P MAX=36ACC,04
+2P MAX=36ACD,04
+
+[GameInfo]
+Name=0309 - Captain Tsubasa - Eikou no Kiseki (J)（天使之翼-荣光的轨迹）（J）CAG 64
+System=GBA
+Text=Azrael

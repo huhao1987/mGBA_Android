@@ -1,0 +1,22 @@
+[人数]
+ON=47220,9
+
+[生命]
+ON=47240,E0
+
+[生命上限]
+ON=47241,E0
+
+[时间]
+ON=47250,15
+
+[金钱]
+ON=479C0,FF
+
+[状态]
+ON=47248,1
+
+[GameInfo]
+Name=1498 - Famicom Mini Vol. 20 - Ganbare Goemon! Karakuri Douchuu
+System=GBA
+Text=vicente

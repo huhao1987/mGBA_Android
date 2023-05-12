@@ -1,0 +1,19 @@
+[全能力]
+ON=29C0,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+
+[体力]
+ON=26250,A
+
+[无敌]
+ON=26257,10;2625A,96
+
+[全服装]
+ON=E58,FF,FF
+
+[全道具]
+ON=E60,FF,FF,FF,FF
+
+[GameInfo]
+Name=1572 - Zettai Zetsumei Dangerous Jisan Tsu
+System=GBA
+Text=vicente

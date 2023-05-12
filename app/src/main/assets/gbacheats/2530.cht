@@ -1,0 +1,19 @@
+[第1关生命]
+ON=13DFC,FA
+
+[魔法能量]
+ON=2A28,C8
+
+[魔法点数]
+ON=2A34,9
+
+[魔法等级]
+ON=2A38,2,2,2,2
+
+[魔法习得]
+ON=2A3C,1,1,1,1
+
+[GameInfo]
+Name=2530 - The Legend of Spyro A New Beginning (U)
+System=GBA
+Text=vicente 

@@ -1,0 +1,13 @@
+[全关卡]
+ON=41780,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[全赛车]
+ON=417A0,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[全配件]
+ON=41CF0,7F;41CF2,7F
+
+[GameInfo]
+Name=1040 - GT Advance 3 - Pro Concept Racing
+System=GBA
+Text=vicente

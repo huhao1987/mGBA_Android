@@ -1,0 +1,22 @@
+[金币]
+ON=41856,E7,3
+
+[生命]
+ON=4189A,10
+
+[生命上限]
+ON=4189C,10
+
+[隐身]
+ON=41850,D
+
+[关开全开]
+ON=41874,FF,FF,FF
+
+[全图鉴]
+ON=417E0,FF
+
+[GameInfo]
+Name=1939 - Disney Princesas (S)
+System=GBA
+Text=vicente

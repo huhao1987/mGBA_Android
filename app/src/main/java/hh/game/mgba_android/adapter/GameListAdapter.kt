@@ -1,5 +1,6 @@
 package hh.game.mgba_android.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,7 +32,7 @@ class GameListAdapter(var context: Context, var list : ArrayList<DocumentFile>) 
 
     override fun getItemCount(): Int = gamelist.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         runBlocking {
             var game = gamelist[position]
             var gbaUtil = Gameutils(context,game.getAbsolutePath(context)).init()
@@ -57,15 +58,16 @@ class GameListAdapter(var context: Context, var list : ArrayList<DocumentFile>) 
                                 }
                             }
                         holder.gamename.text = (gameTitle?:game.name).toString()
-
                     }
                     else
                         holder.gamename.text = game.name
+
+                    holder.gamename.setOnClickListener {
+                        itemClickListener?.invoke(position,gameDetails)
+                    }
                 }
             })
-            holder.gamename.setOnClickListener {
-                itemClickListener?.invoke(position)
-            }
+
         }
     }
 
@@ -79,4 +81,4 @@ class GameListAdapter(var context: Context, var list : ArrayList<DocumentFile>) 
     }
 }
 
-typealias ItemClickListener = (Int) -> Unit
+typealias ItemClickListener = (Int,Any?) -> Unit

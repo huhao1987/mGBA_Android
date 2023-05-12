@@ -1,0 +1,19 @@
+[金钱]
+ON=41D20,9F,86,1
+
+[小游戏全开]
+ON=41DDC,FF,1
+
+[道具全开]
+ON=41D24,FF,FF,FF,FF,FF
+
+[道具数量]
+ON=41D2C,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88
+
+[全服装]
+ON=41D44,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=2504 - Bratz: Rock Angelz (F)
+System=GBA
+Text=vicente

@@ -1,0 +1,19 @@
+[金环]
+ON=42738,FF;44FEC,FF
+
+[分数]
+ON=45030,FF;45031,C9;45032,9A;45033,3B
+
+[生命数]
+ON=45024,FF
+
+[时间]
+ON=45034,00;45035,00
+
+[水下时间无限]
+ON=45A7A,01
+
+[GameInfo]
+Name=0252 - Sonic Advance (J)（索尼克A）（M）ACT 64
+System=GBA
+Text=大胖子 整理提供

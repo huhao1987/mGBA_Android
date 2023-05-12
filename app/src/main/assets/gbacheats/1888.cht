@@ -1,0 +1,25 @@
+[白方点数]
+ON=40AE8,6
+
+[白方积分]
+ON=41C39,FF
+
+[红方点数]
+ON=40AE9,0
+
+[红方积分]
+ON=41C3A,0
+
+[蓝方点数]
+ON=40AEA,0
+
+[蓝方积分]
+ON=41C3B,0
+
+[时间]
+ON=41BAC,1E
+
+[GameInfo]
+Name=1888 - International Karate Plus (U)
+System=GBA
+Text=vicente

@@ -1,0 +1,22 @@
+[生命不减]
+ON=22C0,9
+
+[体力不减]
+ON=216E,F
+
+[体力上限]
+ON=216F,F
+
+[无敌]
+ON=4C85,63
+
+[羊 MAX]
+ON=21AF,5
+
+[红果实 MAX]
+ON=21CD,FE
+
+[GameInfo]
+Name=1599 - Tak and the Power of JuJu (E)（塔克和符咒的神力）（M2）ACT 64
+System=GBA
+Text=魔剑士但丁

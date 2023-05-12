@@ -1,0 +1,25 @@
+[能力全满]
+ON=626,E7,3,E7,3,E7,3,E7,3,E7,3;632,E7,3,E7,3
+
+[技能点最大]
+ON=EE0,F,27,F,27,F,27,F,27,F,27;EEC,F,27
+
+[战后钱最多]
+ON=B4A,F,27
+
+[战后经验最多]
+ON=B4C,F,27
+
+[敌一击死]
+ON=CBA,F,27;CC2,F,27,F,27,F,27,F,27
+
+[全道具]
+ON=E40,63
+
+[?]
+ON=E41,63,63,9,63,63,63,63;E60,63;E7C,63
+
+[GameInfo]
+Name=0835 - Bobobohbo Bohbobo Ougi 87.5 Bakuretsu Hanage Shinken (J)（爆裂鼻毛真拳）（J）ECT 64
+System=GBA
+Text=大胖子 整理提供

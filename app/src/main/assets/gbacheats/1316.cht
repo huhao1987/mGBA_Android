@@ -1,0 +1,13 @@
+[指令数]
+ON=361C2,64
+
+[钱]
+ON=361BE,A7,7D
+
+[狗的状态]
+ON=361A2,64;361A6,64;361AA,64;361AE,64;361B2,64;361B6,0;361BA,64
+
+[GameInfo]
+Name=1316 - Koinu-Chan no Hajimete no Osanpo - Koinu no Kokoro Ikusei Game (J)（可爱小狗养育计划）（J）TCG 32
+System=GBA
+Text=大胖子 整理提供

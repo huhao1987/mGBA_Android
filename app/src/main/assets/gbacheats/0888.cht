@@ -1,0 +1,16 @@
+[体力值]
+ON=1E7F4,FA;1E80C,F0;1E824,FA
+
+[护甲]
+ON=1E7F2,6;1E80A,6;1E822,6
+
+[隐型]
+ON=42B7E,FF
+
+[武器]
+ON=1E7F3,6;1E80B,6;1E823,6
+
+[GameInfo]
+Name=0888 - Butt Ugly Martians BKM Battles (E) （神勇火星人-反冲大作战）（M） STG 32
+System=GBA
+Text=大胖子 整理提供

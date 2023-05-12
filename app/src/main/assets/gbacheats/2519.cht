@@ -1,0 +1,27 @@
+[1P分数]
+ON=41E38,F,27
+
+[2P分数]
+ON=41E3A,F,27
+
+[GameInfo]
+Name=2519 - Ker Plunk Toss Across Tip It (U)
+System=GBA
+Text=2519 - Ker Plunk Toss Across Tip It (U)
+------------------------------------------------------------------------------
+[游戏1我方积分]
+ON=41E38,F,27
+
+[游戏1对方积分]
+ON=41E3A,0,0
+
+[游戏2+3我方积分]
+ON=45751,9,9,9,9,9
+
+[游戏2+3对方积分]
+ON=45757,0,0,0,0,0
+
+[GameInfo]
+Name=2519 - Ker Plunk!, Toss Across, Tip It (U)
+System=GBA
+Text=vicente

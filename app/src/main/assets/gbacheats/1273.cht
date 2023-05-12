@@ -1,0 +1,19 @@
+[血]
+ON=820,5
+
+[所有卡片]
+ON=AD4,FF,FF
+
+[只数]
+ON=800,9
+
+[钱]
+ON=12638,63
+
+[所有技能]
+ON=3A0,1;3A4,1;3A8,1;3AC,1;3B0,1
+
+[GameInfo]
+Name=1273 - Spy Kids 3-D (E)（间谍小子3D）（E）ACT 64
+System=GBA
+Text=大胖子

@@ -1,0 +1,16 @@
+[我方积分]
+ON=30CC,63
+
+[对方积分]
+ON=30CD,0
+
+[比赛快速结束]
+ON=18310,0,0
+
+[全员满气力]
+ON=46F6,2C,1;477E,2C,1;4806,2C,1;488E,2C,1;4916,2C,1;499E,2C,1;4A26,2C,1;4AAE,2C,1;4B36,2C,1;4BBE,2C,1;4C46,2C,1
+
+[GameInfo]
+Name=2158 - Fifa Football 2006 (U)
+System=GBA
+Text=vicente 

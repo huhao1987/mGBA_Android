@@ -1,0 +1,19 @@
+[耐久]
+ON=45504,E8,3
+
+[能量]
+ON=45488,E8,3
+
+[全道具]
+ON=40EF4,1;40EF8,1;40EFC,1;40F00,1;40F04,1;40F08,1;40F0C,1;40F10,1;40F14,1;40F18,1
+
+[快速过关]
+ON=45532,1
+
+[全关卡+全赛车]
+ON=45AC0,25
+
+[GameInfo]
+Name=2583 - Hot Wheels Velocity X (E)
+System=GBA
+Text=vicente 

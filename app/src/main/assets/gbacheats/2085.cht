@@ -1,0 +1,14 @@
+[时间]
+ON=1C8,4A,EA
+
+[第1关隐身]
+ON=17018,FF
+
+[第1关武器]
+苹果=1700E,C
+骨头=1700E,D9
+
+[GameInfo]
+Name=2085 - Animaniacs Lights Camera Action (E)
+System=GBA
+Text=vicente 

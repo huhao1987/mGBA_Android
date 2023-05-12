@@ -1,0 +1,16 @@
+[时间]
+ON=D48,0,0
+
+[苹果]
+ON=445B4,A
+
+[快速过关]
+ON=445B8,2
+
+[100%收集]
+ON=864,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1632 - Crash Bandicoot Bakusou Nitro Cart (J)
+System=GBA
+Text=vicente

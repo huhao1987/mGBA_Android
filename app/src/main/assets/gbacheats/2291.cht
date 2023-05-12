@@ -1,0 +1,26 @@
+[生命]
+ON=E8AA,0
+
+[人数]
+ON=E8A9,9
+
+[隐身]
+ON=F064,50
+
+[收集品]
+ON=E8AC,E7,3
+
+[捕获老鼠]
+ON=E8FD,1
+
+[关卡全开]
+ON=F40,B
+
+[香蕉]
+ON=EF20,63
+
+[GameInfo]
+Name=2291 - Garfield: The Search for Pooky (U)
+System=GBA
+Text=vicente 
+loading...

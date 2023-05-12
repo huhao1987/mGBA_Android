@@ -1,0 +1,16 @@
+[生命]
+ON=41888,5
+
+[隐身]
+ON=4187C,FF
+
+[积分]
+ON=41A20,FF,E0,F5,5
+
+[快速过关]
+ON=41978,0
+
+[GameInfo]
+Name=1856 - James Pond: Codename Robocod (E)
+System=GBA
+Text=vicente

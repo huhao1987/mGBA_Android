@@ -1,0 +1,30 @@
+[果子数量]
+ON=41080,8
+
+[蓝色公主隐身]
+ON=4111C,63
+
+[红色公主隐身]
+ON=410A4,63
+
+[GameInfo]
+Name=1673 - Barbie The Princess & The Pauper (E)（芭比公主与乞丐）（M6）AVG 32
+System=GBA
+Text=大胖子 整理提供
+-----------------------------------------------------
+[体力]
+ON=410DC,5
+
+[隐身]
+ON=4111C,80
+
+[快速过关]
+ON=41080,A
+
+[Arcade全开]
+ON=41130,1,1,1,1
+
+[GameInfo]
+Name=1673 - Barbie - The Princess and the Pauper (E)
+System=GBA
+Text=vicente

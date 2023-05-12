@@ -1,0 +1,20 @@
+[当前球的颜色]
+黄=42A0A,0
+粉红=42A0A,1
+红=42A0A,2
+粉红？=42A0A,3
+蓝=42A0A,4
+绿=42A0A,5
+
+[下一球的颜色]
+黄=42A0B,0
+粉红=42A0B,1
+红=42A0B,2
+粉红？=42A0B,3
+蓝=42A0B,4
+绿=42A0B,5
+
+[GameInfo]
+Name=0369 - Super Puzzle Bobble Advance (J)（超级泡泡龙A）（E）PUZ 32
+System=GBA
+Text=大胖子 整理提供

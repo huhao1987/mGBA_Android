@@ -1,0 +1,64 @@
+[P1生命]
+MAX=8BBD,44
+0==8BBD,0
+
+[P1体力]
+MAX=8BBF,44
+0=8BBF,0
+
+[P2生命]
+MAX=B10D,44
+0=B10D,0
+
+[P2体力]
+MAX=B10F,44
+0=B10F,0
+
+[时间]
+ON=D628,9;D638,59
+
+[GameInfo]
+Name=0030 - Ready 2 Rumble Boxing - Round 2 (U)（暴力拳击2）（E）SPG 32
+System=GBA
+Text=大胖子 整理提供
+------------------------------------------------------------------------
+[玩家无限血]
+ON=8BBC,0,44
+
+[玩家无限气力]
+ON=8BBE,0,44
+
+[玩家2/电脑血]
+无限血=B10C,0,44
+无血=B10C,0,0
+
+[玩家2/电脑气力]
+无限气力=B10E,0,44
+无气力=B10E,0,0
+
+[玩家RUMBLE计]
+满=D5BC,6,0
+无=D5BC,0,0
+
+[玩家2/电脑RUMBLE计]
+满=D5F8,6,0
+无=D5F8,0,0
+
+[无限时]
+ON=D638,59,0
+
+[Championship Speed100]
+ON=9004,64
+[Championship Strength100]
+ON=902C,64
+
+[Championship Stamina100]
+ON=9040,64
+
+[Championship 无限金钱]
+ON=9048,7F,96,98
+
+[GameInfo]
+Name=0030 - Ready 2 Rumble Boxing - Round 2 (U)（暴力拳击2）（E）SPG 32
+System=GBA
+Text=169

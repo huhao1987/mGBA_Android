@@ -1,0 +1,16 @@
+[人数]
+ON=40408,E7,3
+
+[金币]
+ON=403E8,FF
+
+[关卡全开]
+ON=403EA,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[全彩蛋]
+ON=403F7,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=2022 - Yoshi Topsy Turvy (U)
+System=GBA
+Text=vicente 

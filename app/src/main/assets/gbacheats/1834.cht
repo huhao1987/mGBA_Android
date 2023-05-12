@@ -1,0 +1,13 @@
+[钻石]
+ON=6B50,E7,3
+
+[小游戏全开]
+ON=6B6C,1;6B70,1;6B74,1;6B78,1;6B7C,1;6B80,1;6B84,1;6B88,1;6B8C,1;6B90,1;6B94,1;6B98,1
+
+[全卡片]
+ON=CF2C,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1834 - Spyro Advance Wakuwaku Tomodachi Daisakusen
+System=GBA
+Text=vicente

@@ -1,0 +1,21 @@
+[无限LP]
+ON=2107D,9F,86,1
+
+[敌人一击必杀]
+ON=2107E,01
+01=2107F,01
+02=2107D,01
+
+[等级最高]
+ON=1E840,F,27
+
+[金钱最高]
+ON=1E9A0,F,27
+
+[DC值最高]
+ON=1E83D,99
+
+[GameInfo]
+Name=0493 - Yu-Gi-Oh! Duel Monsters 7: Kettou Toshi Densetsu (J)（游戏王7-决斗都市传说）（J）CAG 128
+System=GBA
+Test=ROCKMAN-X

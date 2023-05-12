@@ -1,0 +1,25 @@
+[左上方枚数]
+ON=4944,FF,E0,F5,5
+
+[回合数]
+ON=499E,0
+
+[BB]
+ON=49A2,F,27
+
+[RB]
+ON=49A6,F,27
+
+[右上方枚数]
+ON=49E8,F,27
+
+[不明（左下方）]
+ON=6ACC,E7,3
+
+[不明（右下方）]
+ON=495A,E7,3
+
+[GameInfo]
+Name=0370 - Slot-Pro Advance - Takarafune & Oedoshima Fubuki 2 (J)（专业柏青嫂游戏-宝船&大江户樱吹雪2）（J）PUZ 64
+System=GBA
+Text=大胖子 整理提供

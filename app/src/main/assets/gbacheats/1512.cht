@@ -1,0 +1,19 @@
+[生命]
+ON=47870,FF
+
+[隐身]
+ON=476F0,14
+
+[钻石]
+ON=4786D,FF
+
+[B键全道具]
+ON=47858,FF,FF,FF,FF,FF,FF,FF,FF
+
+[全辅助道具]
+ON=47860,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=1512 - Classic NES Series - The Legend of Zelda
+System=GBA
+Text=vicente

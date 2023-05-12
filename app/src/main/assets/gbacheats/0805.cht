@@ -1,0 +1,25 @@
+[大量金钱]
+ON=437D0,FF,FF
+
+[クロノア体力不减]
+ON=43830,E7,3
+
+[クロノア技力不减]
+ON=43104,20,3
+
+[クロノア快速升级]
+ON=43116,30,75
+
+[ガンツ体力不减]
+ON=43878,E7,3
+
+[ガンツ技力不减]
+ON=43170,20,3
+
+[ガンツ快速升级]
+ON=43182,30,75
+
+[GameInfo]
+Name=0805 - Klonoa Heroes - Densetsu no Star Medal (J)（克罗帝亚英雄们-传说的星之徽章）（J）A·RPG 128
+System=GBA
+Text=lancelot

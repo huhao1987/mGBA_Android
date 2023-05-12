@@ -1,0 +1,19 @@
+[第1关生命]
+ON=9990,6
+
+[第1关人数]
+ON=995C,63
+
+[第1关隐身]
+ON=9ABE,FF
+
+[第1关收集品]
+ON=9948,E7,3
+
+[关卡全开]
+ON=6EF0,F
+
+[GameInfo]
+Name=2379 - The Land Before Time - Into the Mysterious Beyond (U)
+System=GBA
+Text=vicente 

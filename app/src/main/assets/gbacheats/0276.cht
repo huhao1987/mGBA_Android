@@ -1,0 +1,23 @@
+[体力]
+MAX=440C4,0A;440C8,0A
+
+[武器]
+石头=9708,01
+木棒=9708,02
+
+[武器无限]
+MAX=9700,FF
+
+[隐身]
+ON=9629,1C;96E6,63
+
+[石头数]
+99=440C0,63
+
+[命]
+99=440B8,63
+
+[GameInfo]
+Name=0276 - The Flintstones - Big Trouble in Bedrock (E)（石头乐园-岩床上的大麻烦）（M）ACT 32
+System=GBA
+Text=大胖子 整理提供

@@ -1,0 +1,19 @@
+[点数]
+ON=1274,FF,E0,F5,5
+
+[经验]
+ON=1278,9F,F
+
+[力量]
+ON=127C,63
+
+[我方RAM]
+ON=402AC,F,27
+
+[对方RAM]
+ON=402D8,0,0
+
+[GameInfo]
+Name=1798 - Beyblade G-Revolution
+System=GBA
+Text=vicente

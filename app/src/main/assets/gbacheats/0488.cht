@@ -1,0 +1,19 @@
+[只数]
+ON=1140,9
+
+[血]
+ON=790,3;E90,3
+
+[雷]
+ON=9448,63
+
+[子弹]
+ON=9444,63
+
+[隐身]
+ON=7A8,64;EA8,64
+
+[GameInfo]
+Name=0488 - Disneys Lilo & Stitch (E)（星际宝贝）（M）ACT 64
+System=GBA
+Text=大胖子 整理提供

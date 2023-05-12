@@ -1,0 +1,20 @@
+[生命]
+ON=405CD,A
+
+[人数]
+ON=405CA,A
+
+[隐身]
+ON=40594,FF
+
+[苹果]
+ON=405CF,99
+
+[钻石]
+ON=405D1,99
+
+[GameInfo]
+Name=1872 - Aladdin (U)
+System=GBA
+Text=vicente
+

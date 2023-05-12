@@ -1,0 +1,22 @@
+[我方积分]
+ON=B690,63
+
+[我方能量]
+ON=B692,0,C8
+
+[我方怒气]
+ON=B699,64
+
+[对方积分]
+ON=B691,0
+
+[对方能量]
+ON=B694,0,0
+
+[对方怒气]
+ON=B69B,32
+
+[GameInfo]
+Name=1635 - Crushed Baseball
+System=GBA
+Text=vicente

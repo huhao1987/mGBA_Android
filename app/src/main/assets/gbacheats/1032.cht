@@ -1,0 +1,20 @@
+[比赛时间]
+无限=40E00,0,0
+快速结束==40E00,50,C3
+
+[我方积分]
+ON=42E1A,63
+
+[我方能量]
+ON=42E1C,E7,3
+
+[对方积分]
+ON=42E3A,0
+
+[对方能量]
+ON=42E3C,0,0
+
+[GameInfo]
+Name=1032 - Pro Beach Soccer (E) （职业沙滩足球）（M6） SPG 32
+System=GBA
+Text=vicente

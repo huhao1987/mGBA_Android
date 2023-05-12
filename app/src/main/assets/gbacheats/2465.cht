@@ -1,0 +1,25 @@
+[能量]
+ON=62E0,63
+
+[积分]
+ON=62CC,3F,42,F
+
+[连锁]
+ON=62F4,4
+
+[Babar关卡全开]
+ON=3708,A,3
+
+[Arthur关卡全开]
+ON=3794,A,3
+
+[Flora关卡全开]
+ON=3820,A,3
+
+[Zephir关卡全开]
+ON=38AC,A,3
+
+[GameInfo]
+Name=2465 - Babar to the Rescue (E)
+System=GBA
+Text=vicente 

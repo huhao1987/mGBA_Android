@@ -1,0 +1,24 @@
+[周数]
+1=2e00,1
+2=2e00,2
+3=2e00,3
+4=2e00,4
+
+[月数]
+1=2e01,1
+2=2e01,2
+
+[年数]
+1=2e03,1
+2=2e03,2
+
+[全设备(会立即爆机)]
+ON=2e0c,1,1,1,1,1,1,1,1,1,1,1,1,1
+
+[观众数]
+1500=4436c,0f,27
+
+[GameInfo]
+Name=1047 - Gekitou Densetsu Noah - Dream Management (J) （激斗传说拳击-梦幻经理人）（J） SLG 64
+System=GBA
+Text=wangkei

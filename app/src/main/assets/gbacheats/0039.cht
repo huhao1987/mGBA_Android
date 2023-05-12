@@ -1,0 +1,21 @@
+[炸弹]
+9=44510,9;41958,9
+
+[生命]
+MAX=447A6,0;418D4,0
+
+[GameInfo]
+Name=0039 - Army Men Advance (U)（玩具军人）（M）ACT 32
+System=GBA
+Text=Azrael
+-------------------------------------------------------
+[炸弹9]
+ON=44510,9
+
+[HEALTH]
+ON=447A6,0,0
+
+[GameInfo]
+Name=0039 - Army Men Advance (U)（玩具军人）（M）ACT 32
+System=GBA
+Text=169

@@ -1,0 +1,22 @@
+[宝贝龙钻石]
+ON=8E40,E7,3
+
+[宝贝龙小游戏全开]
+ON=8E5C,1;8E60,1;8E64,1;8E68,1;8E6C,1;8E70,1;8E74,1;8E78,1;8E7C,1;8E80,1;8E84,1;8E88,1
+
+[宝贝龙全卡片]
+ON=B00C,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[袋狼苹果]
+ON=94FC,F,27
+
+[袋狼小游戏全开]
+ON=949C,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[袋狼全卡片]
+ON=D66C,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=2186 - 2 Games in 1 - Spyro Fusion + Crash Bandicoot Fusion (E)
+System=GBA
+Text=vicente

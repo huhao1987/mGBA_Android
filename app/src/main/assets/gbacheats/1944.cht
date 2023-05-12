@@ -1,0 +1,19 @@
+[生命]
+ON=3FD60,63
+
+[积分]
+ON=30BC,9F,86,1
+
+[拯救数]
+ON=30C8,0,0,0,0
+
+[收集品]
+ON=30CC,0,0,0,0
+
+[关开全开]
+ON=2AA3,FF;2AA7,FF;2AAB,FF;2AAF,FF;2AB3,FF;2AB7,FF;2ABB,FF;2ABF,FF;2AC3,FF;2AC7,FF;2ACB,FF;2ACF,FF;2AD3,FF;2AD7,FF
+
+[GameInfo]
+Name=1944 - Rayman - Hoodlum's Revenge (U)
+System=GBA
+Text=vicente

@@ -1,0 +1,13 @@
+[money]
+ON=333C,7F,96,98
+
+[全小游戏]
+ON=680,FF
+
+[全CG]
+ON=660,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=0704 - Di Gi Charat - DigiCommunication
+System=GBA
+Text=vicente

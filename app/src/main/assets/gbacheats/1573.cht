@@ -1,0 +1,19 @@
+[金钱]
+ON=29D8,9F,86,1
+
+[附加选项全开]
+ON=297F,FF,FF
+
+[挑战赛全开]
+ON=290E,FF,FF,FF,FF,FF,FF
+
+[全图片]
+ON=2926,FF,FF,FF,FF,FF,FF,FF,FF
+
+[全卡片]
+ON=224B,F0,FF,FF,FF,FF;2252,FF,FF;2255,FF,FF,FF,FF,FF,FF,FF,FF;225E,FF,FF;2261,FF,FF,FF,FF,F
+
+[GameInfo]
+Name=1573 - Digi Communication 2 in 1 Datou! Black Gemagema Dan
+System=GBA
+Text=vicente

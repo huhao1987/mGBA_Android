@@ -1,0 +1,22 @@
+[生命]
+ON=117A8,4
+
+[能量]
+ON=117AC,3
+
+[时间]
+ON=117CC,8A,19
+
+[积分]
+ON=117A0,9F,86,1
+
+[全小游戏]
+ON=3699,5
+
+[图片全开]
+ON=117D0,14;117D4,14;117D8,14117DC,14;117E0,14;117E4,14;117E8,14117EC,14
+
+[GameInfo]
+Name=2497 - Strawberry Shortcake - Sweet Dreams (U)
+System=GBA
+Text=vicente

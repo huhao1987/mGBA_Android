@@ -1,0 +1,16 @@
+[飞机耐久]
+ON=401A3,5
+
+[飞机架数]
+ON=45ADC,5
+
+[导弹]
+ON=401D8,63
+
+[全战役]
+ON=44200,10
+
+[GameInfo]
+Name=1932 - Glory Days The Essence Of War (E)
+System=GBA
+Text=vicente

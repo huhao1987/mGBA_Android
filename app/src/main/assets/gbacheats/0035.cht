@@ -1,0 +1,57 @@
+[生命数-吃鬼]
+ON=8AA0,5
+
+[生命数-除虫]
+ON=E560,5
+
+[生命数-小蜜蜂]
+ON=10E12,5
+
+[生命数-大蜜蜂]
+ON=1A88C,5
+
+[GameInfo]
+Name=0035 - Namco Museum Advanced (U)（南梦宫的博物馆）（E）ECT 32
+System=GBA
+Text=大胖子 整理提供
+------------------------------------------------------------------
+[Ms. Pac-Man 命5]
+ON=8AA0,5
+
+[Ms. Pac-Man 分数999999]
+ON=8AB8,3F,42,F
+
+[Ms. Pac-Man HIGH分数999999]
+ON=8AC0,3F,42,F
+
+[Pole Position 无限时间]
+ON=1B86F,5A
+
+[Pole Position 第1]
+ON=19267,0
+
+[Dig Dug 分数5000]
+ON=E55C,50,C3
+
+[Dig Dug 命]
+ON=E560,5
+
+[Dig Dug 无敌]
+ON=F41E,0,0
+
+[Galaga 命]
+ON=1A88C,6
+
+[Galaga 双倍子弹]
+ON=1A893,1;19BCC,A6,0
+
+[Galaxian 命]
+ON=10E12,5
+
+[Galaxian 分数50000]
+ON=10DE4,50,C3
+
+[GameInfo]
+Name=0035 - Namco Museum Advanced (U)（南梦宫的博物馆）（E）ECT 32
+System=GBA
+Text=169

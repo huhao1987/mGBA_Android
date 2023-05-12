@@ -1,0 +1,28 @@
+[分数 MAX]
+ON=11410,E7,3
+
+[生命 MAX]
+ON=11444,9
+
+[体力不减]
+ON=1144B,5
+
+[无敌]
+ON=3587F,63
+
+[人数]
+ON=11444,9
+
+[能量]
+ON=35EFE,2C,1
+
+[全卡片]
+ON=1144E,FF,FF,FF,FF,FF,FF
+
+[全道具+全关卡]
+ON=11447,FF
+
+[GameInfo]
+Name=1563 - Disneys Kim Possible 2
+System=GBA
+Text=vicente

@@ -1,0 +1,23 @@
+[1P HP]
+MAX=42F62,48
+0=42F62,0
+
+[2P HP]
+MAX=4305A,48
+0=4305A,0
+
+[3P HP]
+MAX=43152,48
+ON=43152,0
+
+[4P HP]
+MAX=4324A,48
+ON=4324A,0
+
+[TIME]
+ON=46540,63
+
+[GameInfo]
+Name=1350 - Gojira Kaiju Dairanto Advance (J)（怪兽大乱斗）（J）ACT 32
+System=GBA
+Text=大胖子 整理提供

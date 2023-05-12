@@ -1,0 +1,19 @@
+[生命]
+ON=46904,6
+
+[生命上限]
+ON=468C8,6
+
+[隐身]
+ON=46944,FF
+
+[快速过关]
+ON=468BC,8
+
+[小游戏全开]
+ON=40028,1,1,1,1,1,1,1,1
+
+[GameInfo]
+Name=2202 - Barbie and the Magic of Pegasus (E)
+System=GBA
+Text=vicente

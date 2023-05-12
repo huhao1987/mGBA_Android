@@ -1,0 +1,25 @@
+[FN收集品]
+ON=2F54,E7,3
+
+[FN全关卡]
+ON=2F3C,C
+
+[FN全图片]
+ON=2F40,FF,FF
+
+[TI生命]
+ON=1DBE5,20
+
+[TI能量]
+ON=1DC31,20
+
+[TI人数]
+ON=1D5FB,9
+
+[TI无敌]
+ON=1D5B1,FF
+
+[GameInfo]
+Name=2386 - 2 Games in 1 - Finding Nemo + The Incredibles (E)
+System=GBA
+Text=vicente 

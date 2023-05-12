@@ -1,0 +1,16 @@
+[体力]
+ON=1767E,64
+
+[タフ]
+ON=17686,64
+
+[基础能力（筋力、技术、变化球）]
+ON=16BA6,E7,3,E7,3,E7,3,E7,3
+
+[活力（不懂日语蒙的，就是体力边上的那个）]
+ON=16B9E,A
+
+[GameInfo]
+Name=0857 - Power Pro Kun Pocket 5 (J) （口袋职棒5）（J） SPG 64
+System=GBA
+Text=大胖子 整理提供

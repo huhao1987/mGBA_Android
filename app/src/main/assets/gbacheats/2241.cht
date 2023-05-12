@@ -1,0 +1,16 @@
+[人物生命]
+ON=44264,9
+
+[飞船耐久]
+ON=47430,8
+
+[飞船导弹]
+ON=47431,1
+
+[飞船弹药]
+ON=47434,38
+
+[GameInfo]
+Name=2241 - Atomic Betty (U)
+System=GBA
+Text=vicente

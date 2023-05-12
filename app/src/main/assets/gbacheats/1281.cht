@@ -1,0 +1,48 @@
+[男主角HP]
+ON=19851,63
+
+[女主角HP]
+ON=1A811,63
+
+[各种宝石的数量]
+ON=1FF84,63,63,63,63
+
+[素材全满]
+ON=1FF84,63,63,63,63
+
+[满信赖度]
+ON=12BE6,E8,3;12CC2,E8,3;12D9E,E8,3;12E7A,E8,3;12F56,E8,3;13032,E8,3;1310E,E8,3;131EA,E8,3;132C6,E8,3;133A2,E8,3;1347E,E8,3;1355A,E8,3;13636,E8,3;13712,E8,3
+
+[第一格物品]
+Posion Block=12A3B,1
+Power Block=12A3B,2
+Prlz Block=12A3B,3
+Protec Block=12A3B,4
+Speed Ring=12A3B,5
+Heal Ring=12A3B,6
+Shield Ring=12A3B,7
+Material=12A3B,8
+Dfs.Shield=12A3B,9
+Status Sld=12A3B,A
+Potion A=12A3B,B
+Potion B=12A3B,C
+potion C=12A3B,E
+Restore=12A3B,E
+Power Up=12A3B,F
+Bomb A=12A3B,10
+Bomb B=12A3B,11
+Shake A=12A3B,12
+Shake B=12A3B,13
+Mine A=12A3B,14
+Mine B=12A3B,15
+All Dash=12A3B,16
+Smoke=12A3B,17
+Lightning=12A3B,18
+Speed Shot=12A3B,19
+Pigeons=12A3B,1A
+Key=12A3B,1B
+
+[GameInfo]
+Name=1281 - CIMA The Enemy 半兽敌人
+System=GBA
+Text=vicente

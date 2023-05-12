@@ -1,0 +1,16 @@
+[瞬间加速]
+ON=403B8,20,4E
+
+[赛车汽油]
+ON=403A8,DF,FF,77
+
+[赛车耐久]
+ON=403AC,FF,FF,FF,2,FF,FF,2
+
+[快速过关]
+ON=403D2,5
+
+[GameInfo]
+Name=1091 - F1 2002
+System=GBA
+Text=vicente

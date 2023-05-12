@@ -1,0 +1,13 @@
+[生命]
+ON=F168,63
+
+[能量]
+ON=F418,0,0,1
+
+[关卡100%达成]
+ON=F64,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+
+[GameInfo]
+Name=1696 - Lego Knights Kingdom
+System=GBA
+Text=vicente

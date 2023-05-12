@@ -1,0 +1,22 @@
+[无限使用武器]
+ON=3728A,1;384D8,0
+
+[生命]
+ON=18A0,E7,3,E7,3;37294,E7,3
+
+[钱]
+ON=18F4,3F,42,F
+
+[战斗时快速集气]
+ON=6CCD,40
+
+[BUG FRAG]
+ON=18F8,63
+
+[stardchip]
+ON=9418,63
+
+[GameInfo]
+Name=1080 - Megaman Battle Network 3 White Version (J) （洛克人战斗网络3-白版）（J）RPG 64
+System=GBA
+Text=大胖子 整理提供

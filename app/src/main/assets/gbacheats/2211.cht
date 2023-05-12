@@ -1,0 +1,16 @@
+[全员满生命]
+ON=10C60,6;10D6C,6;10E78,6;10A48,6
+
+[全员满能量]
+ON=10C29,28;10D35,28;10A11,28
+
+[全收集]
+ON=3B9,3,4
+
+[全关卡]
+ON=444F8,FF
+
+[GameInfo]
+Name=2211 - Nicktoons Unite (U)
+System=GBA
+Text=vicente

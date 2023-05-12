@@ -1,0 +1,21 @@
+[时间变慢]
+ON=46DC0,FF
+
+[GameInfo]
+Name=2517 - Monster Trucks Mayhem (U)
+System=GBA
+Text=2517 - Monster Trucks Mayhem (U)
+------------------------------------------------------
+[金钱]
+ON=420BC,FF,E0,F5,5
+
+[配件全改造]
+ON=4210E,5,5,5,5,5
+
+[赛道全开]
+ON=42113,1,1,1,1,1,1,1,1,1,1,1
+
+[GameInfo]
+Name=2517 - Monster Trucks Mayhem (U)
+System=GBA
+Text=vicente

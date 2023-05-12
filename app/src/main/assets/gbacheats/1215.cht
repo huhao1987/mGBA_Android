@@ -1,0 +1,19 @@
+[SP]
+ON=426AF,C0
+
+[HP]
+ON=4268C,EC
+
+[隐身]
+ON=4268D,C8
+
+[武器威力]
+ON=426AD,2
+
+[只数]
+ON=4005D,9
+
+[GameInfo]
+Name=1215 - Power Rangers - Ninja Storm (E) （金刚战士-武士风暴）（M3） ACT 32
+System=GBA
+Text=大胖子

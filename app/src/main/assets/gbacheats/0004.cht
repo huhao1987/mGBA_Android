@@ -1,0 +1,27 @@
+[时间]
+ON=445E8,00,00
+
+[血]
+ON=44582,03
+
+[GameInfo]
+Name=0004 - Kuru Kuru Kururin (J)（滚滚棒）（J）PUZ 32
+System=GBA
+Text=大胖子 整理提供
+------------------------------------------------------
+[受伤次数]
+ON=4457E,0
+
+[心]
+ON=44582,3
+
+[MAX心]
+ON=44583,3
+
+[时间]
+ON=445E8,0,0
+
+[GameInfo]
+Name=0004 - Kuru Kuru Kururin (J)（滚滚棒）（J）PUZ 32
+System=GBA
+Text=169

@@ -1,0 +1,13 @@
+[我方体力不减]
+ON=4177C,0,0
+
+[时间]
+ON=41288,0
+
+[电脑无体力]
+ON=417EC,FF,FF
+
+[GameInfo]
+Name=0214 - Robot Wars - Advanced Destruction (E)（机器人大战-进化毁灭）（M）ACT 32
+System=GBA
+Text=大胖子 整理提供

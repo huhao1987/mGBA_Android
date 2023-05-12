@@ -1,0 +1,16 @@
+[子弹]
+ON=438A2,20;43992,20
+
+[飞行燃料]
+ON=4389E,E8;4398E,E8
+
+[血]
+ON=43835,1F;43925,1F
+
+[隐身]
+ON=43896,C8;43986,C8
+
+[GameInfo]
+Name=0315 - Jimmy Neutron - Boy Genius (E)（天才男孩-吉米）（M）ACT 32
+System=GBA
+Text=大胖子 整理提供

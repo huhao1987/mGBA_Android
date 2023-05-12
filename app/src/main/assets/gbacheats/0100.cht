@@ -1,0 +1,16 @@
+[脚] 
+ON=17C3,FF 
+
+[右手] 
+ON=17C1,FF 
+
+[左手] 
+ON=17C2,FF 
+
+[头] 
+ON=17C0,FF 
+
+[GameInfo] 
+Name=0100 - Medarot Navi - Kuwagata Version (J)（金属机器人大战-锹型虫版）（J）S·RPG 64
+System=GBA
+Text=大胖子 整理提供

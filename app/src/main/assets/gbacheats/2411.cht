@@ -1,0 +1,13 @@
+[全弹药]
+ON=457D5,7;457DD,9;457DF,63;457E5,15;457E7,63;457ED,10;457EF,63;457F5,F;457F7,63;457FD,F;457FF,63
+
+[生命]
+ON=42ADC,64
+
+[积分]
+ON=42A90,FF,E0,F5,5
+
+[GameInfo]
+Name=2411 - Chicken Shoot 2 (U)
+System=GBA
+Text=vicente 

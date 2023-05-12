@@ -1,0 +1,27 @@
+[选择关卡]
+ON=40510,28
+
+[GameInfo]
+Name=0036 - Chu Chu Rocket (U)（咻咻火箭）（M）PUZ 32
+System=GBA
+Text=大胖子 整理提供
+-----------------------------------------------------
+[Stage Challenge模式中无限时间]
+ON=42DB8,3,3B
+
+[Puzzle模式中Normal全完成]
+ON=43FF0,FF,FF,FF,FF
+
+[Puzzle模式中Original全完成]
+ON=44000,FF,FF,FF,FF
+
+[Stage Challenge模式中Normal全完成]
+ON=442A8,FF,FF,FF,FF
+
+[Stage Challenge模式中Original全完成]
+ON=442AC,FF,FF,FF,FF
+
+[GameInfo]
+Name=0036 - Chu Chu Rocket (U)（咻咻火箭）（M）PUZ 32
+System=GBA
+Text=169

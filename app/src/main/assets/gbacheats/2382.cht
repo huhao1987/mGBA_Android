@@ -1,0 +1,19 @@
+[TZGM生命]
+ON=411A9,3
+
+[TZGM金杯]
+ON=40FB8,E7,3
+
+[TZGM电话]
+ON=41654,E7,3
+
+[TMC得分全满]
+ON=471DE,50,D5
+
+[TMC小游戏全开]
+ON=471E0,FF
+
+[GameInfo]
+Name=2382 - 2 Games in 1 - Titeuf - Ze Gagmachine + Titeuf - Mega Compet' (F)
+System=GBA
+Text=vicente 

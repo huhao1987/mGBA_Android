@@ -1,0 +1,28 @@
+[战斗时的分数]
+MAX=42926,FF,FF
+0=142926,0,0
+
+[第一名分数（排名时）]
+MAX=4026C,FF,FF
+0=4026C,0,0
+
+[第二名分数（排名时）]
+MAX=4027C,FF,FF
+0=4027C,0,0
+
+[第三名分数（排名时）]
+MAX=4028C,FF,FF
+0=4028C,0,0
+
+[第四名分数（排名时）]
+MAX=4029C,FF,FF
+0=4029C,0,0
+
+[第五名分数（排名时）]
+MAX=402AC,FF,FF
+0=402AC,0,0
+
+[GameInfo]
+Name=0384 - Monster Jam Maximum Destruction (U)（怪物卡车大毁灭）（E）ACT+RCG 64
+System=GBA
+Text=大胖子 整理提供

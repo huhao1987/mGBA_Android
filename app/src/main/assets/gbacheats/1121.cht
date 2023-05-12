@@ -1,0 +1,16 @@
+[金钱99999999]
+ON=7110,FF,E0,F5,5
+
+[HP/MB999]
+ON=747A,E7,3;B832,E7,3
+
+[所有CHIP]
+ON=7621,FF,FF;7718,FF;780A,FF;7813,FF,FF
+
+[回合数为0]
+ON=B82C,0;B99A,64
+
+[GameInfo]
+Name=1121 - Rockman EXE Battle Chip GP (J) （洛克人EXE战斗芯片锦标赛)（J）TAB 64
+System=GBA
+Text=魔剑士但丁

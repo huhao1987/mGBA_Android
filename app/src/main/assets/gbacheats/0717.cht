@@ -1,0 +1,22 @@
+[HP]
+ON=43648,96
+
+[MP]
+ON=4364A,96
+
+[EXP?]
+ON=4364E,9F
+
+[HP+]
+ON=43657,63
+
+[MP+]
+ON=43658,63
+
+[金钱]
+ON=4364C,FF;4364D,FF
+
+[GameInfo]
+Name=0717 - Lord Of The Rings - The Two Towers (U)（指环王-双塔）（M）A·RPG 128
+System=GBA
+Text=marysmith

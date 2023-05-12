@@ -1,0 +1,16 @@
+[第一个游戏炮弹数]
+ON=42B4A,0
+
+[第二个游戏寻牌数]
+ON=42BD0,9
+
+[我方思考时间]
+ON=92D8,0,0
+
+[对方思考时间]
+ON=92DC,FF,FF,FF
+
+[GameInfo]
+Name=0923 - Ultimate Brain Games (U) （终极智力游戏）（E） TAB 32
+System=GBA
+Text=大胖子

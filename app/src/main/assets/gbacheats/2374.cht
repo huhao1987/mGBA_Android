@@ -1,0 +1,19 @@
+[金环]
+ON=44FEC,E7,3
+
+[人数]
+ON=45024,A
+
+[隐身]
+ON=45A3C,FF
+
+[时间]
+ON=45034,0,0,0,0
+
+[积分]
+ON=45030,7F,96,98
+
+[GameInfo]
+Name=2374 - Sonic Advance v1.1 (J)
+System=GBA
+Text=vicente 

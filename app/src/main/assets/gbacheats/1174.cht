@@ -1,0 +1,13 @@
+[游戏时间]
+ON=4390C,3B;4390E,9
+
+[载客用的时间]
+ON=43908,3B;4390A,9
+
+[钱]
+ON=43900,7F,96,98
+
+[GameInfo]
+Name=1174 - The Simpsons - Road Rage (E)（辛普森疯狂大道）（M5） RCG 64
+System=GBA
+Text=大胖子

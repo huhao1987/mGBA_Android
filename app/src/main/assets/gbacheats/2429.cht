@@ -1,0 +1,25 @@
+[不遇敌]
+ON=1C16,0,0
+
+[战后金钱]
+ON=A00C,FF,7F
+
+[战后BUG]
+ON=A00C,FE,FF
+
+[体力]
+ON=3A9D4,F,27
+
+[能量]
+ON=352A0,0,40
+
+[隐身]
+ON=38514,FF
+
+[敌人速死]
+ON=3AAAC,0,0;3AB84,0,0;3AC5C,0,0
+
+[GameInfo]
+Name=2429 - Mega Man Battle Network 6 Cybeast Falzar (E)
+System=GBA
+Text=vicente 

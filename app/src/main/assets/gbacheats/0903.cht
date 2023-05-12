@@ -1,0 +1,13 @@
+[剩余时间]
+ON=405D8,FF,5
+
+[比赛用时]
+ON=405C9,0,0;405CE,0,0
+
+[时速]
+ON=42A35,64
+
+[GameInfo]
+Name=0903 - Sega Rally Championship (U) （世嘉拉力锦标赛）（E） RCG 64
+System=GBA
+Text=大胖子 整理提供

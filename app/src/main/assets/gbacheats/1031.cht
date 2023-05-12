@@ -1,0 +1,50 @@
+[时间]
+ON=1AAF8,F,27
+
+[得分]
+ON=1A83C,80,96,98
+
+[GameInfo]
+Name=1031 - Tony Hawk's Pro Skater 3 (G) （托尼霍克职业滑板3）（G） SPG 64
+System=GBA
+Text=大胖子 整理提供
+--------------------------------------------------------------------------
+[TH CAREER$9999999]
+ON=D64,7F,96,98
+
+[TH CASH$9999999]
+ON=D68,7F,96,98
+
+[TH 全能力]
+ON=D81,A,A,A,A,A,A,A,A,A,A
+
+[Mindy CAREER$9999999]
+ON=142C,7F,96,98
+
+[Mindy CASH$9999999]
+ON=1430,7F,96,98
+
+[Mindy全能力]
+ON=1449,A,A,A,A,A,A,A,A,A,A
+
+[Mindy使用中的人物]
+Tony Hawk=41D64,0
+Bob Burnquist=41D64,1
+Steve Caballero=41D64,2
+Kareem Campbell=41D64,3
+Rune Glifberg=41D64,4
+Eric Koston=41D64,5
+Bucky Lasek=41D64,6
+Rodney Mullen=41D64,7
+Chad Muska=41D64,8
+Andrew Reynolds=41D64,9
+Geoff Rowley=41D64,A
+Elissa Steamer=41D64,B
+Jamie Thomas=41D64,C
+Spider-Man=41D64,D
+Mindy=41D64,E
+
+[GameInfo]
+Name=1031 - Tony Hawk's Pro Skater 3 (G) （托尼霍克职业滑板3）（G） SPG 64
+System=GBA
+Text=169

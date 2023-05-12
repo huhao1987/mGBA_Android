@@ -1,0 +1,13 @@
+[联盟赛全关卡]
+ON=BB9,86
+
+[自由赛全关卡]
+ON=BBB,FF
+
+[全赛车+全配备]
+ON=BD8,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=2149 - TG Rally (E)
+System=GBA
+Text=vicente

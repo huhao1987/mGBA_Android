@@ -1,0 +1,21 @@
+[生命]
+ON=B3E,FF
+
+[人数]
+ON=B36,63
+
+[豆子数]
+ON=B34,E7,3
+
+[无敌时间]
+ON=A9C,56
+
+[关卡全开]
+ON=31A8,FF,FF
+
+[GameInfo]
+Name=1674 - Ms. Pac-Man Maze Madness
+System=GBA
+Text=vicente
+
+

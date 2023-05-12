@@ -1,0 +1,36 @@
+[HP上限]
+9999=41530,F,27
+
+[导弹上限]
+999=41532,E7,3
+
+[超级导弹上限]
+255=41534,FF
+
+[超级炸弹上限]
+99=41535,63
+
+[全装备开启]
+ON=41536,0f,27;4153C,9F,9F,FF,FF;41542,1
+
+[全部隐藏要素开启]
+ON=40014,FF
+
+[地图开启]
+ON=37400,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF
+
+[超加速状态]
+ON=41353,FF;413DC,FF
+
+[GameInfo]
+Name=1370 - Metroid Zero Mission (U)（银河战士-初始任务）（E）ACT 64
+System=GBA
+Text=ASTAROTH、黄泉CUSTOM
+--------------------------------------------------------------------
+[最大能量,最大普通导弹,最大超级导弹,最大增强炸弹]
+ON=41530,E7,3,E7,3,63,63;41538,E7,3,63,63
+
+[GameInfo]
+Name=1370 - Metroid Zero Mission (U)（银河战士-初始任务）（E）ACT 64
+System=GBA
+Text=Flasejune

@@ -1,0 +1,16 @@
+[客队进球]
+0=5D86,0
+99=5D86,63
+
+[时间]
+不减（不要被表象迷惑，时间到了也不会结束的）=37FC,E7,3
+马上结束=37FC,0,0
+
+[主队进球]
+99=5CE2,63
+0=5CE2,0
+
+[GameInfo]
+Name=0187 - International Superstar Soccer (E)（国际超级足球）（E）SPG 64
+System=GBA
+Text=大胖子 整理提供

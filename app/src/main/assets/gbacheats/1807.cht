@@ -1,0 +1,22 @@
+[人数]
+ON=1E4E,9
+
+[生命]
+ON=93FC,64
+
+[警星]
+ON=93EE,0
+
+[全武器]
+ON=9412,FF,7F,FF,7F,FF,7F,FF,7F,FF,7F,FF,7F,FF,7F
+
+[积分]
+ON=9424,FF,E0,F5,5
+
+[关卡全开]
+ON=26D2,1,0,1,0,1,0,1,0,1,0
+
+[GameInfo]
+Name=1807 - Payback
+System=GBA
+Text=vicente

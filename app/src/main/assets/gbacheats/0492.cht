@@ -1,0 +1,16 @@
+[隐身]
+ON=10048,64
+
+[R]
+ON=10034,40,1
+
+[L]
+ON=10037,1
+
+[H]
+ON=10032,40,1
+
+[GameInfo]
+Name=0492 - Medabots AX - Metabee Version (U)（金属机器人大战AX-蓝蜂版）（E）FTG 64
+System=GBA
+Text=大胖子 整理提供

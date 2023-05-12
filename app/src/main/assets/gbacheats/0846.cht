@@ -1,0 +1,22 @@
+[无限必杀技]
+ON=45428,9
+
+[2P必杀技0]
+ON=455B8,0
+
+[作成模式人物能力全99]
+ON=46330,63,63,63,63,63
+
+[作成人物TP最大]
+ON=46314,E7,03
+
+[全能型角色作成可能&无限必杀设定可能]
+ON=4461C,FF
+
+[全技能入手]
+ON=4461D,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF;4462D,FF,FF,FF,FF,FF
+
+[GameInfo]
+Name=0846 - K-1 Pocket Grand Prix 2 (J)（K-1口袋格斗大奖赛2）（J）FTG 64
+System=GBA
+Text=dual

@@ -1,0 +1,10 @@
+[子弹数]
+ON=4770A,90
+
+[血]
+ON=440F6,64;44161,64;476FF,64
+
+[GameInfo]
+Name=0993 - Splinter Cell (U) （分裂细胞） （E） ACT 64
+System=GBA
+Text=大胖子 整理提供

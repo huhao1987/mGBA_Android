@@ -1,0 +1,19 @@
+[SD1生命]
+ON=1FAB1,40
+
+[SD1能量]
+ON=1FAB6,40
+
+[SD2体力]
+ON=46821,6
+
+[SD2金币]
+ON=4682E,63
+
+[SD2人数]
+ON=46831,7
+
+[GameInfo]
+Name=2133 - 2 Games in 1 - Scooby-Doo + Scooby-Doo 2 - Desatado (S)
+System=GBA
+Text=vicente

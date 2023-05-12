@@ -1,0 +1,36 @@
+[恢复道具 MAX]
+ON=44AF0,9
+
+[体力 MAX]
+ON=44ACC,50
+
+[金币 MAX]
+ON=41508,4F
+
+[关底解锁]
+ON=3BB4,1;3BB8,1;3BBC,1;3BC0,1
+
+[GameInfo]
+Name=1669 - Around The World In 80 Days (E)（环游世界80天）（M6）ACT 32
+System=GBA
+Text=大胖子 整理提供
+--------------------------------------------------------
+[体力]
+ON=44ACC,50
+
+[体力上限]
+ON=44A0C,50
+
+[生命]
+ON=44AF0,9
+
+[金币]
+ON=41508,63
+
+[全字母]
+ON=3BB4,1;3BB8,1;3BBC,1;3BC0,1
+
+[GameInfo]
+Name=1669 - Around the World in 80 Days (E)
+System=GBA
+Text=vicente

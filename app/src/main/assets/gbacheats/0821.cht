@@ -1,0 +1,18 @@
+[金钱无限] 
+ON=4334,3F,42,F 
+
+[主角HP/PP无限] 
+ON=2E6C,E7,3;2E70,E7,3 
+
+[主角EP无限] 
+ON=3090,F,27 
+
+[战斗后经验值] 
+100=4382C,64 
+1000=4382C,E8,3 
+10000=4382C,10,27
+
+[GameInfo] 
+Name=0821 - Uchuu Daisakusen Chocovader - Uchuu kara no Shinryakusha (J)（宇宙大作战-异次元的侵略者）（J）RPG 64
+System=GBA 
+Text=windzxw

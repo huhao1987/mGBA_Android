@@ -1,0 +1,25 @@
+[金钱]
+ON=44798,FF,E0,F5,5
+
+[全线索购买]
+ON=447A8,FF
+
+[全角色解锁]
+ON=447AC,FF,FF,FF,FF,FF;447C4,FF,FF
+
+[全角色购买]
+ON=447B4,FF,FF,FF,FF,FF;447C8,FF,FF
+
+[EX项全购买]
+ON=447BC,FF,FF,3
+
+[关卡全开]
+ON=4479C,FF,FF
+
+[自由战全开]
+ON=447A0,FF,FF
+
+[GameInfo]
+Name=2483 - Lego Star Wars 2 (E)
+System=GBA
+Text=vicente

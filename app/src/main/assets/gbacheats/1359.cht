@@ -1,0 +1,28 @@
+[各项状态正常]
+ON=43A03,64;43A07,64;43A0B,64;43A0F,64;43A13,64;43A17,64;43A1B,64;43A1F,64
+
+[钱]
+ON=43954,1869F
+
+[Body]
+ON=439F7,A
+
+[Creativity]
+ON=439F3,A
+
+[Charisma]
+ON=439FF,A
+
+[logic]
+ON=439FB,A
+
+[mechanical]
+ON=439EF,A
+
+[cooking]
+ON=439EB,A 
+
+[GameInfo]
+Name=1359 - The Sims (J)（模拟人生）（J）SLG 128
+System=GBA
+Text=大胖子 整理提供

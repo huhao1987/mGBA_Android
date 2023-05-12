@@ -1,0 +1,161 @@
+[生命]
+ON=43FA6,0,5
+
+[能量]
+ON=43FAA,D0,10
+
+[生命上限]
+ON=40920,2
+
+[能量上限]
+ON=40921,E
+
+[隐身]
+ON=401AA,FF
+
+[无敌]
+ON=401AC,A8,4
+
+[全必杀]
+ON=40900,FF
+
+[炸弹]
+ON=43FB6,8
+
+[全关卡]
+ON=4036A,6
+
+[全海员]
+ON=4036C,1F
+
+[全道具收集]
+ON=40964,FF,FF,FF,FF,FF,FF,FF
+
+[附加项全开]
+ON=408C8,FF
+
+[积分]
+ON=4093C,7F,96,98,0
+
+[时间]
+ON=4408B,E
+
+[硬币全收集]
+ON=40926,2,3,0,4,4,0,5,6,0,6,6,0,5,5,0,9,9
+
+[GameInfo]
+Name=2157 - Shonen Jumps One Piece (U)
+System=GBA
+Text=vicente
+
+道具收集
+01 Zolo's Stomach Band
+1-3关索隆加入后获得
+02 Rika's Rice Ball
+1-2关通过后，再次进入该关，在小女孩手中获得
+03 Axe-Hand Morgan Statue
+1-3关击败BOSS后获得
+04 Alvida's Iron Bar
+1-1关在过关旗帜的上方与NPC交谈，然后返回甲板的场景走右上方通道，战胜BOSS后获得
+05 Map of the Grand Line
+2-3关娜美加入后获得
+06 Treasure Key
+2-2关通过后，再次进入该关与某小狗交谈得到 可以开启宝箱
+07 Cabaji's Unicycle
+2-1关击败Cabaji后获得
+08 Chouchou's Dogfood
+2-2关击败BOSS后获得
+09 Special Buggy Ball
+2-3关击败BOSS后获得
+10 Usopp's Sling Shot
+3-3关乌索普加入后获得
+11 The Merry Go
+3-3关通过后，进入3-2关，在遇到黑色BOSS的下一个场景走右上方通道，从管家手中取得
+12 Kotatsu-buton Cape
+3-1关消灭Butchie后过关后获得
+13 Chakram
+3-2关过关后获得
+14 Cat's Claw
+3-3关击败BOSS后获得
+15 Lollipop
+4-3关香吉士加入后获得
+16 Mackerel Head One
+4-1关在过关前某NPC处获得
+17 Free Food
+4-2关过关后获得
+18 Gas Mask
+4-3关击败BOSS后获得
+19 Belle-Mere's tangerine
+5-1关娜美在队伍中时，与某NPC交谈获得
+20 Genzo's Pinwheet
+5-2关娜美在队伍中时，与某NPC交谈获得
+21 Snail
+5-2关在有大炮放在数排木箱的场景，利用旗杆走右上角的通道，消灭里面的敌人后得到
+22 Hatchan's Octopus Trap
+5-2关过关后获得
+23 Roast Pork
+5-2关第一次遇到大炮的场景向右走，在宝箱中获得
+24 Tooth Gum
+5-3关击败BOSS后获得
+25 Momoo
+5-1关将过关旗帜前的炮打落后，利用它弹到下面有宝箱的凹槽内，并在其中获得
+26 Usopp's Goggles
+6-1关第1次遇到3选1的门时，进入第3门后向左上走，会遇到NPC。乌索普加入队伍后，返回这里与其交谈获得
+27 Elephant Tuna
+6-1关在美妇人处获得
+28 Chop Chop Fruit
+6-1关在有过关旗帜的场景，从左上角向上跳，会遇到小丑巴基，消灭他后获得
+29 Billow-a-bike
+6-3关击败BOSS后获得
+30 Truncheon
+通关后6-3关击败BOSS后获得
+31 Wado
+1-2关击败BOSS后获得
+32+33 KitetsuIII+Yubashiri
+6-1关在有美妇人的场景走右上通道，会遇到1个老头，会赠给索隆这2把刀
+34 Shigure
+6-2关过关后获得
+35 Black Sword
+4-2关索隆在队伍中时，遇到黑衣男子时会发生对决的剧情，之后获得
+36 Straw Hat
+积分达到70,000,000以上获得，习得技能The Gun Gum Spear 跳起后，下+B
+37 Gun Gun Fruit
+积分达到25,000,000以上获得，习得技能the Gun Gum Balloon 下下
+38 Master of the Near Sea
+积分达到100,000,000以上获得
+39 Pansamay
+积分达到300,000,000以上获得
+40 Pandaman
+积分达到350,000,000以上获得
+41 Straw Hat Pirates
+搜集所有海贼旗帜后自动获得
+42 Navy
+通关后1-3关击败BOSS后获得
+43 Buggy Pirates
+通关后2-3关击败BOSS后获得
+44 Black Cat Pirates
+通关后3-3关击败BOSS后获得
+45 Krieg Aramada
+通关后4-3关击败BOSS后获得
+46 Arlong Pirates
+通关后5-3关击败BOSS后获得
+47 Alvida Pirates
+6-1关击败BOSS后获得
+48 Veggie Pirates
+3-1关遇到索隆的地方后面，有小孩子挡路。如果队中有乌索普的话，可以将小孩子带走，之后在右上角的宝箱内取得
+49 Cook Pirates
+4-1关香吉士在队伍中时，与过关旗帜前的NPC的交谈获得
+50 Red-Hair Pirates
+BOSS BATTLE模式全CLEAR
+
+能力奖励
+积分45,000,000，提升生命上限
+积分65,000,000，提升能量上限
+积分120,000,000，提升生命上限
+积分150,000,000，提升能量上限
+
+附加模式
+MINI-GAMES 通关后获得
+BOSS BATTLE 全金币收集后获得
+SOUND TEST
+通关后3-2关一开始向右下走，在某树那里接到任务。之后去前5大关的第2小关以及第6大关的第1小关收集小宝箱，每关1只，共6只。完成后返回这里与其交谈即可开启

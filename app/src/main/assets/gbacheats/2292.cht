@@ -1,0 +1,16 @@
+[人数]
+ON=43BE1,63
+
+[时间]
+ON=43404,FF
+
+[积分]
+ON=43428,FF,E0,F5,5
+
+[关卡全开]
+ON=436AE,80
+
+[GameInfo]
+Name=2292 - The Amazing Virtual Sea Monkeys (U)
+System=GBA
+Text=vicente 

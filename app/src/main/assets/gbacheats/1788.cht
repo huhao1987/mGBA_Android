@@ -1,0 +1,24 @@
+[体力]
+ON=3CD,14
+
+[体力上限]
+ON=3CC,14
+
+[金钱]
+ON=3D6,F,27
+
+[全装备]
+ON=416,FF
+
+[全道具]
+ON=41A,FF
+
+[全字条]
+ON=41C,FF,FF
+
+[GameInfo]
+Name=1788 - Frogger Kodaibunmei no Nazo
+System=GBA
+Text=vicente
+
+

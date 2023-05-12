@@ -10,5 +10,6 @@ data class GBAgame(
     @ColumnInfo(name = "Internalname") val Internalname: String?,
     @ColumnInfo(name = "Serial") val Serial: String?,
     @ColumnInfo(name = "EngGamename") val EngGamename: String?,
-    @ColumnInfo(name = "ChiGamename") val ChiGamename: String?
+    @ColumnInfo(name = "ChiGamename") val ChiGamename: String?,
+    @ColumnInfo(name = "GameNum") val GameNum : String?
 )

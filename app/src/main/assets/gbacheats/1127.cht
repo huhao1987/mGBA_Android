@@ -1,0 +1,19 @@
+[我方HP]
+ON=3ba2e,E7,3
+
+[我方EN]
+ON=3ba32,E7,3
+
+[敌方HP]
+ON=3be9e,0,0
+
+[敌方EN]
+ON=3bea2,0,0
+
+[所持金]
+ON=3eedc,E7,3
+
+[GameInfo]
+Name=1127 - Cyberdrive Zoids (J) （网络机械兽世纪）（J） RPG 64
+System=GBA
+Text=169

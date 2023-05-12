@@ -71,12 +71,15 @@ class GameListActivity : AppCompatActivity() {
             }?.toList())
             gamelist?.apply {
                 it.updateList(this)
-                it.itemClickListener = { position ->
+                it.itemClickListener = { position, game ->
                     startActivity(Intent(this@GameListActivity, GameActivity::class.java).also {
                         it.putExtra(
                             "gamepatch",
                             this.get(position).getAbsolutePath(this@GameListActivity)
                         )
+                        if(game is GBAgame) {
+                            it.putExtra("cheat", (game as GBAgame).GameNum)
+                        }
                     })
                 }
             }

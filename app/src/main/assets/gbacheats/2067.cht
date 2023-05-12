@@ -1,0 +1,22 @@
+[生命]
+ON=450AA,7
+
+[隐身]
+ON=40189,FF
+
+[能量]
+ON=450AB,4
+
+[关卡全开]
+ON=4501C,1F,1F,1F,1F
+
+[全家具]
+ON=45029,FF,FF,FF,FF,FF,FF
+
+[附加模式开启]
+ON=45014,FF
+
+[GameInfo]
+Name=2067 - Futari wa Precure Max Heart Maji Maji Fight de IN Janai (J)
+System=GBA
+Text=vicente 

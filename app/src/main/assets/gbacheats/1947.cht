@@ -1,0 +1,25 @@
+[人数]
+ON=40174,63
+
+[生命]
+ON=40F1C,3
+
+[蜂蜜]
+ON=40F1B,26
+
+[花朵]
+ON=400176,E7,3
+
+[隐身]
+ON=41580,45
+
+[无限飞行]
+ON=41561,D0
+
+[全关卡+全隐藏开启]
+ON=40161,FF,FF,FF,FF,FF,FF,FF,FF;4016C,9,FF
+
+[GameInfo]
+Name=1947 - Maya The Bee Sweet Gold (E)
+System=GBA
+Text=vicente 

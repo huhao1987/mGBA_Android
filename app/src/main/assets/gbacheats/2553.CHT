@@ -1,0 +1,19 @@
+[宝龄球积分]
+ON=40D8C,C8
+
+[躲避球对方积分]
+ON=40000,0,0,0
+
+[躲避球我方积分]
+ON=40003,9,9,9
+
+[射击子弹]
+ON=40036,63
+
+[射击生命]
+ON=4003F,0
+
+[GameInfo]
+Name=2553 - 3 in 1 - Majesco sports pack (U)
+System=GBA
+Text=vicente

@@ -1,0 +1,39 @@
+[宝珠数]
+99=2EEA6,63
+
+[生命]
+99=2EEA0,63
+
+[GameInfo]
+Name=0046 - Rayman Advance (U)（雷曼A）（M）ACT 64
+System=GBA
+Text=大胖子 整理提供
+--------------------------------------------------
+[可使用普通拳]
+ON=2BEE4,1
+
+[可使用黄金拳]
+ON=2EE8C,8
+
+[命99]
+ON=2EEA0,63
+
+[蓝色的球99]
+ON=2EEA6,63
+
+[血最高]
+ON=2EEA9,5
+
+[大跳]
+ON=2FCC0,3
+
+[无敌]
+ON=2FCD4,64
+
+[满血]
+ON=2FCF4,5
+
+[GameInfo]
+Name=0046 - Rayman Advance (U)（雷曼A）（M）ACT 64
+System=GBA
+Text=169

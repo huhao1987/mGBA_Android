@@ -1,0 +1,26 @@
+[电脑全为零星卡片]
+ON=404DE,0;404E2,0;404E6,0;404EA,0;404EE,0
+
+[自己全为六星卡片]
+ON=404A6,FF;404AA,FF;404AE,FF;404B2,FF;404B6,FF
+
+[电脑能量槽为零]
+ON=438C1,0;404F1,0
+
+[自己能量槽全满]
+ON=404B9,64;438C2,D
+
+[调换卡片时间(按SELECT键完成)]
+无限=40C04,0
+为零=40C04,84
+
+[隐藏人物可选]
+ON=DF5C,1,1
+
+[封面人物全部出现]
+ON=DF66,FF
+
+[GameInfo]
+Name=0986 - Azumanga Daioh Advance (J) （漫画大王）（J） AVG 64
+System=GBA
+Text=mxlee

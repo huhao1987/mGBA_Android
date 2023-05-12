@@ -1,0 +1,45 @@
+[分数MAX]
+ON=4960,3F,42,F
+
+[直接胜利]
+ON=4964,0
+
+[快速下落]
+ON=4968,8
+
+[评价时间 00：00]
+ON=49F1,0
+
+[难度等级]
+ON=495C,E6,3
+
+[胜利后获得Beanz数255]
+ON=4C62,FF
+
+[最高点数评价255]
+ON=4C61,FF
+
+[点数评价255]
+ON=4C60,FF
+
+[评价Rare Beanz数255]
+ON=4C63,FF
+
+[GameInfo]
+Name=1506 - Mighty Beanz Pocket Puzzles (U)（豆仔口袋方块）（E）PUZ 128
+System=GBA
+Text=魔剑士但丁
+-------------------------------------
+[快速过关]
+ON=4964,0
+
+[时间]
+ON=496C,CC,10
+
+[BEANZ CASE全开]
+ON=4998,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF;49C1,1,1,1,1,1,1,1,1
+
+[GameInfo]
+Name=1506 - Mighty Beanz Pocket Puzzles
+System=GBA
+Text=vicente

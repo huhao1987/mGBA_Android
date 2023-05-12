@@ -1,0 +1,25 @@
+[THU金钱]
+ON=1A14C,FF,E0,F5,5
+
+[THU全能力]
+ON=1A150,F;1A154,F;1A158,F;1A15C,F;1A160,F;1A164,F;1A168,F;1A16C,F
+
+[THU全人物]
+ON=DE4C,FF,FF,FF
+
+[THU全地点]
+ON=DE24,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1
+
+[THU作弊项全开]
+ON=D364,FF,FF
+
+[KSPS积分]
+ON=43B4,FF,E0,F5,5
+
+[KSPS能量]
+ON=43B8,90,1A
+
+[GameInfo]
+Name=2100 - 2 Games in 1 - Tony Hawk's Underground + Kelly Slater's Pro Surfer (U)
+System=GBA
+Text=vicente
