@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
 import hh.game.mgba_android.R
+import hh.game.mgba_android.utils.GBAcheatUtils
 import hh.game.mgba_android.utils.getKey
 import org.libsdl.app.SDLActivity
 import java.nio.charset.Charset
@@ -17,16 +18,17 @@ import kotlin.math.roundToInt
 
 
 class GameActivity : SDLActivity() {
-    private var surfaceparams : LayoutParams?=null
+    private var surfaceparams: LayoutParams? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mFullscreenModeActive = false
-        Log.d("GameActivity::","create")
+        Log.d("GameActivity::", "create")
         updateScreenPosition()
         addGameControler()
     }
+
     fun updateScreenPosition() {
-        if(surfaceparams==null) {
+        if (surfaceparams == null) {
             surfaceparams = RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
@@ -107,8 +109,13 @@ class GameActivity : SDLActivity() {
     override fun getArguments(): Array<String> {
         var gamepatch = intent.getStringExtra("gamepatch")
         val gameNum = intent.getStringExtra("cheat")
-        Log.d("thecheatfile::",this.assets.open("gbacheats/$gameNum.cht").reader(Charset.forName("GB2312")).readText())
-        return if(gamepatch!=null) arrayOf(gamepatch)
+        var cheat = GBAcheatUtils().convertECcodestoVba(this.assets.open("gbacheats/$gameNum.cht"))
+            .toString()
+        Log.d("thecheat:::", cheat)
+        return if (gamepatch != null) arrayOf(
+            gamepatch,
+            cheat
+        )
         else emptyArray<String>()
     }
 

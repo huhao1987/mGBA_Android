@@ -44,7 +44,7 @@ static void _loadState(struct mCoreThread* thread) {
     mCoreLoadStateNamed(thread->core, _state, SAVESTATE_RTC);
 }
 
-int runGame(char* fname){
+int runGame(char* fname, char * cheats){
     struct mSDLRenderer renderer = {0};
 
     struct mCoreOptions opts = {
@@ -66,6 +66,7 @@ int runGame(char* fname){
     mSubParserGraphicsInit(&subparser, &graphicsOpts);
     args.fname = fname;
     args.frameskip = 0;
+    LOG_D("thecheats %s",cheats);
 //    args.patch = "sdcard/gba/hjty.gba";
     if (!args.fname && !args.showVersion) {
     }
@@ -95,6 +96,10 @@ int runGame(char* fname){
     }
     opts.width = renderer.width * renderer.ratio;
     opts.height = renderer.height * renderer.ratio;
+
+    if(cheats!= nullptr){
+
+    }
 
     struct mCheatDevice* device = renderer.core->cheatDevice(renderer.core);
     if (args.cheatsFile) {
@@ -295,6 +300,6 @@ static void mSDLDeinit(struct mSDLRenderer* renderer) {
     SDL_Quit();
 }
 int main(int argc, char** argv) {
-    return runGame(argv[1]);
+    return runGame(argv[1],argv[2]);
 }
 
