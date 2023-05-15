@@ -16,9 +16,15 @@ class GBAcheatUtils {
         do {
             var cheat = Cheat()
             line = reader.readLine()
-            if (line != null) {
-                if (line.startsWith("[") && line.endsWith("]") && !line.contains("GameInfo")) {
-                    currentTitle = line.substring(1, line.length - 1)
+            if (line != null&&!line.equals("")) {
+                if (line.contains("[") && line.contains("]") && !line.contains("GameInfo")) {
+                    val regex = Regex("""\[(\w+)\]""")
+                    val match = regex.find(line)
+                    if (match != null) {
+                        currentTitle= match.groupValues[1]
+                    } else {
+                        currentTitle = ""
+                    }
                 } else if (line.contains("=")) {
                     val parts = line.split("=")
                     currentSubtitle = parts[0]
@@ -32,7 +38,7 @@ class GBAcheatUtils {
                         "Text" -> gbaCheat.gameDes = parts[1]
                         else -> {
                             val data = convertEccodeToVba(parts[1])
-                            cheat.cheatTitle = "#$currentTitle" + if (!currentSubtitle.equals(
+                            cheat.cheatTitle = "# $currentTitle" + if (!currentSubtitle.equals(
                                     "ON",
                                     true
                                 )
@@ -68,7 +74,7 @@ class GBAcheatUtils {
                 var offset = values[0].toInt(16)
                 for (j in 1 until values.size) {
                     var firstbit: Int
-                    val valStr = values[j]
+                    val valStr = values[j].trim()
                     val valInt = valStr.toInt(16)
                     when {
                         valStr.length <= 2 -> firstbit = 0
@@ -77,7 +83,7 @@ class GBAcheatUtils {
                         else -> firstbit = 0x30000000
                     }
                     val address = firstbit or baseaddr or offset
-                    retstr += address.toString(16).padStart(8, '0').toUpperCase() + " " +
+                    retstr += address.toString(16).padStart(8, '0').toUpperCase() + ":" +
                             Integer.toHexString(valInt).padStart(8, '0').toUpperCase() + "\n"
                     if (valStr.length <= 2) {
                         offset += 1
