@@ -6,8 +6,6 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,17 +14,10 @@ import com.anggrayudi.storage.file.getAbsolutePath
 import com.anggrayudi.storage.file.getStorageId
 import hh.game.mgba_android.adapter.GameListAdapter
 import hh.game.mgba_android.R
-import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GB.GBgameData
-import hh.game.mgba_android.database.GBA.GBAgame
 import hh.game.mgba_android.database.GBA.GBAgameData
 import hh.game.mgba_android.utils.Gameutils
-import hh.game.mgba_android.utils.GameDetailsListener
 import hh.game.mgba_android.utils.GameListListener
-import hh.game.mgba_android.utils.Gametype
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class GameListActivity : AppCompatActivity() {
     private val storageHelper = SimpleStorageHelper(this)
@@ -41,7 +32,7 @@ class GameListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_list)
         gamelistview = findViewById<RecyclerView>(R.id.gamelistview)
-        gameListAdapter = GameListAdapter(this, ArrayList())
+        gameListAdapter = GameListAdapter(this, ArrayList(),)
         sharepreferences = getSharedPreferences("mGBA", Context.MODE_PRIVATE)
         var permissionlist = contentResolver.persistedUriPermissions
 
@@ -67,7 +58,7 @@ class GameListActivity : AppCompatActivity() {
     fun setupUI() {
         var uri = Uri.parse(sharepreferences?.getString(FOLDER_PATH, null))
         var documentfile = DocumentFile.fromTreeUri(this, uri)
-        var coverfilelist = documentfile?.findFile("gbacovers")
+        var coverfilefolder = documentfile?.findFile("gbacovers")
         gamelistview.layoutManager = LinearLayoutManager(this)
         gamelistview.adapter = gameListAdapter.also {
             gamelist = ArrayList(documentfile?.listFiles()?.filter {
@@ -77,7 +68,7 @@ class GameListActivity : AppCompatActivity() {
             }?.toList())
             Gameutils.getGameList(
                 this@GameListActivity,
-                gamelist!!, ArrayList(coverfilelist?.listFiles()?.toList()), ArrayList(),
+                gamelist!!, ArrayList(coverfilefolder?.listFiles()?.toList()), ArrayList(),
                 object : GameListListener {
                     override fun onGetGamelist(
                         gbagamelist: ArrayList<GBAgameData>,
@@ -85,6 +76,7 @@ class GameListActivity : AppCompatActivity() {
                     ) {
                         var list = ArrayList(gbagamelist + gbgamelist)
                         it.updateList(list)
+                        it.updateCoverfolder(coverfilefolder)
                         it.itemClickListener = { position, game ->
                             startActivity(
                                 Intent(

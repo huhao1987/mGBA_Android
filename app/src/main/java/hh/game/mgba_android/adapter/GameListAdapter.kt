@@ -30,7 +30,7 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
     RecyclerView.Adapter<GameListAdapter.ViewHolder>() {
     private var gamelist = list
     var itemClickListener: ItemClickListener? = null
-
+    private var coverfolder:DocumentFile?=null
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val gamename = view.findViewById<TextView>(R.id.gamename)
         val gametype = view.findViewById<TextView>(R.id.gametype)
@@ -51,6 +51,13 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
                         context.getDrawable(R.drawable.icon_bg_gba)
                     holder.gametype.text = "GBA"
                     holder.gamename.text = game.gbaGame.ChiGamename
+//                    var image = coverfolder?.findFile("${game.gbaGame.GameNum}.png")?.getAbsolutePath(context)
+                    var image = coverfolder?.getAbsolutePath(context)+"/${game.gbaGame.GameNum}.png"
+
+                    Log.d("theimage::",image!!)
+                    Glide.with(context)
+                        .load(image)
+                        .into(holder.gamecover)
                 }
 
                 is GBgameData -> {
@@ -68,6 +75,11 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
 
     fun updateList(list: ArrayList<Any>) {
         this.gamelist = list
+        notifyDataSetChanged()
+    }
+
+    fun updateCoverfolder(folder:DocumentFile?){
+        this.coverfolder = folder
         notifyDataSetChanged()
     }
 }
