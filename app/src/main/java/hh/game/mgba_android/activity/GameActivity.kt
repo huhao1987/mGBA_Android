@@ -9,11 +9,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
+import com.blankj.utilcode.util.FileIOUtils
 import hh.game.mgba_android.R
 import hh.game.mgba_android.utils.GBAcheatUtils
 import hh.game.mgba_android.utils.getKey
 import org.libsdl.app.SDLActivity
-import java.nio.charset.Charset
+import java.io.File
 import kotlin.math.roundToInt
 
 
@@ -107,17 +108,24 @@ class GameActivity : SDLActivity() {
     }
 
     override fun getArguments(): Array<String> {
-        var gamepatch = intent.getStringExtra("gamepatch")
+        var gamepath = intent.getStringExtra("gamepath")
         val gameNum = intent.getStringExtra("cheat")
-        var cheat = GBAcheatUtils().convertECcodestoVba(this.assets.open("gbacheats/$gameNum.cht"))
-            .toString()
-        Log.d("thecheat:::", cheat)
-        return if (gamepatch != null) arrayOf(
-            gamepatch,
-            cheat
+        var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+        if (!File(internalCheatFile).exists()) {
+            var cheat =
+                GBAcheatUtils().convertECcodestoVba(this.assets.open("gbacheats/$gameNum.cht"))
+                    .toString()
+            FileIOUtils.writeFileFromString(
+                getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats",
+                cheat
+            )
+            Log.d("thecheat:::", cheat)
+        }
+        return if (gamepath != null) arrayOf(
+            gamepath,
+            internalCheatFile
         )
         else emptyArray<String>()
     }
-
 }
 

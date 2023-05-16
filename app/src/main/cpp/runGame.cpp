@@ -44,7 +44,8 @@ static void _loadState(struct mCoreThread* thread) {
     mCoreLoadStateNamed(thread->core, _state, SAVESTATE_RTC);
 }
 
-int runGame(char* fname, char * cheats){
+char* cheatcodes;
+int runGame(char* fname, char * internalcheatfile){
     struct mSDLRenderer renderer = {0};
 
     struct mCoreOptions opts = {
@@ -66,8 +67,8 @@ int runGame(char* fname, char * cheats){
     mSubParserGraphicsInit(&subparser, &graphicsOpts);
     args.fname = fname;
     args.frameskip = 0;
-    LOG_D("thecheats %s",cheats);
-//    args.patch = "sdcard/gba/hjty.gba";
+    LOG_D("thecheats %s",internalcheatfile);
+    //    args.patch = "sdcard/gba/hjty.gba";
     if (!args.fname && !args.showVersion) {
     }
 
@@ -97,19 +98,10 @@ int runGame(char* fname, char * cheats){
     opts.width = renderer.width * renderer.ratio;
     opts.height = renderer.height * renderer.ratio;
 
-    if(cheats!= nullptr){
 
-    }
 
     struct mCheatDevice* device = renderer.core->cheatDevice(renderer.core);
-    if (args.cheatsFile) {
-        struct VFile* vf = VFileOpen(args.cheatsFile, O_RDONLY);
-        if (vf) {
-            mCheatDeviceClear(device);
-            mCheatParseFile(device, vf);
-            vf->close(vf);
-        }
-    }
+    args.cheatsFile = internalcheatfile;
 
     mInputMapInit(&renderer.core->inputMap, &GBAInputInfo);
     mCoreInitConfig(renderer.core, PORT);
@@ -196,7 +188,9 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
         return 1;
     }
     mCoreAutoloadSave(renderer->core);
-    mCoreAutoloadCheats(renderer->core);
+    if(args->cheatsFile)
+    mCoreAutoloadCheats(renderer->core, args->cheatsFile);
+//    mCoreAutoloadCheatswithStr(renderer->core,cheatcodes);
 #ifdef ENABLE_SCRIPTING
     struct mScriptBridge* bridge = mScriptBridgeCreate();
 #ifdef ENABLE_PYTHON

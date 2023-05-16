@@ -17,11 +17,16 @@ import com.anggrayudi.storage.file.getStorageId
 import hh.game.mgba_android.adapter.GameListAdapter
 import hh.game.mgba_android.R
 import hh.game.mgba_android.database.GB.GBgame
+import hh.game.mgba_android.database.GB.GBgameData
 import hh.game.mgba_android.database.GBA.GBAgame
+import hh.game.mgba_android.database.GBA.GBAgameData
 import hh.game.mgba_android.utils.Gameutils
 import hh.game.mgba_android.utils.GameDetailsListener
+import hh.game.mgba_android.utils.GameListListener
 import hh.game.mgba_android.utils.Gametype
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class GameListActivity : AppCompatActivity() {
     private val storageHelper = SimpleStorageHelper(this)
@@ -62,6 +67,7 @@ class GameListActivity : AppCompatActivity() {
     fun setupUI() {
         var uri = Uri.parse(sharepreferences?.getString(FOLDER_PATH, null))
         var documentfile = DocumentFile.fromTreeUri(this, uri)
+        var coverfilelist = documentfile?.findFile("gbacovers")
         gamelistview.layoutManager = LinearLayoutManager(this)
         gamelistview.adapter = gameListAdapter.also {
             gamelist = ArrayList(documentfile?.listFiles()?.filter {
@@ -69,21 +75,40 @@ class GameListActivity : AppCompatActivity() {
                         ||
                         it.getAbsolutePath(this).contains(".gb", ignoreCase = true)
             }?.toList())
-            gamelist?.apply {
-                it.updateList(this)
-                it.itemClickListener = { position, game ->
-                    startActivity(Intent(this@GameListActivity, GameActivity::class.java).also {
-                        it.putExtra(
-                            "gamepatch",
-                            this.get(position).getAbsolutePath(this@GameListActivity)
-                        )
-                        if(game is GBAgame) {
-                            it.putExtra("cheat", (game as GBAgame).GameNum)
+            Gameutils.getGameList(
+                this@GameListActivity,
+                gamelist!!, ArrayList(coverfilelist?.listFiles()?.toList()), ArrayList(),
+                object : GameListListener {
+                    override fun onGetGamelist(
+                        gbagamelist: ArrayList<GBAgameData>,
+                        gbgamelist: ArrayList<GBgameData>
+                    ) {
+                        var list = ArrayList(gbagamelist + gbgamelist)
+                        it.updateList(list)
+                        it.itemClickListener = { position, game ->
+                            startActivity(
+                                Intent(
+                                    this@GameListActivity,
+                                    GameActivity::class.java
+                                ).also {
+                                    var game = list.get(position)
+                                    var gamepath = when (game) {
+                                        is GBAgameData -> game.gbaDocumentFile.getAbsolutePath(this@GameListActivity)
+                                        else -> (game as GBgameData).gbDocumentFile.getAbsolutePath(
+                                            this@GameListActivity
+                                        )
+                                    }
+                                    it.putExtra(
+                                        "gamepath",
+                                        gamepath
+                                    )
+                                    if (game is GBAgameData) {
+                                        it.putExtra("cheat", game.gbaGame.GameNum)
+                                    }
+                                })
                         }
-                    })
-                }
-            }
-
+                    }
+                })
         }
     }
 }
