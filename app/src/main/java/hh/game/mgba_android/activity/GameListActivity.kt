@@ -32,7 +32,7 @@ class GameListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_list)
         gamelistview = findViewById<RecyclerView>(R.id.gamelistview)
-        gameListAdapter = GameListAdapter(this, ArrayList(),)
+        gameListAdapter = GameListAdapter(this, ArrayList())
         sharepreferences = getSharedPreferences("mGBA", Context.MODE_PRIVATE)
         var permissionlist = contentResolver.persistedUriPermissions
 

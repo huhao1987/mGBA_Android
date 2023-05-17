@@ -15,6 +15,7 @@ import hh.game.mgba_android.utils.GBAcheatUtils
 import hh.game.mgba_android.utils.getKey
 import org.libsdl.app.SDLActivity
 import java.io.File
+import java.io.IOException
 import kotlin.math.roundToInt
 
 
@@ -112,20 +113,33 @@ class GameActivity : SDLActivity() {
         val gameNum = intent.getStringExtra("cheat")
         var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
         if (!File(internalCheatFile).exists()) {
-            var cheat =
-                GBAcheatUtils().convertECcodestoVba(this.assets.open("gbacheats/$gameNum.cht"))
-                    .toString()
-            FileIOUtils.writeFileFromString(
-                getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats",
-                cheat
-            )
-            Log.d("thecheat:::", cheat)
+            try {
+                var cheatfromasset = this.assets.open("gbacheats/$gameNum.cht")
+                var cheat =
+                    GBAcheatUtils().convertECcodestoVba(cheatfromasset)
+                        .toString()
+                FileIOUtils.writeFileFromString(
+                    getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats",
+                    cheat
+                )
+                Log.d("thecheat:::", cheat)
+            } catch (e: IOException) {
+
+            }
+
         }
-        return if (gamepath != null) arrayOf(
-            gamepath,
-            internalCheatFile
-        )
-        else emptyArray<String>()
+        return if (gamepath != null) {
+            if (File(internalCheatFile).exists())
+                arrayOf(
+                    gamepath,
+                    internalCheatFile
+                )
+            else arrayOf(
+                gamepath
+            )
+        } else emptyArray<String>()
+
     }
 }
+
 

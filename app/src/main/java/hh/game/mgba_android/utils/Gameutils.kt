@@ -34,14 +34,29 @@ class Gameutils(var context: Context, var path: String) {
                     var gbList = ArrayList<GBgameData>()
                     list.forEach {
                         if (it.name!!.contains(".gba", true)) {
-                            GameDatabase.getInstance(context).gbagameDao()
-                                .getGamelistwithCode(
-                                    Gameutils(
-                                        context,
-                                        it.getAbsolutePath(context)
-                                    ).init().getGameCode()
-                                )[0].apply {
-                                gbaList.add(GBAgameData(this, it))
+                            try {
+                                GameDatabase.getInstance(context).gbagameDao()
+                                    .getGamelistwithCode(
+                                        Gameutils(
+                                            context,
+                                            it.getAbsolutePath(context)
+                                        ).init().getGameCode()
+                                    )[0].apply {
+                                    gbaList.add(GBAgameData(this, it))
+                                }
+                            } catch (e: Exception) {
+                                gbaList.add(
+                                    GBAgameData(
+                                        GBAgame(
+                                            uid = 9999,
+                                            GameNum = "",
+                                            Internalname = "",
+                                            Serial = "",
+                                            EngGamename = it.name?.replace(".gba", ""),
+                                            ChiGamename = it.name?.replace(".gba", "")
+                                        ), it
+                                    )
+                                )
                             }
                         } else {
                             gbList.add(
