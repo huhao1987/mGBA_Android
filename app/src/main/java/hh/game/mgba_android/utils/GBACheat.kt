@@ -11,7 +11,7 @@ data class GBACheat(
     var cheatlist: ArrayList<Cheat>? = ArrayList<Cheat>()
 ) : Parcelable {
     override fun toString(): String {
-        return "$cheatlist\n${
+        return "${
             cheatlist?.joinToString(
                 separator = " ",
                 prefix = "",

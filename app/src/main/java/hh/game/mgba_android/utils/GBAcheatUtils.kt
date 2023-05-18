@@ -7,7 +7,7 @@ import java.io.InputStreamReader
 import java.nio.charset.Charset
 
 class GBAcheatUtils {
-    fun convertECcodestoVba(input: InputStream): GBACheat {
+    fun convertECcodestoVba(input: InputStream,allDisalbe:Boolean): GBACheat {
         val reader = BufferedReader(InputStreamReader(input, "GB2312"))
         var line: String?
         var currentTitle: String? = null
@@ -37,8 +37,13 @@ class GBAcheatUtils {
 
                         "Text" -> gbaCheat.gameDes = parts[1]
                         else -> {
-                            val data = convertEccodeToVba(parts[1])
-                            cheat.cheatTitle = "# $currentTitle" + if (!currentSubtitle.equals(
+                            var cachecode = parts[1]
+                            while(cachecode.endsWith(",")){
+                                cachecode+=reader.readLine()
+                            }
+                            val data = convertEccodeToVba(cachecode)
+                            var disableheader =  if(allDisalbe) "!disabled\n" else ""
+                            cheat.cheatTitle = "$disableheader# $currentTitle" + if (!currentSubtitle.equals(
                                     "ON",
                                     true
                                 )
