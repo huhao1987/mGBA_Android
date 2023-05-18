@@ -30,9 +30,11 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
     RecyclerView.Adapter<GameListAdapter.ViewHolder>() {
     private var gamelist = list
     var itemClickListener: ItemClickListener? = null
+    var itemOnLongClickListener: ItemOnLongClickListener? = null
     private var coverfolder: DocumentFile? = null
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val view = view
         val gamename = view.findViewById<TextView>(R.id.gamename)
         val gametype = view.findViewById<TextView>(R.id.gametype)
         val gamecover = view.findViewById<ImageView>(R.id.gamecover)
@@ -69,8 +71,12 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
                     holder.gamename.text = game.gBgame.EngGamename
                 }
             }
-            holder.gamename.setOnClickListener {
+            holder.view.setOnClickListener {
                 itemClickListener?.invoke(position, game)
+            }
+            holder.view.setOnLongClickListener {
+                itemOnLongClickListener?.invoke(position,game)
+                true
             }
         }
     }
@@ -85,5 +91,5 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
         notifyDataSetChanged()
     }
 }
-
+typealias ItemOnLongClickListener = (Int, Any?) -> Unit
 typealias ItemClickListener = (Int, Any?) -> Unit

@@ -7,5 +7,4 @@ data class GBgameData(
     var gBgame: GBgame,
     var gbDocumentFile: DocumentFile,
     var gametype: Gametype = Gametype.GB
-
 )

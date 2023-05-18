@@ -1,13 +1,45 @@
 package hh.game.mgba_android.utils
 
+import android.content.Context
 import android.util.Log
+import com.blankj.utilcode.util.FileIOUtils
 import java.io.BufferedReader
+import java.io.File
+import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.nio.charset.Charset
 
 class GBAcheatUtils {
-    fun convertECcodestoVba(input: InputStream,allDisalbe:Boolean): GBACheat {
+    companion object{
+        fun generateInternalCheat(context: Context, gameNum:String?) : Boolean{
+            gameNum?.apply {
+                var internalCheatFile = context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht"
+                if (!File(internalCheatFile).exists()) {
+                    try {
+                        var cheatfromasset = context.assets.open("gbacheats/$gameNum.cht")
+                        var cheat =
+                            GBAcheatUtils().convertECcodestoVba(cheatfromasset,false)
+                                .toString()
+                        FileIOUtils.writeFileFromString(
+                            context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht",
+                            cheat
+                        )
+                        FileIOUtils.writeFileFromString(
+                            context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats",
+                            cheat.replace("!enabled\n","")
+                        )
+                        Log.d("thecheat:::", cheat)
+                        return true
+                    } catch (e: IOException) {
+                        return false
+                    }
+                }
+                else return true
+            }
+            return false
+        }
+    }
+    fun convertECcodestoVba(input: InputStream, allEnable:Boolean): GBACheat {
         val reader = BufferedReader(InputStreamReader(input, "GB2312"))
         var line: String?
         var currentTitle: String? = null
@@ -42,8 +74,8 @@ class GBAcheatUtils {
                                 cachecode+=reader.readLine()
                             }
                             val data = convertEccodeToVba(cachecode)
-                            var disableheader =  if(allDisalbe) "!disabled\n" else ""
-                            cheat.cheatTitle = "$disableheader# $currentTitle" + if (!currentSubtitle.equals(
+                            cheat.isSelect = allEnable
+                            cheat.cheatTitle = "# $currentTitle" + if (!currentSubtitle.equals(
                                     "ON",
                                     true
                                 )

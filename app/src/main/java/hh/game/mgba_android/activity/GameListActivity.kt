@@ -4,20 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anggrayudi.storage.SimpleStorageHelper
 import com.anggrayudi.storage.file.getAbsolutePath
 import com.anggrayudi.storage.file.getStorageId
-import hh.game.mgba_android.adapter.GameListAdapter
 import hh.game.mgba_android.R
+import hh.game.mgba_android.adapter.GameListAdapter
 import hh.game.mgba_android.database.GB.GBgameData
 import hh.game.mgba_android.database.GBA.GBAgameData
-import hh.game.mgba_android.utils.Gameutils
 import hh.game.mgba_android.utils.GameListListener
+import hh.game.mgba_android.utils.Gametype
+import hh.game.mgba_android.utils.Gameutils
+
 
 class GameListActivity : AppCompatActivity() {
     private val storageHelper = SimpleStorageHelper(this)
@@ -96,6 +99,24 @@ class GameListActivity : AppCompatActivity() {
                                     )
                                     if (game is GBAgameData) {
                                         it.putExtra("cheat", game.gbaGame.GameNum)
+                                    }
+                                })
+                        }
+                        it.itemOnLongClickListener = { position, game ->
+                            startActivity(
+                                Intent(
+                                    this@GameListActivity,
+                                    CheatsActivity::class.java
+                                ).also {
+                                    when (game) {
+                                        is GBAgameData -> {
+                                            it.putExtra("gamedetail", (game as GBAgameData).gbaGame)
+                                            it.putExtra("gametype",Gametype.GBA.name)
+                                        }
+                                        is GBgameData -> {
+                                            it.putExtra("gamedetail", (game as GBgameData).gBgame)
+                                            it.putExtra("gametype",Gametype.GB.name)
+                                        }
                                     }
                                 })
                         }

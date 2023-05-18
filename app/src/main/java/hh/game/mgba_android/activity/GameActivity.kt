@@ -112,24 +112,8 @@ class GameActivity : SDLActivity() {
         var gamepath = intent.getStringExtra("gamepath")
         val gameNum = intent.getStringExtra("cheat")
         var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
-        if (!File(internalCheatFile).exists()) {
-            try {
-                var cheatfromasset = this.assets.open("gbacheats/$gameNum.cht")
-                var cheat =
-                    GBAcheatUtils().convertECcodestoVba(cheatfromasset)
-                        .toString()
-                FileIOUtils.writeFileFromString(
-                    getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats",
-                    cheat
-                )
-                Log.d("thecheat:::", cheat)
-            } catch (e: IOException) {
-
-            }
-
-        }
         return if (gamepath != null) {
-            if (File(internalCheatFile).exists())
+            if (GBAcheatUtils.generateInternalCheat(this,gameNum))
                 arrayOf(
                     gamepath,
                     internalCheatFile
