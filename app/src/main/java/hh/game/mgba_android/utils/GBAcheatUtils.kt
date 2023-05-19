@@ -10,15 +10,16 @@ import java.io.InputStream
 import java.io.InputStreamReader
 
 class GBAcheatUtils {
-    companion object{
-        fun generateInternalCheat(context: Context, gameNum:String?) : Boolean{
+    companion object {
+        fun generateInternalCheat(context: Context, gameNum: String?): Boolean {
             gameNum?.apply {
-                var internalCheatFile = context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht"
+                var internalCheatFile =
+                    context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht"
                 if (!File(internalCheatFile).exists()) {
                     try {
                         var cheatfromasset = context.assets.open("gbacheats/$gameNum.cht")
                         var cheat =
-                            GBAcheatUtils().convertECcodestoVba(cheatfromasset,false)
+                            GBAcheatUtils().convertECcodestoVba(cheatfromasset, false)
                                 .toString()
                         FileIOUtils.writeFileFromString(
                             context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht",
@@ -26,20 +27,20 @@ class GBAcheatUtils {
                         )
                         FileIOUtils.writeFileFromString(
                             context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats",
-                            cheat.replace("!enabled\n","")
+                            cheat.replace("!enabled\n", "")
                         )
                         Log.d("thecheat:::", cheat)
                         return true
                     } catch (e: IOException) {
                         return false
                     }
-                }
-                else return true
+                } else return true
             }
             return false
         }
     }
-    fun convertECcodestoVba(input: InputStream, allEnable:Boolean): GBACheat {
+
+    fun convertECcodestoVba(input: InputStream, allEnable: Boolean): GBACheat {
         val reader = BufferedReader(InputStreamReader(input, "GB2312"))
         var line: String?
         var currentTitle: String? = null
@@ -48,15 +49,9 @@ class GBAcheatUtils {
         do {
             var cheat = Cheat()
             line = reader.readLine()
-            if (line != null&&!line.equals("")) {
+            if (line != null && !line.equals("")) {
                 if (line.contains("[") && line.contains("]") && !line.contains("GameInfo")) {
-                    val regex = Regex("""\[(\w+)\]""")
-                    val match = regex.find(line)
-                    if (match != null) {
-                        currentTitle= match.groupValues[1]
-                    } else {
-                        currentTitle = ""
-                    }
+                    currentTitle = line.replace("[", "").replace("]", "")
                 } else if (line.contains("=")) {
                     val parts = line.split("=")
                     currentSubtitle = parts[0]
@@ -70,8 +65,8 @@ class GBAcheatUtils {
                         "Text" -> gbaCheat.gameDes = parts[1]
                         else -> {
                             var cachecode = parts[1]
-                            while(cachecode.endsWith(",")){
-                                cachecode+=reader.readLine()
+                            while (cachecode.endsWith(",")) {
+                                cachecode += reader.readLine()
                             }
                             val data = convertEccodeToVba(cachecode)
                             cheat.isSelect = allEnable
@@ -93,7 +88,7 @@ class GBAcheatUtils {
 
 
     /**
-     * Covert from ReGBA金手指编码转换器 V1.1 By Cynric
+     * Reference from ReGBA金手指编码转换器 V1.1 By Cynric
      */
     fun convertEccodeToVba(eccode: String): String {
         val lines = eccode.split("\n")
@@ -102,39 +97,34 @@ class GBAcheatUtils {
         var baseaddr = 0x2000000
         var codes = eccodeLine.split(";")
         for (code in codes) {
-            if (code.startsWith("[")) {
-                retstr += code + "\n"
-                continue
-            }
-            val values = code.split(",")
-            if (values[0].isNotBlank()) {
-                var offset = values[0].toInt(16)
-                for (j in 1 until values.size) {
-                    var firstbit: Int
-                    val valStr = values[j].trim()
-                    val valInt = valStr.toInt(16)
-                    when {
-                        valStr.length <= 2 -> firstbit = 0
-                        valStr.length <= 4 -> firstbit = 0x10000000
-                        valStr.length <= 6 -> firstbit = 0x20000000
-                        else -> firstbit = 0x30000000
-                    }
-                    val address = firstbit or baseaddr or offset
-                    retstr += address.toString(16).padStart(8, '0').toUpperCase() + ":" +
-                            Integer.toHexString(valInt).padStart(8, '0').toUpperCase() + "\n"
-                    if (valStr.length <= 2) {
-                        offset += 1
-                    } else if (valStr.length <= 4) {
-                        offset += 2
-                    } else if (valStr.length <= 6) {
-                        offset += 3
-                    } else if (valStr.length <= 8) {
-                        offset += 4
-                    }
-                }
-            }
+            retstr += convertoneCodeToVba(code)
         }
         return retstr
     }
 
+    fun convertoneCodeToVba(code: String): String {
+        var baseaddr = 0x2000000
+        val values = code.split(",")
+        var baseAddress = 0
+        var address = ""
+        var result = ""
+        if (values[0].isNotBlank()) {
+            var offset = values[0].toInt(16)
+            var valueList = values.drop(1).chunked(4)
+            valueList.forEachIndexed { index, strings ->
+                var firstbit: Int
+                val valStr = strings[0].trim()
+                when {
+                    valStr.length <= 2 -> firstbit = 0
+                    valStr.length <= 4 -> firstbit = 0x10000000
+                    valStr.length <= 6 -> firstbit = 0x20000000
+                    else -> firstbit = 0x30000000
+                }
+                baseAddress = (firstbit or baseaddr or offset) + (index * 4)
+                address = baseAddress.toString(16).padStart(8, '0').toUpperCase()
+                result += "$address:${strings.reversed().joinToString("").padStart(8, '0')}\n"
+            }
+        }
+        return result
+    }
 }
