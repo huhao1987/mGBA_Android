@@ -21,14 +21,7 @@ class GBAcheatUtils {
                         var cheat =
                             GBAcheatUtils().convertECcodestoVba(cheatfromasset, false)
                                 .toString()
-                        FileIOUtils.writeFileFromString(
-                            context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht",
-                            cheat
-                        )
-                        FileIOUtils.writeFileFromString(
-                            context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats",
-                            cheat.replace("!enabled\n", "")
-                        )
+                        GBAcheatUtils.saveCheatToFile(context, gameNum, cheat)
                         Log.d("thecheat:::", cheat)
                         return true
                     } catch (e: IOException) {
@@ -37,6 +30,17 @@ class GBAcheatUtils {
                 } else return true
             }
             return false
+        }
+
+        fun saveCheatToFile(context: Context, gameNum: String, str: String) {
+            FileIOUtils.writeFileFromString(
+                context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht",
+                str
+            )
+            FileIOUtils.writeFileFromString(
+                context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats",
+                str
+            )
         }
     }
 

@@ -4,7 +4,8 @@
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/gamecover"
-        android:layout_width="50dp"
+        android:layout_centerVertical="true"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/gametype"
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"/>
 <TextView
     android:id="@+id/gamename"
-    android:textSize="20dp"
+    android:textSize="15dp"
     android:layout_toRightOf="@+id/gametype"
     android:layout_centerVertical="true"
     android:layout_marginLeft="10dp"

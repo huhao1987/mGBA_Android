@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,9 +32,11 @@ class GameListActivity : AppCompatActivity() {
     private lateinit var gameListAdapter: GameListAdapter
     private lateinit var gamelistview: RecyclerView
     private var gamelist: ArrayList<DocumentFile>? = null
+    private var mgbaTitle: TextView?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_list)
+        mgbaTitle = findViewById<TextView>(R.id.mgbaTitle)
         gamelistview = findViewById<RecyclerView>(R.id.gamelistview)
         gameListAdapter = GameListAdapter(this, ArrayList())
         sharepreferences = getSharedPreferences("mGBA", Context.MODE_PRIVATE)
