@@ -1,5 +1,6 @@
 package hh.game.mgba_android.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -9,17 +10,21 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
-import com.blankj.utilcode.util.FileIOUtils
+import android.widget.TextView
 import hh.game.mgba_android.R
+import hh.game.mgba_android.database.GB.GBgame
+import hh.game.mgba_android.database.GBA.GBAgame
 import hh.game.mgba_android.utils.GBAcheatUtils
+import hh.game.mgba_android.utils.GameRuning
+import hh.game.mgba_android.utils.Gametype
 import hh.game.mgba_android.utils.getKey
 import org.libsdl.app.SDLActivity
 import java.io.File
-import java.io.IOException
 import kotlin.math.roundToInt
 
 
 class GameActivity : SDLActivity() {
+    private val requestcode = 123
     private var surfaceparams: LayoutParams? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +63,33 @@ class GameActivity : SDLActivity() {
         layoutParams.leftMargin = 10.dpToPx()
         layoutParams.rightMargin = 10.dpToPx()
         mLayout.addView(relativeLayout, layoutParams)
+        relativeLayout.findViewById<TextView>(R.id.cheatbtn).setOnClickListener {
+            startActivityForResult(Intent(this,CheatsActivity::class.java).also {
+                when(intent.getStringExtra("gametype")){
+                    "GBA" ->
+                        intent.getParcelableExtra<GBAgame>("gamedetail").let {
+                            game ->
+                            it.putExtra(
+                                "gamedetail",
+                                (game as GBAgame)
+                            )
+                            it.putExtra("gametype", Gametype.GBA.name)
+                            it.putExtra("cheat", game.GameNum)
+                        }
+
+                    else ->
+                        intent.getParcelableExtra<GBgame>("gamedetail").let {
+                                game ->
+                            it.putExtra(
+                                "gamedetail",
+                                (game as GBgame)
+                            )
+                            it.putExtra("gametype", Gametype.GB.name)
+                        }
+                }
+
+            },requestcode)
+        }
         relativeLayout.findViewById<ImageView>(R.id.rBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.lBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.aBtn).setGBAKeyListener()
@@ -111,9 +143,11 @@ class GameActivity : SDLActivity() {
     override fun getArguments(): Array<String> {
         var gamepath = intent.getStringExtra("gamepath")
         val gameNum = intent.getStringExtra("cheat")
+        var cheatpath = gamepath?.replace(".gba",".cheats")
+        if(!File(cheatpath).exists()) cheatpath = null
         var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
         return if (gamepath != null) {
-            if (GBAcheatUtils.generateInternalCheat(this,gameNum))
+            if (GBAcheatUtils.generateCheat(this,gameNum,cheatpath))
                 arrayOf(
                     gamepath,
                     internalCheatFile
@@ -124,6 +158,22 @@ class GameActivity : SDLActivity() {
         } else emptyArray<String>()
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode){
+            requestCode -> if(resultCode == RESULT_OK){
+                val gameNum = intent.getStringExtra("cheat")
+                var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+                reCallCheats(internalCheatFile)
+            }
+        }
+    }
+    override fun resumeNativeThread() {
+        super.resumeNativeThread()
+        GameRuning().getData()
+    }
+    external fun reCallCheats(cheatfile:String)
 }
 
 

@@ -100,8 +100,17 @@ class GameListActivity : AppCompatActivity() {
                                         "gamepath",
                                         gamepath
                                     )
-                                    if (game is GBAgameData) {
-                                        it.putExtra("cheat", game.gbaGame.GameNum)
+                                    when (game) {
+                                        is GBAgameData -> {
+                                            it.putExtra("gamedetail", (game as GBAgameData).gbaGame)
+                                            it.putExtra("gametype",Gametype.GBA.name)
+                                            it.putExtra("cheat", game.gbaGame.GameNum)
+
+                                        }
+                                        is GBgameData -> {
+                                            it.putExtra("gamedetail", (game as GBgameData).gBgame)
+                                            it.putExtra("gametype",Gametype.GB.name)
+                                        }
                                     }
                                 })
                         }
@@ -114,10 +123,12 @@ class GameListActivity : AppCompatActivity() {
                                     when (game) {
                                         is GBAgameData -> {
                                             it.putExtra("gamedetail", (game as GBAgameData).gbaGame)
+                                            it.putExtra("gamepath",game.gbaDocumentFile.getAbsolutePath(this@GameListActivity))
                                             it.putExtra("gametype",Gametype.GBA.name)
                                         }
                                         is GBgameData -> {
                                             it.putExtra("gamedetail", (game as GBgameData).gBgame)
+                                            it.putExtra("gamepath",game.gbDocumentFile.getAbsolutePath(this@GameListActivity))
                                             it.putExtra("gametype",Gametype.GB.name)
                                         }
                                     }

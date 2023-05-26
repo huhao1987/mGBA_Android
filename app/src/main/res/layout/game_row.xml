@@ -1,34 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/gamecover"
-        android:layout_centerVertical="true"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/gametype"
-        android:background="@drawable/icon_bg_gba"
-        android:text="GBA"
-        android:layout_toRightOf="@+id/gamecover"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:layout_centerVertical="true"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-<TextView
-    android:id="@+id/gamename"
-    android:textSize="15dp"
-    android:layout_toRightOf="@+id/gametype"
-    android:layout_centerVertical="true"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cheatarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:contentPadding="7dp"
+        app:rippleColor="@color/teal_200">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/gamecover"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true" />
+            <RelativeLayout
+                android:id="@+id/titlearea"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/gamecover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/gametype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_bg_gba"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="GBA"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/gamename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/gametype"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@+id/gametype"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+            </RelativeLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/gamepath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titlearea"
+                android:layout_marginTop="5dp"
+                android:layout_alignStart="@+id/titlearea"
+                android:textStyle="italic" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

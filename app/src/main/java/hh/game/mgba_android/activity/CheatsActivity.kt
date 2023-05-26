@@ -2,7 +2,6 @@ package hh.game.mgba_android.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -11,13 +10,11 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.FileIOUtils
 import com.google.android.material.card.MaterialCardView
 import hh.game.mgba_android.R
 import hh.game.mgba_android.adapter.CheatListAdapter
 import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
-import hh.game.mgba_android.databinding.ActivityCheatsBinding
 import hh.game.mgba_android.utils.Cheat
 import hh.game.mgba_android.utils.GBACheat
 import hh.game.mgba_android.utils.GBAcheatUtils
@@ -73,7 +70,7 @@ class CheatsActivity : AppCompatActivity() {
         cheatListAdapter = CheatListAdapter(this, ArrayList())
         if (gametype.equals("GBA")) {
             gameNum = (game as GBAgame).GameNum
-            if (GBAcheatUtils.generateInternalCheat(this, gameNum)) {
+            if (GBAcheatUtils.generateCheat(this, gameNum)) {
                 var cheatList = getCheatList()
                 cheatListview?.layoutManager = LinearLayoutManager(this)
                 cheatListAdapter.updateCheatList(cheatList)
@@ -94,8 +91,8 @@ class CheatsActivity : AppCompatActivity() {
     fun getCheatList(): ArrayList<Cheat> {
         var cheatList = ArrayList<Cheat>()
         var cheat = Cheat()
-        File(getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht").readLines()
-            .forEachIndexed { index, s ->
+        var cheatlines = File(getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht").readLines()
+            cheatlines.forEachIndexed { index, s ->
                 when {
                     s.contains("!disabled") -> {
                         if (!cheat.cheatTitle.equals("") && !cheat.cheatCode.equals("")) {
@@ -119,7 +116,15 @@ class CheatsActivity : AppCompatActivity() {
 
                     else -> cheat.cheatCode += s + "\n"
                 }
+                if(index == cheatlines.size-1)
+                    cheatList.add(cheat)
             }
         return cheatList
+    }
+
+    override fun onBackPressed() {
+        val resultCode = RESULT_OK
+        setResult(resultCode)
+        super.onBackPressed()
     }
 }

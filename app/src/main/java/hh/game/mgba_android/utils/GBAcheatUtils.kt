@@ -5,25 +5,34 @@ import android.util.Log
 import com.blankj.utilcode.util.FileIOUtils
 import java.io.BufferedReader
 import java.io.File
+import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
 class GBAcheatUtils {
     companion object {
-        fun generateInternalCheat(context: Context, gameNum: String?): Boolean {
+        fun generateCheat(
+            context: Context,
+            gameNum: String?,
+            externalcheatfile: String? = null
+        ): Boolean {
             gameNum?.apply {
                 var internalCheatFile =
                     context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht"
                 if (!File(internalCheatFile).exists()) {
                     try {
-                        var cheatfromasset = context.assets.open("gbacheats/$gameNum.cht")
-                        var cheat =
-                            GBAcheatUtils().convertECcodestoVba(cheatfromasset, false)
-                                .toString()
-                        GBAcheatUtils.saveCheatToFile(context, gameNum, cheat)
-                        Log.d("thecheat:::", cheat)
-                        return true
+                        if (externalcheatfile == null) {
+                            var cheatfromFile = context.assets.open("gbacheats/$gameNum.cht")
+                            var cheat =
+                                GBAcheatUtils().convertECcodestoVba(cheatfromFile, false)
+                                    .toString()
+                            saveCheatToFile(context, gameNum, cheat)
+                            Log.d("thecheat:::", cheat)
+                            return true
+                        }
+                        else
+                            saveCheatToFile(context,gameNum,File(externalcheatfile).inputStream().convertToString())
                     } catch (e: IOException) {
                         return false
                     }
@@ -31,7 +40,17 @@ class GBAcheatUtils {
             }
             return false
         }
+        fun FileInputStream.convertToString(): String {
+            val bufferedReader = BufferedReader(InputStreamReader(this))
+            val stringBuilder = StringBuilder()
 
+            var line: String? = bufferedReader.readLine()
+            while (line != null) {
+                stringBuilder.append(line+"\n")
+                line = bufferedReader.readLine()
+            }
+            return stringBuilder.toString()
+        }
         fun saveCheatToFile(context: Context, gameNum: String, str: String) {
             FileIOUtils.writeFileFromString(
                 context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht",
@@ -100,10 +119,37 @@ class GBAcheatUtils {
         var retstr = ""
         var baseaddr = 0x2000000
         var codes = eccodeLine.split(";")
+//        test(ArrayList(codes))
         for (code in codes) {
             retstr += convertoneCodeToVba(code)
         }
         return retstr
+    }
+
+    fun test(list: ArrayList<String>) {
+        var result = ArrayList<String>()
+        var current = ""
+        var next = ""
+        for (i in 0..list.size - 1) {
+            if (i < list.size - 1) {
+                var currentList = list[i].split(",")
+                var nextList = list[i + 1].split(",")
+                var curheader = currentList.get(0).toInt(16)
+                if (i == 0) current = currentList.get(0)
+                var nextheader = nextList.get(0).toInt(16)
+                if (curheader + 1 == nextheader) {
+                    current += ",${nextList.drop(0).joinToString(",")}"
+                } else {
+                    result.add(current)
+                    current = currentList.get(0)
+                }
+            } else {
+                result.add(list[i])
+            }
+        }
+        result.forEach {
+            Log.d("thetestresult::", it)
+        }
     }
 
     fun convertoneCodeToVba(code: String): String {

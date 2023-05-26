@@ -6,29 +6,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.CheatsActivity">
-    <RelativeLayout
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/backbtn"
             android:layout_marginLeft="10dp"
             android:src="@drawable/baseline_arrow_back_24"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/gametitle"
             android:layout_toRightOf="@+id/backbtn"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/white"
             android:text="@string/app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-    </RelativeLayout>
-    <Button
+    </com.google.android.material.appbar.MaterialToolbar>
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/switchbtn"
         android:text="Switch Editor"
         android:textAllCaps="false"
@@ -55,15 +54,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cheateditor"
             android:gravity="top"
             android:background="@null"
-            android:hint=""
             android:layout_above="@+id/saveBtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/saveBtn"
             android:text="Save"
             android:gravity="center"

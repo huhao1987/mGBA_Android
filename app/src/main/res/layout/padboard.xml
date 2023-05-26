@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/rBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -17,7 +17,18 @@
         android:textSize="25dp"
         android:textStyle="bold" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cheatbtn"
+        android:background="@drawable/btnbackgroud"
+        android:text="C"
+        android:gravity="center"
+        android:layout_toRightOf="@+id/rBtn"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/lBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -40,7 +51,7 @@
         android:layout_below="@+id/lBtn"
         android:layout_marginTop="80dp" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/aBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -55,7 +66,7 @@
         android:textSize="25dp"
         android:textStyle="bold" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -70,7 +81,7 @@
         android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold" />
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/selectBtn"
         android:layout_below="@+id/dpad"
         android:layout_width="wrap_content"
@@ -84,7 +95,7 @@
         android:textColor="@color/white"
         android:textSize="18dp"
         android:textStyle="bold" />
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/startBtn"
         android:layout_below="@+id/dpad"
         android:layout_width="wrap_content"

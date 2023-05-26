@@ -38,6 +38,7 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
         val gamename = view.findViewById<TextView>(R.id.gamename)
         val gametype = view.findViewById<TextView>(R.id.gametype)
         val gamecover = view.findViewById<ImageView>(R.id.gamecover)
+        val gamepath = view.findViewById<TextView>(R.id.gamepath)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -54,11 +55,11 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
                         context.getDrawable(R.drawable.icon_bg_gba)
                     holder.gametype.text = "GBA"
                     holder.gamename.text = game.gbaGame.ChiGamename
+                    holder.gamepath.text = game.gbaDocumentFile.getAbsolutePath(context)
 //                    var image = coverfolder?.findFile("${game.gbaGame.GameNum}.png")?.getAbsolutePath(context)
                     var image =
                         coverfolder?.getAbsolutePath(context) + "/${game.gbaGame.GameNum}.png"
 
-                    Log.d("theimage::", image!!)
                     Glide.with(context)
                         .load(image)
                         .into(holder.gamecover)
@@ -69,6 +70,7 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
                         context.getDrawable(R.drawable.icon_bg_gb)
                     holder.gametype.text = "GB"
                     holder.gamename.text = game.gBgame.EngGamename
+                    holder.gamepath.text = game.gbDocumentFile.getAbsolutePath(context)
                 }
             }
             holder.view.setOnClickListener {
