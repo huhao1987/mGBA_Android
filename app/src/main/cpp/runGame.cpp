@@ -188,7 +188,7 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
     }
     mCoreAutoloadSave(renderer->core);
     if(args->cheatsFile)
-    mCoreAutoloadCheats(renderer->core, args->cheatsFile);
+        mCoreAutoloadCheatsFromFile(renderer->core, args->cheatsFile);
 #ifdef ENABLE_SCRIPTING
     struct mScriptBridge* bridge = mScriptBridgeCreate();
 #ifdef ENABLE_PYTHON
@@ -319,8 +319,7 @@ char* convertJStringToChar(JNIEnv* env, jstring jstr) {
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_hh_game_mgba_1android_activity_GameActivity_reCallCheats(JNIEnv *env, jobject thiz,
-                                                              jstring cheatfile) {
+Java_hh_game_mgba_1android_activity_GameActivity_reCallCheats(JNIEnv *env, jobject thiz,jstring cheatfile) {
     char* cheat = convertJStringToChar(env,cheatfile);
-    mCoreAutoloadCheats(androidrenderer.core, cheat);
+    mCoreAutoloadCheatsFromFile(androidrenderer.core, cheat);
 }
