@@ -30,9 +30,12 @@ class GBAcheatUtils {
                             saveCheatToFile(context, gameNum, cheat)
                             Log.d("thecheat:::", cheat)
                             return true
-                        }
-                        else
-                            saveCheatToFile(context,gameNum,File(externalcheatfile).inputStream().convertToString())
+                        } else
+                            saveCheatToFile(
+                                context,
+                                gameNum,
+                                File(externalcheatfile).inputStream().convertToString()
+                            )
                     } catch (e: IOException) {
                         return false
                     }
@@ -40,17 +43,19 @@ class GBAcheatUtils {
             }
             return false
         }
+
         fun FileInputStream.convertToString(): String {
             val bufferedReader = BufferedReader(InputStreamReader(this))
             val stringBuilder = StringBuilder()
 
             var line: String? = bufferedReader.readLine()
             while (line != null) {
-                stringBuilder.append(line+"\n")
+                stringBuilder.append(line + "\n")
                 line = bufferedReader.readLine()
             }
             return stringBuilder.toString()
         }
+
         fun saveCheatToFile(context: Context, gameNum: String, str: String) {
             FileIOUtils.writeFileFromString(
                 context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht",
@@ -119,11 +124,21 @@ class GBAcheatUtils {
         var retstr = ""
         var baseaddr = 0x2000000
         var codes = eccodeLine.split(";")
-//        test(ArrayList(codes))
+        test1(ArrayList(codes))
         for (code in codes) {
             retstr += convertoneCodeToVba(code)
         }
         return retstr
+    }
+
+    fun test1(list: ArrayList<String>) {
+        Log.d("theresult::", list.splitToPairs().toString())
+    }
+
+    fun List<String>.splitToPairs(): List<Pair<List<String>, List<String>>> {
+        return if (size < 2) emptyList()
+        else zipWithNext()
+            .map { (prev, curr) -> prev.split(",").toList() to curr.split(",").toList() }
     }
 
     fun test(list: ArrayList<String>) {
@@ -172,7 +187,18 @@ class GBAcheatUtils {
                 }
                 baseAddress = (firstbit or baseaddr or offset) + (index * 4)
                 address = baseAddress.toString(16).padStart(8, '0').toUpperCase()
-                result += "$address:${strings.reversed().joinToString("").padStart(8, '0')}\n"
+                result += "$address:${
+                    strings.reversed().joinToString("").let {
+                        when {
+                            it.length <= 2 -> it.padStart(2, '0')
+                            it.length in 3..4 -> it.padStart(4, '0')
+                            it.length in 5..8 -> it.padStart(8, '0')
+                            else -> it 
+                        }
+
+                    }
+
+                }\n"
             }
         }
         return result

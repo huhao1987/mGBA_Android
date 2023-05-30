@@ -43,15 +43,14 @@ static struct VFile* _state = NULL;
 static void _loadState(struct mCoreThread* thread) {
     mCoreLoadStateNamed(thread->core, _state, SAVESTATE_RTC);
 }
-
-char* cheatcodes;
+struct mSDLRenderer androidrenderer;
 int runGame(char* fname, char * internalcheatfile){
-    struct mSDLRenderer renderer = {0};
+    androidrenderer = {0};
 
     struct mCoreOptions opts = {
             .useBios = true,
             .logLevel = mLOG_WARN | mLOG_ERROR | mLOG_FATAL,
-            .rewindEnable = false,
+            .rewindEnable = true,
             .rewindBufferCapacity = 600,
             .audioBuffers = 4096,
             .volume = 0x100,
@@ -78,48 +77,48 @@ int runGame(char* fname, char * internalcheatfile){
         return 1;
     }
 
-    renderer.core = mCoreFind(args.fname);
-    if (!renderer.core) {
+    androidrenderer.core = mCoreFind(args.fname);
+    if (!androidrenderer.core) {
         LOG_D("Could not run game. Are you sure the file exists and is a compatible game?\n");
         mArgumentsDeinit(&args);
         return 1;
     }
 
-    if (!renderer.core->init(renderer.core)) {
+    if (!androidrenderer.core->init(androidrenderer.core)) {
         mArgumentsDeinit(&args);
         return 1;
     }
 
-    renderer.core->desiredVideoDimensions(renderer.core, &renderer.width, &renderer.height);
-    renderer.ratio = graphicsOpts.multiplier;
-    if (renderer.ratio == 0) {
-        renderer.ratio = 1;
+    androidrenderer.core->desiredVideoDimensions(androidrenderer.core, &androidrenderer.width, &androidrenderer.height);
+    androidrenderer.ratio = graphicsOpts.multiplier;
+    if (androidrenderer.ratio == 0) {
+        androidrenderer.ratio = 1;
     }
-    opts.width = renderer.width * renderer.ratio;
-    opts.height = renderer.height * renderer.ratio;
+    opts.width = androidrenderer.width * androidrenderer.ratio;
+    opts.height = androidrenderer.height * androidrenderer.ratio;
 
 
 
-    struct mCheatDevice* device = renderer.core->cheatDevice(renderer.core);
+    struct mCheatDevice* device = androidrenderer.core->cheatDevice(androidrenderer.core);
     args.cheatsFile = internalcheatfile;
 
-    mInputMapInit(&renderer.core->inputMap, &GBAInputInfo);
-    mCoreInitConfig(renderer.core, PORT);
-    mArgumentsApply(&args, &subparser, 1, &renderer.core->config);
+    mInputMapInit(&androidrenderer.core->inputMap, &GBAInputInfo);
+    mCoreInitConfig(androidrenderer.core, PORT);
+    mArgumentsApply(&args, &subparser, 1, &androidrenderer.core->config);
 
-    mCoreConfigSetDefaultIntValue(&renderer.core->config, "logToStdout", true);
-    mCoreConfigLoadDefaults(&renderer.core->config, &opts);
-    mCoreLoadConfig(renderer.core);
+    mCoreConfigSetDefaultIntValue(&androidrenderer.core->config, "logToStdout", true);
+    mCoreConfigLoadDefaults(&androidrenderer.core->config, &opts);
+    mCoreLoadConfig(androidrenderer.core);
 
-    renderer.viewportWidth = renderer.core->opts.width;
-    renderer.viewportHeight = renderer.core->opts.height;
-    renderer.player.fullscreen = renderer.core->opts.fullscreen;
-    renderer.player.windowUpdated = 0;
+    androidrenderer.viewportWidth = androidrenderer.core->opts.width;
+    androidrenderer.viewportHeight = androidrenderer.core->opts.height;
+    androidrenderer.player.fullscreen = androidrenderer.core->opts.fullscreen;
+    androidrenderer.player.windowUpdated = 0;
 
-    renderer.lockAspectRatio = renderer.core->opts.lockAspectRatio;
-    renderer.lockIntegerScaling = renderer.core->opts.lockIntegerScaling;
-    renderer.interframeBlending = renderer.core->opts.interframeBlending;
-    renderer.filter = renderer.core->opts.resampleVideo;
+    androidrenderer.lockAspectRatio = androidrenderer.core->opts.lockAspectRatio;
+    androidrenderer.lockIntegerScaling = androidrenderer.core->opts.lockIntegerScaling;
+    androidrenderer.interframeBlending = androidrenderer.core->opts.interframeBlending;
+    androidrenderer.filter = androidrenderer.core->opts.resampleVideo;
 
 #ifdef BUILD_GL
     if (mSDLGLCommonInit(&renderer)) {
@@ -129,54 +128,54 @@ int runGame(char* fname, char * internalcheatfile){
 #ifdef BUILD_RASPI
     mRPIGLCommonInit(&renderer);
 #else
-    if (mSDLGLCommonInit(&renderer))
+    if (mSDLGLCommonInit(&androidrenderer))
 #endif
     {
-        mSDLGLES2Create(&renderer);
+        mSDLGLES2Create(&androidrenderer);
     } else
 #endif
     {
-        mSDLSWCreate(&renderer);
+        mSDLSWCreate(&androidrenderer);
     }
 
-    if (!renderer.init(&renderer)) {
+    if (!androidrenderer.init(&androidrenderer)) {
         mArgumentsDeinit(&args);
-        mCoreConfigDeinit(&renderer.core->config);
-        renderer.core->deinit(renderer.core);
+        mCoreConfigDeinit(&androidrenderer.core->config);
+        androidrenderer.core->deinit(androidrenderer.core);
         return 1;
     }
 
-    renderer.player.bindings = &renderer.core->inputMap;
-    mSDLInitBindingsGBAforAndroid(&renderer.core->inputMap);
-    mSDLInitEvents(&renderer.events);
-    mSDLEventsLoadConfig(&renderer.events, mCoreConfigGetInput(&renderer.core->config));
-    mSDLAttachPlayer(&renderer.events, &renderer.player);
-    mSDLPlayerLoadConfig(&renderer.player, mCoreConfigGetInput(&renderer.core->config));
+    androidrenderer.player.bindings = &androidrenderer.core->inputMap;
+    mSDLInitBindingsGBAforAndroid(&androidrenderer.core->inputMap);
+    mSDLInitEvents(&androidrenderer.events);
+    mSDLEventsLoadConfig(&androidrenderer.events, mCoreConfigGetInput(&androidrenderer.core->config));
+    mSDLAttachPlayer(&androidrenderer.events, &androidrenderer.player);
+    mSDLPlayerLoadConfig(&androidrenderer.player, mCoreConfigGetInput(&androidrenderer.core->config));
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-    renderer.core->setPeripheral(renderer.core, mPERIPH_RUMBLE, &renderer.player.rumble.d);
+    androidrenderer.core->setPeripheral(androidrenderer.core, mPERIPH_RUMBLE, &androidrenderer.player.rumble.d);
 #endif
 
     int ret;
 
     // TODO: Use opts and config
     mStandardLoggerInit(&_logger);
-    mStandardLoggerConfig(&_logger, &renderer.core->config);
-    ret = mSDLRun(&renderer, &args);
-    mSDLDetachPlayer(&renderer.events, &renderer.player);
-    mInputMapDeinit(&renderer.core->inputMap);
+    mStandardLoggerConfig(&_logger, &androidrenderer.core->config);
+    ret = mSDLRun(&androidrenderer, &args);
+    mSDLDetachPlayer(&androidrenderer.events, &androidrenderer.player);
+    mInputMapDeinit(&androidrenderer.core->inputMap);
 
     if (device) {
         mCheatDeviceDestroy(device);
     }
 
-    mSDLDeinit(&renderer);
+    mSDLDeinit(&androidrenderer);
     mStandardLoggerDeinit(&_logger);
 
     mArgumentsDeinit(&args);
     mCoreConfigFreeOpts(&opts);
-    mCoreConfigDeinit(&renderer.core->config);
-    renderer.core->deinit(renderer.core);
+    mCoreConfigDeinit(&androidrenderer.core->config);
+    androidrenderer.core->deinit(androidrenderer.core);
 
     return ret;
 }
@@ -190,7 +189,6 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
     mCoreAutoloadSave(renderer->core);
     if(args->cheatsFile)
     mCoreAutoloadCheats(renderer->core, args->cheatsFile);
-//    mCoreAutoloadCheatswithStr(renderer->core,cheatcodes);
 #ifdef ENABLE_SCRIPTING
     struct mScriptBridge* bridge = mScriptBridgeCreate();
 #ifdef ENABLE_PYTHON
@@ -297,3 +295,32 @@ int main(int argc, char** argv) {
     return runGame(argv[1],argv[2]);
 }
 
+char* convertJStringToChar(JNIEnv* env, jstring jstr) {
+    if (jstr == NULL) {
+        return NULL;
+    }
+    const char* str = env->GetStringUTFChars(jstr, NULL);
+    if (str == NULL) {
+        return NULL;
+    }
+    jsize len = env->GetStringUTFLength(jstr);
+    jbyteArray bytes = env->NewByteArray(len);
+    if (bytes == NULL) {
+        env->ReleaseStringUTFChars(jstr, str);
+        return NULL;
+    }
+    env->SetByteArrayRegion(bytes, 0, len, reinterpret_cast<const jbyte*>(str));
+    char* result = reinterpret_cast<char*>(env->GetByteArrayElements(bytes, NULL));
+    env->ReleaseStringUTFChars(jstr, str);
+    env->DeleteLocalRef(bytes);
+    return result;
+}
+
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_reCallCheats(JNIEnv *env, jobject thiz,
+                                                              jstring cheatfile) {
+    char* cheat = convertJStringToChar(env,cheatfile);
+    mCoreAutoloadCheats(androidrenderer.core, cheat);
+}

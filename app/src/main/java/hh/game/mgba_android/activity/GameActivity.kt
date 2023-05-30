@@ -15,7 +15,6 @@ import hh.game.mgba_android.R
 import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
 import hh.game.mgba_android.utils.GBAcheatUtils
-import hh.game.mgba_android.utils.GameRuning
 import hh.game.mgba_android.utils.Gametype
 import hh.game.mgba_android.utils.getKey
 import org.libsdl.app.SDLActivity
@@ -171,7 +170,6 @@ class GameActivity : SDLActivity() {
     }
     override fun resumeNativeThread() {
         super.resumeNativeThread()
-        GameRuning().getData()
     }
     external fun reCallCheats(cheatfile:String)
 }
