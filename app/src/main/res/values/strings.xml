@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">mGBA Android</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="savestatetitle">Do you want to save state?</string>
+    <string name="loadstatetitle">Do you want to load state?</string>
 </resources>

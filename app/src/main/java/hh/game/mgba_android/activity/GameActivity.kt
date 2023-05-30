@@ -1,5 +1,6 @@
 package hh.game.mgba_android.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import hh.game.mgba_android.R
 import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
@@ -88,6 +90,43 @@ class GameActivity : SDLActivity() {
                 }
 
             },requestcode)
+        }
+
+        relativeLayout.findViewById<TextView>(R.id.savestatetbtn).setOnClickListener {
+             let {
+                val builder = AlertDialog.Builder(it)
+                builder.apply {
+                    setTitle(R.string.savestatetitle)
+                    setPositiveButton(R.string.ok,
+                        DialogInterface.OnClickListener { dialog, id ->
+                            SaveState()
+                            dialog.dismiss()
+                        })
+                    setNegativeButton(R.string.cancel,
+                        DialogInterface.OnClickListener { dialog, id ->
+                            dialog.dismiss()
+                        })
+                }
+                builder.create()
+            }.show()
+        }
+        relativeLayout.findViewById<TextView>(R.id.loadstatebtn).setOnClickListener {
+            let {
+                val builder = AlertDialog.Builder(it)
+                builder.apply {
+                    setTitle(R.string.loadstatetitle)
+                    setPositiveButton(R.string.ok,
+                        DialogInterface.OnClickListener { dialog, id ->
+                            LoadState()
+                            dialog.dismiss()
+                        })
+                    setNegativeButton(R.string.cancel,
+                        DialogInterface.OnClickListener { dialog, id ->
+                            dialog.dismiss()
+                        })
+                }
+                builder.create()
+            }.show()
         }
         relativeLayout.findViewById<ImageView>(R.id.rBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.lBtn).setGBAKeyListener()
@@ -172,6 +211,8 @@ class GameActivity : SDLActivity() {
         super.resumeNativeThread()
     }
     external fun reCallCheats(cheatfile:String)
+    external fun SaveState()
+    external fun LoadState()
 }
 
 

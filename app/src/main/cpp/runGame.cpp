@@ -44,6 +44,7 @@ static void _loadState(struct mCoreThread* thread) {
     mCoreLoadStateNamed(thread->core, _state, SAVESTATE_RTC);
 }
 struct mSDLRenderer androidrenderer;
+struct mCoreThread thread;
 int runGame(char* fname, char * internalcheatfile){
     androidrenderer = {0};
 
@@ -180,7 +181,7 @@ int runGame(char* fname, char * internalcheatfile){
     return ret;
 }
 int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
-    struct mCoreThread thread = {
+    thread = {
             .core = renderer->core
     };
     if (!mCoreLoadFile(renderer->core, args->fname)) {
@@ -322,4 +323,19 @@ JNIEXPORT void JNICALL
 Java_hh_game_mgba_1android_activity_GameActivity_reCallCheats(JNIEnv *env, jobject thiz,jstring cheatfile) {
     char* cheat = convertJStringToChar(env,cheatfile);
     mCoreAutoloadCheatsFromFile(androidrenderer.core, cheat);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_SaveState(JNIEnv *env, jobject thiz) {
+    mCoreThreadInterrupt(&thread);
+    mCoreSaveState(androidrenderer.core, 0, SAVESTATE_SAVEDATA | SAVESTATE_SCREENSHOT | SAVESTATE_RTC);
+    mCoreThreadContinue(&thread);
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_LoadState(JNIEnv *env, jobject thiz) {
+    mCoreThreadInterrupt(&thread);
+    mCoreLoadState(androidrenderer.core, 0, SAVESTATE_SCREENSHOT | SAVESTATE_RTC);
+    mCoreThreadContinue(&thread);
 }

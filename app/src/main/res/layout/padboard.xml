@@ -19,15 +19,39 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/cheatbtn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btnbackgroud"
-        android:text="C"
         android:gravity="center"
-        android:layout_toRightOf="@+id/rBtn"
-        android:layout_marginLeft="120dp"
+        android:text="C"
+        android:textColor="@color/white" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/loadstatebtn"
+        android:background="@drawable/btnbackgroud"
+        android:text="Load"
+        android:gravity="center"
+        android:layout_toRightOf="@+id/cheatbtn"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textColor="@color/white"
-        android:layout_width="20dp"
+        android:layout_width="50dp"
         android:layout_height="20dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/savestatetbtn"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_toStartOf="@+id/cheatbtn"
+        android:background="@drawable/btnbackgroud"
+        android:gravity="center"
+        android:text="Save"
+        android:textColor="@color/white" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/lBtn"
         android:layout_width="50dp"
