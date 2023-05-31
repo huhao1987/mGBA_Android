@@ -326,18 +326,14 @@ Java_hh_game_mgba_1android_activity_GameActivity_reCallCheats(JNIEnv *env, jobje
 }
 
 extern "C"
-JNIEXPORT void JNICALL
-Java_hh_game_mgba_1android_activity_GameActivity_SaveState(JNIEnv *env, jobject thiz) {
-    mCoreThreadInterrupt(&thread);
-    mCoreSaveState(androidrenderer.core, 0, SAVESTATE_SAVEDATA | SAVESTATE_SCREENSHOT | SAVESTATE_RTC);
-    mCoreThreadContinue(&thread);
+JNIEXPORT jboolean JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_QuickSaveState(JNIEnv *env, jobject thiz) {
+    return static_cast<jboolean>(mCoreSaveState(androidrenderer.core, 0, SAVESTATE_SAVEDATA | SAVESTATE_SCREENSHOT | SAVESTATE_RTC));
 }
 extern "C"
-JNIEXPORT void JNICALL
-Java_hh_game_mgba_1android_activity_GameActivity_LoadState(JNIEnv *env, jobject thiz) {
-    mCoreThreadInterrupt(&thread);
-    mCoreLoadState(androidrenderer.core, 0, SAVESTATE_SCREENSHOT | SAVESTATE_RTC);
-    mCoreThreadContinue(&thread);
+JNIEXPORT jboolean JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_QuickLoadState(JNIEnv *env, jobject thiz) {
+    return static_cast<jboolean> (mCoreLoadState(androidrenderer.core, 0, SAVESTATE_SCREENSHOT | SAVESTATE_RTC));
 }
 extern "C"
 JNIEXPORT void JNICALL

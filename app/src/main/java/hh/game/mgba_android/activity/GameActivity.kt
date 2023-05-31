@@ -1,7 +1,5 @@
 package hh.game.mgba_android.activity
 
-import android.content.DialogInterface
-import android.content.DialogInterface.OnDismissListener
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,12 +11,14 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import hh.game.mgba_android.GameMenuFragment
-import hh.game.mgba_android.OnMenuListener
+import android.widget.Toast
+import hh.game.mgba_android.fragment.GameMenuFragment
+import hh.game.mgba_android.fragment.OnMenuListener
 import hh.game.mgba_android.R
 import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
+import hh.game.mgba_android.fragment.OnDialogClickListener
+import hh.game.mgba_android.fragment.PopDialogFragment
 import hh.game.mgba_android.utils.GBAcheatUtils
 import hh.game.mgba_android.utils.Gametype
 import hh.game.mgba_android.utils.getKey
@@ -68,11 +68,10 @@ class GameActivity : SDLActivity() {
         layoutParams.rightMargin = 10.dpToPx()
         mLayout.addView(relativeLayout, layoutParams)
         relativeLayout.findViewById<TextView>(R.id.cheatbtn).setOnClickListener {
-            startActivityForResult(Intent(this,CheatsActivity::class.java).also {
-                when(intent.getStringExtra("gametype")){
+            startActivityForResult(Intent(this, CheatsActivity::class.java).also {
+                when (intent.getStringExtra("gametype")) {
                     "GBA" ->
-                        intent.getParcelableExtra<GBAgame>("gamedetail").let {
-                            game ->
+                        intent.getParcelableExtra<GBAgame>("gamedetail").let { game ->
                             it.putExtra(
                                 "gamedetail",
                                 (game as GBAgame)
@@ -82,8 +81,7 @@ class GameActivity : SDLActivity() {
                         }
 
                     else ->
-                        intent.getParcelableExtra<GBgame>("gamedetail").let {
-                                game ->
+                        intent.getParcelableExtra<GBgame>("gamedetail").let { game ->
                             it.putExtra(
                                 "gamedetail",
                                 (game as GBgame)
@@ -92,56 +90,72 @@ class GameActivity : SDLActivity() {
                         }
                 }
 
-            },requestcode)
+            }, requestcode)
         }
 
         relativeLayout.findViewById<TextView>(R.id.savestatetbtn).setOnClickListener {
-             let {
-                val builder = AlertDialog.Builder(it)
-                builder.apply {
-                    setTitle(R.string.savestatetitle)
-                    setPositiveButton(R.string.ok,
-                        DialogInterface.OnClickListener { dialog, id ->
-                            SaveState()
-                            dialog.dismiss()
-                        })
-                    setNegativeButton(R.string.cancel,
-                        DialogInterface.OnClickListener { dialog, id ->
-                            dialog.dismiss()
-                        })
+            PauseGame()
+            PopDialogFragment(getString(R.string.savestatetitle))
+                .also {
+                    it.setOnDialogClickListener(object : OnDialogClickListener {
+                        override fun onPostive() {
+
+                            Toast.makeText(
+                                this@GameActivity,
+                                if (QuickSaveState())
+                                    getString(R.string.state_saved)
+                                else
+                                    getString(R.string.state_save_fail),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            ResumeGame()
+                        }
+
+                        override fun onNegative() {
+                            ResumeGame()
+                        }
+                    })
                 }
-                builder.create()
-            }.show()
+                .show(supportFragmentManager, "loadstate")
         }
         relativeLayout.findViewById<TextView>(R.id.loadstatebtn).setOnClickListener {
-            let {
-                val builder = AlertDialog.Builder(it)
-                builder.apply {
-                    setTitle(R.string.loadstatetitle)
-                    setPositiveButton(R.string.ok,
-                        DialogInterface.OnClickListener { dialog, id ->
-                            LoadState()
-                            dialog.dismiss()
-                        })
-                    setNegativeButton(R.string.cancel,
-                        DialogInterface.OnClickListener { dialog, id ->
-                            dialog.dismiss()
-                        })
+            PauseGame()
+            PopDialogFragment(getString(R.string.loadstatetitle))
+                .also {
+                    it.setOnDialogClickListener(object : OnDialogClickListener {
+                        override fun onPostive() {
+
+                            Toast.makeText(
+                                this@GameActivity,
+                                if (QuickLoadState())
+                                    getString(R.string.state_loaded)
+                                else getString(R.string.state_load_fail), Toast.LENGTH_SHORT
+                            ).show()
+
+                            ResumeGame()
+                        }
+
+                        override fun onNegative() {
+                            ResumeGame()
+                        }
+                    })
                 }
-                builder.create()
-            }.show()
+                .show(supportFragmentManager, "loadstate")
         }
         relativeLayout.findViewById<TextView>(R.id.menubtn).setOnClickListener {
             PauseGame()
             GameMenuFragment().also {
-                it.setOndismissListener(object:OnMenuListener{
+                it.setOndismissListener(object : OnMenuListener {
                     override fun onDismiss() {
                         ResumeGame()
                     }
+
                     override fun onSaveState() {
                     }
+
                     override fun onLoadState() {
                     }
+
                     override fun onExit() {
                         onBackPressed()
                         finish()
@@ -202,11 +216,11 @@ class GameActivity : SDLActivity() {
     override fun getArguments(): Array<String> {
         var gamepath = intent.getStringExtra("gamepath")
         val gameNum = intent.getStringExtra("cheat")
-        var cheatpath = gamepath?.replace(".gba",".cheats")
-        if(!File(cheatpath).exists()) cheatpath = null
+        var cheatpath = gamepath?.replace(".gba", ".cheats")
+        if (!File(cheatpath).exists()) cheatpath = null
         var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
         return if (gamepath != null) {
-            if (GBAcheatUtils.generateCheat(this,gameNum,cheatpath))
+            if (GBAcheatUtils.generateCheat(this, gameNum, cheatpath))
                 arrayOf(
                     gamepath,
                     internalCheatFile
@@ -220,20 +234,23 @@ class GameActivity : SDLActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode){
-            requestCode -> if(resultCode == RESULT_OK){
+        when (requestCode) {
+            requestCode -> if (resultCode == RESULT_OK) {
                 val gameNum = intent.getStringExtra("cheat")
-                var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+                var internalCheatFile =
+                    getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
                 reCallCheats(internalCheatFile)
             }
         }
     }
+
     override fun resumeNativeThread() {
         super.resumeNativeThread()
     }
-    external fun reCallCheats(cheatfile:String)
-    external fun SaveState()
-    external fun LoadState()
+
+    external fun reCallCheats(cheatfile: String)
+    external fun QuickSaveState(): Boolean
+    external fun QuickLoadState(): Boolean
     external fun PauseGame()
     external fun ResumeGame()
 }
