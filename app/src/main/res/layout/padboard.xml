@@ -27,7 +27,17 @@
         android:gravity="center"
         android:text="C"
         android:textColor="@color/white" />
-
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/menubtn"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btnbackgroud"
+        android:gravity="center"
+        android:text="Menu"
+        android:layout_below="@+id/cheatbtn"
+        android:textColor="@color/white" />
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/loadstatebtn"
         android:background="@drawable/btnbackgroud"

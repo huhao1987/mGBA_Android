@@ -1,6 +1,7 @@
 package hh.game.mgba_android.activity
 
 import android.content.DialogInterface
+import android.content.DialogInterface.OnDismissListener
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,8 @@ import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import hh.game.mgba_android.GameMenuFragment
+import hh.game.mgba_android.OnMenuListener
 import hh.game.mgba_android.R
 import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
@@ -128,6 +131,24 @@ class GameActivity : SDLActivity() {
                 builder.create()
             }.show()
         }
+        relativeLayout.findViewById<TextView>(R.id.menubtn).setOnClickListener {
+            PauseGame()
+            GameMenuFragment().also {
+                it.setOndismissListener(object:OnMenuListener{
+                    override fun onDismiss() {
+                        ResumeGame()
+                    }
+                    override fun onSaveState() {
+                    }
+                    override fun onLoadState() {
+                    }
+                    override fun onExit() {
+                        onBackPressed()
+                        finish()
+                    }
+                })
+            }.show(supportFragmentManager, "menu")
+        }
         relativeLayout.findViewById<ImageView>(R.id.rBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.lBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.aBtn).setGBAKeyListener()
@@ -213,6 +234,8 @@ class GameActivity : SDLActivity() {
     external fun reCallCheats(cheatfile:String)
     external fun SaveState()
     external fun LoadState()
+    external fun PauseGame()
+    external fun ResumeGame()
 }
 
 

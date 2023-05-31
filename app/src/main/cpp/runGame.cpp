@@ -339,3 +339,13 @@ Java_hh_game_mgba_1android_activity_GameActivity_LoadState(JNIEnv *env, jobject 
     mCoreLoadState(androidrenderer.core, 0, SAVESTATE_SCREENSHOT | SAVESTATE_RTC);
     mCoreThreadContinue(&thread);
 }
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_PauseGame(JNIEnv *env, jobject thiz) {
+    mCoreThreadInterrupt(&thread);
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_ResumeGame(JNIEnv *env, jobject thiz) {
+    mCoreThreadContinue(&thread);
+}

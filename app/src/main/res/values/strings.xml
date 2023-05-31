@@ -4,4 +4,7 @@
     <string name="cancel">Cancel</string>
     <string name="savestatetitle">Do you want to save state?</string>
     <string name="loadstatetitle">Do you want to load state?</string>
+    <string name="save_state">Save State</string>
+    <string name="load_state">Load state</string>
+    <string name="exit">Exit</string>
 </resources>
