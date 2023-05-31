@@ -51,7 +51,7 @@ int runGame(char* fname, char * internalcheatfile){
     struct mCoreOptions opts = {
             .useBios = true,
             .logLevel = mLOG_WARN | mLOG_ERROR | mLOG_FATAL,
-            .rewindEnable = true,
+            .rewindEnable = false,
             .rewindBufferCapacity = 600,
             .audioBuffers = 4096,
             .volume = 0x100,

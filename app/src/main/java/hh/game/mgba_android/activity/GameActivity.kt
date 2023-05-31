@@ -99,7 +99,6 @@ class GameActivity : SDLActivity() {
                 .also {
                     it.setOnDialogClickListener(object : OnDialogClickListener {
                         override fun onPostive() {
-
                             Toast.makeText(
                                 this@GameActivity,
                                 if (QuickSaveState())
@@ -124,7 +123,6 @@ class GameActivity : SDLActivity() {
                 .also {
                     it.setOnDialogClickListener(object : OnDialogClickListener {
                         override fun onPostive() {
-
                             Toast.makeText(
                                 this@GameActivity,
                                 if (QuickLoadState())
