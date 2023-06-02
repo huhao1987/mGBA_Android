@@ -345,3 +345,40 @@ JNIEXPORT void JNICALL
 Java_hh_game_mgba_1android_activity_GameActivity_ResumeGame(JNIEnv *env, jobject thiz) {
     mCoreThreadContinue(&thread);
 }
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_TakeScreenshot(JNIEnv *env, jobject thiz) {
+    size_t stride;
+    const void* pixels = 0;
+    unsigned width, height;
+    androidrenderer.core->desiredVideoDimensions(androidrenderer.core, &width, &height);
+    androidrenderer.core->getPixels(androidrenderer.core, &pixels, &stride);
+
+    const uint32_t* inputPixels = (const uint32_t*) pixels;
+    int inputStride = (int) stride / sizeof(uint32_t);
+    int bufferSize = width * height * 4; // 4 bytes per pixel (RGBA)
+    uint8_t* buffer = (uint8_t*) malloc(bufferSize);
+    uint8_t* outputPixels = buffer;
+
+    for (int i = 0; i < height; i++) {
+        const uint32_t* inputRow = inputPixels + i * inputStride;
+        for (int j = 0; j < width; j++) {
+            uint32_t pixel = inputRow[j];
+            *outputPixels++ = (uint8_t) (pixel & 0xff); // blue
+            *outputPixels++ = (uint8_t) ((pixel >> 8) & 0xff); // green
+            *outputPixels++ = (uint8_t) ((pixel >> 16) & 0xff); // red
+            *outputPixels++ = (uint8_t) ((pixel >> 24) & 0xff); // alpha
+        }
+    }
+
+    // Create the output jbyteArray and copy the data
+    jbyteArray outputArray = env->NewByteArray(bufferSize);
+    if (outputArray != NULL) {
+        env->SetByteArrayRegion(outputArray, 0, bufferSize, reinterpret_cast<jbyte*>(buffer));
+    }
+
+    // Free the buffer and return the jbyteArray
+    free(buffer);
+    return outputArray;
+}

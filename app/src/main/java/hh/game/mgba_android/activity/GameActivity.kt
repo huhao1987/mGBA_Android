@@ -1,6 +1,7 @@
 package hh.game.mgba_android.activity
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -21,9 +22,12 @@ import hh.game.mgba_android.fragment.OnDialogClickListener
 import hh.game.mgba_android.fragment.PopDialogFragment
 import hh.game.mgba_android.utils.GBAcheatUtils
 import hh.game.mgba_android.utils.Gametype
+import hh.game.mgba_android.utils.VideoUtils.Companion.captureScreenshot
 import hh.game.mgba_android.utils.getKey
 import org.libsdl.app.SDLActivity
 import java.io.File
+import java.io.FileOutputStream
+import java.nio.ByteBuffer
 import kotlin.math.roundToInt
 
 
@@ -95,14 +99,24 @@ class GameActivity : SDLActivity() {
 
         relativeLayout.findViewById<TextView>(R.id.savestatetbtn).setOnClickListener {
             PauseGame()
+            captureScreenshot(mSurface) { bitmap: Bitmap? ->
+               val file = File(getExternalFilesDir(null), "image.jpg")
+               val stream = FileOutputStream(file)
+               bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+               stream.flush()
+               stream.close()
+            }
+
+
             PopDialogFragment(getString(R.string.savestatetitle))
                 .also {
                     it.setOnDialogClickListener(object : OnDialogClickListener {
                         override fun onPostive() {
                             Toast.makeText(
                                 this@GameActivity,
-                                if (QuickSaveState())
+                                if (QuickSaveState()) {
                                     getString(R.string.state_saved)
+                                }
                                 else
                                     getString(R.string.state_save_fail),
                                 Toast.LENGTH_SHORT
@@ -172,6 +186,7 @@ class GameActivity : SDLActivity() {
         relativeLayout.findViewById<ImageView>(R.id.leftBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.rightBtn).setGBAKeyListener()
     }
+    private val TAG = "bitmaperror::"
 
     private fun Int.dpToPx(): Int {
         return TypedValue.applyDimension(
@@ -251,6 +266,7 @@ class GameActivity : SDLActivity() {
     external fun QuickLoadState(): Boolean
     external fun PauseGame()
     external fun ResumeGame()
+    external fun TakeScreenshot():ByteArray
 }
 
 
