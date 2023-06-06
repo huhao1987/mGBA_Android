@@ -24,8 +24,6 @@ class Gameutils(var context: Context, var path: String) {
         fun getGameList(
             context: Context,
             list: ArrayList<DocumentFile>,
-            gbaCoverList: ArrayList<DocumentFile>,
-            gbCoverList: ArrayList<DocumentFile>?,
             gameListListener: GameListListener
         ) {
             runBlocking {
@@ -77,10 +75,60 @@ class Gameutils(var context: Context, var path: String) {
                     )
                 }
             }
-
         }
 
-        external fun getFPS(): Int
+        fun getGameListwithComp(
+            context: Context,
+            list: ArrayList<DocumentFile>,
+            gbaCoverList: ArrayList<DocumentFile>,
+            gbCoverList: ArrayList<DocumentFile>?,
+        ) : ArrayList<GBAgameData>{
+
+                    var gbaList = ArrayList<GBAgameData>()
+                    var gbList = ArrayList<GBgameData>()
+                    list.forEach {
+                        if (it.name!!.contains(".gba", true)) {
+                            try {
+                                GameDatabase.getInstance(context).gbagameDao()
+                                    .getGamelistwithCode(
+                                        Gameutils(
+                                            context,
+                                            it.getAbsolutePath(context)
+                                        ).init().getGameCode()
+                                    )[0].apply {
+                                    gbaList.add(GBAgameData(this, it))
+                                }
+                            } catch (e: Exception) {
+                                gbaList.add(
+                                    GBAgameData(
+                                        GBAgame(
+                                            uid = 9999,
+                                            GameNum = "",
+                                            Internalname = "",
+                                            Serial = "",
+                                            EngGamename = it.name?.replace(".gba", ""),
+                                            ChiGamename = it.name?.replace(".gba", "")
+                                        ), it
+                                    )
+                                )
+                            }
+                        } else {
+                            gbList.add(
+                                GBgameData(
+                                    GameDatabase.getInstance(context).gbgameDao()
+                                        .getGamelistwithCode(
+                                            Gameutils(
+                                                context,
+                                                it.getAbsolutePath(context)
+                                            ).init().getGameCode()
+                                        )[0], it
+                                )
+                            )
+                        }
+                    }
+            return gbaList
+        }
+        external fun getFPS(): Float
     }
 
     fun init(): Gameutils {

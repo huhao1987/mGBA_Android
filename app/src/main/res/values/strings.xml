@@ -11,4 +11,5 @@
     <string name="state_loaded">State loaded</string>
     <string name="state_save_fail">State save fail</string>
     <string name="state_load_fail">State load fail</string>
+    <string name="title_activity_game_list_material">GameListMaterialActivity</string>
 </resources>

@@ -22,8 +22,15 @@ import hh.game.mgba_android.fragment.OnDialogClickListener
 import hh.game.mgba_android.fragment.PopDialogFragment
 import hh.game.mgba_android.utils.GBAcheatUtils
 import hh.game.mgba_android.utils.Gametype
+import hh.game.mgba_android.utils.Gameutils
 import hh.game.mgba_android.utils.VideoUtils.Companion.captureScreenshot
+import hh.game.mgba_android.utils.VideoUtils.Companion.saveScreenshotFile
 import hh.game.mgba_android.utils.getKey
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.libsdl.app.SDLActivity
 import java.io.File
 import java.io.FileOutputStream
@@ -34,14 +41,23 @@ import kotlin.math.roundToInt
 class GameActivity : SDLActivity() {
     private val requestcode = 123
     private var surfaceparams: LayoutParams? = null
+    private var runFPS = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mFullscreenModeActive = false
         Log.d("GameActivity::", "create")
         updateScreenPosition()
         addGameControler()
+//        GlobalScope.launch {
+//            Gameutils.getFPS().toString()
+//        }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        runFPS = false
+        GlobalScope.cancel()
+    }
     fun updateScreenPosition() {
         if (surfaceparams == null) {
             surfaceparams = RelativeLayout.LayoutParams(
@@ -100,11 +116,7 @@ class GameActivity : SDLActivity() {
         relativeLayout.findViewById<TextView>(R.id.savestatetbtn).setOnClickListener {
             PauseGame()
             captureScreenshot(mSurface) { bitmap: Bitmap? ->
-               val file = File(getExternalFilesDir(null), "image.jpg")
-               val stream = FileOutputStream(file)
-               bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-               stream.flush()
-               stream.close()
+                saveScreenshotFile(this,bitmap)
             }
 
 
@@ -170,7 +182,6 @@ class GameActivity : SDLActivity() {
 
                     override fun onExit() {
                         onBackPressed()
-                        finish()
                     }
                 })
             }.show(supportFragmentManager, "menu")

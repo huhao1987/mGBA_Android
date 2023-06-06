@@ -1,5 +1,6 @@
 package hh.game.mgba_android.utils
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.opengl.GLES20
 import android.os.Build
@@ -8,6 +9,8 @@ import android.os.HandlerThread
 import android.util.Log
 import android.view.PixelCopy
 import org.libsdl.app.SDLSurface
+import java.io.File
+import java.io.FileOutputStream
 import java.nio.ByteBuffer
 
 class VideoUtils {
@@ -44,6 +47,13 @@ class VideoUtils {
             }
         }
 
+        fun saveScreenshotFile(context: Context,bitmap: Bitmap?){
+            val file = File(context.getExternalFilesDir(null), "image.jpg")
+            val stream = FileOutputStream(file)
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            stream.flush()
+            stream.close()
+        }
         fun convertByteArrayToBitmap(data: ByteArray, width: Int, height: Int): Bitmap? {
             val expectedSize = width * height * 4 // 4 bytes per pixel (RGBA)
             if (data.size != expectedSize) {

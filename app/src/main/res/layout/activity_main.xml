@@ -10,5 +10,8 @@
     android:id="@+id/launchbtn"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/launch2btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

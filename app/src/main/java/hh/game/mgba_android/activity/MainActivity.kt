@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
         binding.launchbtn.setOnClickListener {
             startActivity(Intent(this, GameListActivity::class.java))
         }
+        binding.launch2btn.setOnClickListener {
+            startActivity(Intent(this, GameListMaterialActivity::class.java))
+
+        }
     }
 
 }

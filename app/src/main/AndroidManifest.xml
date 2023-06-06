@@ -13,6 +13,7 @@
         android:required="true" />
 
     <application
+        android:name=".mGBAApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,6 +23,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.GameListMaterialActivity"
+            android:exported="false"
+            android:label="@string/title_activity_game_list_material"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.CheatsActivity"
             android:exported="false" />
