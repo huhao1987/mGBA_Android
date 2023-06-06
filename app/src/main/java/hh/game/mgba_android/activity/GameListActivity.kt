@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,9 +19,7 @@ import hh.game.mgba_android.R
 import hh.game.mgba_android.adapter.GameListAdapter
 import hh.game.mgba_android.database.GB.GBgameData
 import hh.game.mgba_android.database.GBA.GBAgameData
-import hh.game.mgba_android.utils.GameListListener
 import hh.game.mgba_android.utils.Gametype
-import hh.game.mgba_android.utils.Gameutils
 
 
 class GameListActivity : AppCompatActivity() {
@@ -99,7 +96,7 @@ class GameListActivity : AppCompatActivity() {
 
                                 }
                                 is GBgameData -> {
-                                    it.putExtra("gamedetail", (game as GBgameData).gBgame)
+                                    it.putExtra("gamedetail", (game as GBgameData).gbgame)
                                     it.putExtra("gametype",Gametype.GB.name)
                                 }
                             }
@@ -118,7 +115,7 @@ class GameListActivity : AppCompatActivity() {
                                     it.putExtra("gametype",Gametype.GBA.name)
                                 }
                                 is GBgameData -> {
-                                    it.putExtra("gamedetail", (game as GBgameData).gBgame)
+                                    it.putExtra("gamedetail", (game as GBgameData).gbgame)
                                     it.putExtra("gamepath",game.gbDocumentFile.getAbsolutePath(this@GameListActivity))
                                     it.putExtra("gametype",Gametype.GB.name)
                                 }

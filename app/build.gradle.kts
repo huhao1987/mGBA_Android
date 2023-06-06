@@ -73,8 +73,10 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     ksp ("androidx.room:room-compiler:2.5.1")
-    implementation("androidx.compose.material3:material3:1.0.1")
-    implementation("androidx.compose.material3:material3-window-size-class:1.0.1")
+    implementation("androidx.compose.material3:material3:1.1.0")
+    implementation("androidx.compose.material3:material3-window-size-class:1.1.0")
+    implementation ("androidx.compose.material:material-icons-extended:1.5.0-beta01")
+
     implementation("androidx.core:core-ktx:1.10.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")

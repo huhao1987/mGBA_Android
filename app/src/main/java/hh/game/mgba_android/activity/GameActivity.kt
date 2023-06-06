@@ -181,7 +181,7 @@ class GameActivity : SDLActivity() {
                     }
 
                     override fun onExit() {
-                        onBackPressed()
+                        System.exit(0)
                     }
                 })
             }.show(supportFragmentManager, "menu")

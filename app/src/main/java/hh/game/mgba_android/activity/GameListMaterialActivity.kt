@@ -5,45 +5,45 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.documentfile.provider.DocumentFile
 import com.anggrayudi.storage.SimpleStorageHelper
+import com.anggrayudi.storage.file.baseName
 import com.anggrayudi.storage.file.getAbsolutePath
 import com.anggrayudi.storage.file.getStorageId
 import com.blankj.utilcode.util.ActivityUtils.startActivity
@@ -137,7 +137,7 @@ fun onClickgame(game: Any) {
                 }
 
                 is GBgameData -> {
-                    it.putExtra("gamedetail", (game as GBgameData).gBgame)
+                    it.putExtra("gamedetail", (game as GBgameData).gbgame)
                     it.putExtra("gametype", Gametype.GB.name)
                 }
             }
@@ -161,7 +161,7 @@ fun onLongclickGame(game: Any) {
                 }
 
                 is GBgameData -> {
-                    it.putExtra("gamedetail", (game as GBgameData).gBgame)
+                    it.putExtra("gamedetail", (game as GBgameData).gbgame)
                     it.putExtra(
                         "gamepath",
                         game.gbDocumentFile.getAbsolutePath(mGBAApplication.context)
@@ -192,8 +192,7 @@ fun TopbarView() {
 fun GameList(gameList: List<Any>, coverfilefolder: DocumentFile?) {
     LazyColumn {
         items(gameList) { game ->
-            if (game is GBAgameData)
-                GameRow(game, coverfilefolder, { onClickgame(game) }, { onLongclickGame(game) })
+            GameRow(game, coverfilefolder, { onClickgame(game) }, { onLongclickGame(game) })
         }
     }
 }
@@ -216,33 +215,56 @@ fun GameRow(
                 onLongClick = onLongClick
             )
     ) {
-//        Row(verticalAlignment = Alignment.CenterVertically,
-//            modifier = Modifier
-//                .padding(3.dp)
-//                ) {
-        if (game is GBAgameData) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .requiredHeight(230.dp)
+                .background(Color.DarkGray)
+        ) {
             GlideImage(
-                model = coverfilefolder?.getAbsolutePath(LocalContext.current) + "/${game.gbaGame.GameNum}.png",
+                model = coverfilefolder?.getAbsolutePath(LocalContext.current) + if (game is GBAgameData) "/${game.gbaGame.GameNum}.png" else "/${(game as GBgameData).gbgame.Serial}.png",
                 contentDescription = "image",
-                modifier = Modifier.size(100.dp)
+                alignment = Alignment.TopCenter,
+                contentScale = ContentScale.FillWidth
+            )
+            Text(
+                if (game is GBAgameData)
+                    "GBA"
+                else "GB",
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .background(
+                        if (game is GBAgameData) Color.Green else Color.Yellow,
+                        shape = CircleShape
+                    )
+                    .combinedClickable(
+                        onClick = onclick
+                    )
+                    .padding(horizontal = 10.dp),
+
             )
         }
+
         Spacer(modifier = Modifier.width(3.dp))
         Column {
             Text(
+                modifier = Modifier.padding(horizontal = 10.dp),
+                fontWeight = FontWeight.Bold,
                 text = if (game is GBAgameData) game.gbaGame.ChiGamename
                     ?: game.gbaDocumentFile.name ?: ""
-                else (game as GBgameData).gBgame.EngGamename ?: game.gbDocumentFile.name ?: "",
-                style = MaterialTheme.typography.titleMedium
+                else (game as GBgameData).gbgame.EngGamename ?: game.gbDocumentFile.baseName ?: "",
+                style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = if (game is GBAgameData) game.gbaDocumentFile.getAbsolutePath(LocalContext.current)
-                else (game as GBgameData).gbDocumentFile.getAbsolutePath(LocalContext.current),
-                style = MaterialTheme.typography.bodySmall
+                modifier = Modifier.padding(horizontal = 10.dp),
+                text = if (game is GBAgameData) game.gbaDocumentFile.name ?: ""
+                else (game as GBgameData).gbDocumentFile.name ?: "",
+                style = MaterialTheme.typography.bodyMedium
             )
         }
-//        }
     }
 }
 

@@ -25,9 +25,15 @@
         tools:targetApi="31">
         <activity
             android:name=".activity.GameListMaterialActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_game_list_material"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.CheatsActivity"
             android:exported="false" />
@@ -41,11 +47,6 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

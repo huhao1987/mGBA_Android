@@ -2,7 +2,6 @@ package hh.game.mgba_android.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,18 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.anggrayudi.storage.file.getAbsolutePath
 import com.bumptech.glide.Glide
 import hh.game.mgba_android.R
-import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GB.GBgameData
-import hh.game.mgba_android.database.GBA.GBAgame
 import hh.game.mgba_android.database.GBA.GBAgameData
-import hh.game.mgba_android.utils.GameDetailsListener
-import hh.game.mgba_android.utils.Gametype
-import hh.game.mgba_android.utils.Gameutils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
     RecyclerView.Adapter<GameListAdapter.ViewHolder>() {
@@ -69,7 +59,7 @@ class GameListAdapter(var context: Context, var list: ArrayList<Any>) :
                     holder.gametype.background =
                         context.getDrawable(R.drawable.icon_bg_gb)
                     holder.gametype.text = "GB"
-                    holder.gamename.text = game.gBgame.EngGamename
+                    holder.gamename.text = game.gbgame.EngGamename
                     holder.gamepath.text = game.gbDocumentFile.getAbsolutePath(context)
                 }
             }
