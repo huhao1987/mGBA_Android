@@ -36,13 +36,10 @@ Java_hh_game_mgba_1android_utils_Gameutils_getGameCode(JNIEnv *env, jobject thiz
     }
     return str;
 }
-
+Uint32 last_tick;
+float fps;
 extern "C"
-JNIEXPORT jint JNICALL
+JNIEXPORT jfloat JNICALL
 Java_hh_game_mgba_1android_utils_Gameutils_00024Companion_getFPS(JNIEnv *env, jobject thiz) {
-    static uint32_t lastTime = 0;
-    uint32_t now = SDL_GetTicks();
-    uint32_t delta = now - lastTime;
-    lastTime = now;
-    return delta;
+    return 0;
 }
