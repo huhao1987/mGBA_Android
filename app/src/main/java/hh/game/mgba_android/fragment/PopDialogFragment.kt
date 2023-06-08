@@ -28,7 +28,10 @@ class PopDialogFragment(var title : String): DialogFragment() {
         }
         return builder.create()
     }
-
+    override fun onDismiss(dialog: DialogInterface) {
+        onDialogClickListener?.onDismiss()
+        super.onDismiss(dialog)
+    }
     fun setOnDialogClickListener(listener: OnDialogClickListener){
         onDialogClickListener = listener
     }
@@ -36,4 +39,5 @@ class PopDialogFragment(var title : String): DialogFragment() {
 interface OnDialogClickListener{
     fun onPostive()
     fun onNegative()
+    fun onDismiss()
 }

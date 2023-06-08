@@ -139,6 +139,10 @@ class GameActivity : SDLActivity() {
                         override fun onNegative() {
                             ResumeGame()
                         }
+
+                        override fun onDismiss() {
+                            ResumeGame()
+                        }
                     })
                 }
                 .show(supportFragmentManager, "loadstate")
@@ -155,11 +159,14 @@ class GameActivity : SDLActivity() {
                                     getString(R.string.state_loaded)
                                 else getString(R.string.state_load_fail), Toast.LENGTH_SHORT
                             ).show()
-
                             ResumeGame()
                         }
 
                         override fun onNegative() {
+                            ResumeGame()
+                        }
+
+                        override fun onDismiss() {
                             ResumeGame()
                         }
                     })

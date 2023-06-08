@@ -56,6 +56,7 @@ import hh.game.mgba_android.database.GB.GBgameData
 import hh.game.mgba_android.database.GBA.GBAgameData
 import hh.game.mgba_android.mGBAApplication
 import hh.game.mgba_android.utils.Gametype
+import java.io.File
 
 class GameListMaterialActivity : ComponentActivity() {
     private val viewModel: GameListViewmodel by viewModels<GameListViewmodel>()
@@ -221,8 +222,11 @@ fun GameRow(
                 .requiredHeight(230.dp)
                 .background(Color.DarkGray)
         ) {
+            var filepath = coverfilefolder?.getAbsolutePath(LocalContext.current) + if (game is GBAgameData) "/${game.gbaGame.GameNum}.png" else "/${(game as GBgameData).gbgame.Serial}.png"
+            if(!File(filepath).exists())
+                filepath = coverfilefolder?.getAbsolutePath(LocalContext.current) + if (game is GBAgameData) "/${game.gbaGame.GameNum?.trimStart('0')}a.png" else "/${(game as GBgameData).gbgame.Serial}.png"
             GlideImage(
-                model = coverfilefolder?.getAbsolutePath(LocalContext.current) + if (game is GBAgameData) "/${game.gbaGame.GameNum}.png" else "/${(game as GBgameData).gbgame.Serial}.png",
+                model = filepath,
                 contentDescription = "image",
                 alignment = Alignment.TopCenter,
                 contentScale = ContentScale.FillWidth
