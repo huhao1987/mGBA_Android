@@ -3,13 +3,18 @@ package hh.game.mgba_android.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
@@ -25,6 +30,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -32,12 +38,17 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,8 +58,10 @@ import com.anggrayudi.storage.file.baseName
 import com.anggrayudi.storage.file.getAbsolutePath
 import com.anggrayudi.storage.file.getStorageId
 import com.blankj.utilcode.util.ActivityUtils.startActivity
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.skydoves.landscapist.ImageOptions
+import com.skydoves.landscapist.glide.GlideImage
 import hh.game.mgba_android.GameListViewmodel
 import hh.game.mgba_android.R
 import hh.game.mgba_android.activity.ui.theme.Mgba_AndroidTheme
@@ -56,7 +69,12 @@ import hh.game.mgba_android.database.GB.GBgameData
 import hh.game.mgba_android.database.GBA.GBAgameData
 import hh.game.mgba_android.mGBAApplication
 import hh.game.mgba_android.utils.Gametype
+import java.io.BufferedInputStream
 import java.io.File
+import java.io.FileInputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.util.zip.ZipInputStream
 
 class GameListMaterialActivity : ComponentActivity() {
     private val viewModel: GameListViewmodel by viewModels<GameListViewmodel>()
@@ -94,7 +112,11 @@ class GameListMaterialActivity : ComponentActivity() {
         var uri = Uri.parse(sharepreferences?.getString(FOLDER_PATH, null))
         var documentfile = DocumentFile.fromTreeUri(this@GameListMaterialActivity, uri)
         var coverfilefolder = documentfile?.findFile("gbacovers")
+        setContent {
+            CustomCircularProgressBar()
+        }
         viewModel.gameListData.observe(this, { list ->
+
             setContent {
                 Mgba_AndroidTheme {
                     Column {
@@ -198,7 +220,24 @@ fun GameList(gameList: List<Any>, coverfilefolder: DocumentFile?) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalGlideComposeApi::class)
+@Composable
+private fun CustomCircularProgressBar() {
+    var editable by remember { mutableStateOf(true) }
+    AnimatedVisibility(visible = editable) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(size = 64.dp),
+                color = Color.Magenta,
+                strokeWidth = 6.dp
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun GameRow(
     game: Any,
@@ -222,14 +261,34 @@ fun GameRow(
                 .requiredHeight(230.dp)
                 .background(Color.DarkGray)
         ) {
-            var filepath = coverfilefolder?.getAbsolutePath(LocalContext.current) + if (game is GBAgameData) "/${game.gbaGame.GameNum}.png" else "/${(game as GBgameData).gbgame.Serial}.png"
-            if(!File(filepath).exists())
-                filepath = coverfilefolder?.getAbsolutePath(LocalContext.current) + if (game is GBAgameData) "/${game.gbaGame.GameNum?.trimStart('0')}a.png" else "/${(game as GBgameData).gbgame.Serial}.png"
+            var filepath =
+                coverfilefolder?.getAbsolutePath(LocalContext.current) + if (game is GBAgameData) "/${game.gbaGame.GameNum}.png" else "/${(game as GBgameData).gbgame.Serial}.png"
+            if (!File(filepath).exists())
+                filepath =
+                    coverfilefolder?.getAbsolutePath(LocalContext.current) + if (game is GBAgameData) "/${
+                        game.gbaGame.GameNum?.trimStart('0')
+                    }a.png" else "/${(game as GBgameData).gbgame.Serial}.png"
+
             GlideImage(
-                model = filepath,
-                contentDescription = "image",
-                alignment = Alignment.TopCenter,
-                contentScale = ContentScale.FillWidth
+                imageModel = { filepath },
+                failure = {
+                    Image(
+                        painter = if (game is GBAgameData) painterResource(id = R.drawable.gameboyadvance) else painterResource(
+                            id = R.drawable.gameboy
+                        ),
+                        contentDescription = "gba",
+                        modifier = Modifier.fillMaxSize(),
+                        alignment = Alignment.TopCenter
+                    )
+                },
+                requestOptions = {
+                    RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                },
+                imageOptions = ImageOptions(
+                    alignment = Alignment.TopCenter,
+                    contentScale = ContentScale.FillWidth,
+                )
             )
             Text(
                 if (game is GBAgameData)
@@ -248,13 +307,13 @@ fun GameRow(
                     )
                     .padding(horizontal = 10.dp),
 
-            )
+                )
         }
 
         Spacer(modifier = Modifier.width(3.dp))
         Column {
             Text(
-                modifier = Modifier.padding(horizontal = 10.dp),
+                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
                 fontWeight = FontWeight.Bold,
                 text = if (game is GBAgameData) game.gbaGame.ChiGamename
                     ?: game.gbaDocumentFile.name ?: ""
@@ -263,7 +322,7 @@ fun GameRow(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                modifier = Modifier.padding(horizontal = 10.dp),
+                modifier = Modifier.padding(horizontal = 10.dp,vertical = 5.dp),
                 text = if (game is GBAgameData) game.gbaDocumentFile.name ?: ""
                 else (game as GBgameData).gbDocumentFile.name ?: "",
                 style = MaterialTheme.typography.bodyMedium
