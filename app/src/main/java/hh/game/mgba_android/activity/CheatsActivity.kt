@@ -59,7 +59,7 @@ class CheatsActivity : AppCompatActivity() {
         var game = when (gametype) {
             "GBA" ->
                 intent.getParcelableExtra<GBAgame>("gamedetail").also {
-                    findViewById<TextView>(R.id.gametitle).text = it?.ChiGamename
+                    findViewById<TextView>(R.id.gametitle).text = it?.GameNum +"-"+it?.ChiGamename
                 }
 
             else ->

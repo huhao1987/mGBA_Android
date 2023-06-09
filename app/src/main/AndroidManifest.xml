@@ -26,7 +26,6 @@
         <activity
             android:name=".activity.GameListMaterialActivity"
             android:exported="true"
-            android:label="@string/title_activity_game_list_material"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

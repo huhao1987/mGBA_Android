@@ -99,7 +99,14 @@ class GameActivity : SDLActivity() {
                             it.putExtra("gametype", Gametype.GBA.name)
                             it.putExtra("cheat", game.GameNum)
                         }
-
+                    "GBC" ->
+                        intent.getParcelableExtra<GBgame>("gamedetail").let { game ->
+                            it.putExtra(
+                                "gamedetail",
+                                (game as GBgame)
+                            )
+                            it.putExtra("gametype", Gametype.GB.name)
+                        }
                     else ->
                         intent.getParcelableExtra<GBgame>("gamedetail").let { game ->
                             it.putExtra(
@@ -173,7 +180,7 @@ class GameActivity : SDLActivity() {
                 }
                 .show(supportFragmentManager, "loadstate")
         }
-        relativeLayout.findViewById<TextView>(R.id.menubtn).setOnClickListener {
+        relativeLayout.findViewById<ImageView>(R.id.menubtn).setOnClickListener {
             PauseGame()
             GameMenuFragment().also {
                 it.setOndismissListener(object : OnMenuListener {

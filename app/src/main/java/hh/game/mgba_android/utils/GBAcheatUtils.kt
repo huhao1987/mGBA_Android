@@ -87,6 +87,7 @@ class GBAcheatUtils {
                         "Name" -> gbaCheat.gameTitle = parts[1]
                         "System" -> gbaCheat.gameSystem = when (parts[1]) {
                             "GBA" -> Gametype.GBA
+                            "GBC" -> Gametype.GBC
                             else -> Gametype.GB
                         }
 

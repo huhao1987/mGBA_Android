@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">mGBA Android</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="savestatetitle">你想快速存档吗？</string>
+    <string name="loadstatetitle">你想读取快速存档吗？</string>
+    <string name="save_state">快速存档</string>
+    <string name="load_state">快速读挡</string>
+    <string name="exit">退出</string>
+    <string name="state_saved">存档已保存</string>
+    <string name="state_loaded">存档已读取</string>
+    <string name="state_save_fail">存档保存失败</string>
+    <string name="state_load_fail">存档读取失败</string>
+    <string name="switch_editor">切换编辑器</string>
+    <string name="save">保存</string>
+    <string name="load">读取</string>
+</resources>

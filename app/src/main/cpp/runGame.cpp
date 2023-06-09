@@ -68,7 +68,6 @@ int runGame(char* fname, char * internalcheatfile){
     args.fname = fname;
     args.frameskip = 0;
     LOG_D("thecheats %s",internalcheatfile);
-    //    args.patch = "sdcard/gba/hjty.gba";
     if (!args.fname && !args.showVersion) {
     }
 

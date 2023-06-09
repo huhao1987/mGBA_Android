@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/rBtn"
+        android:id="@+id/lBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
@@ -12,7 +12,7 @@
         android:background="@drawable/btnbackgroud"
         android:paddingStart="17dp"
         android:paddingTop="7dp"
-        android:text="R"
+        android:text="L"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold" />
@@ -27,7 +27,7 @@
         android:gravity="center"
         android:text="C"
         android:textColor="@color/white" />
-    <com.google.android.material.textview.MaterialTextView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/menubtn"
         android:layout_width="50dp"
         android:layout_height="20dp"
@@ -35,13 +35,13 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/btnbackgroud"
         android:gravity="center"
-        android:text="Menu"
+        android:src="@drawable/baseline_menu_24"
         android:layout_below="@+id/cheatbtn"
         android:textColor="@color/white" />
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/loadstatebtn"
         android:background="@drawable/btnbackgroud"
-        android:text="Load"
+        android:text="@string/load"
         android:gravity="center"
         android:layout_toRightOf="@+id/cheatbtn"
         android:layout_marginLeft="20dp"
@@ -59,11 +59,11 @@
         android:layout_toStartOf="@+id/cheatbtn"
         android:background="@drawable/btnbackgroud"
         android:gravity="center"
-        android:text="Save"
+        android:text="@string/save"
         android:textColor="@color/white" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/lBtn"
+        android:id="@+id/rBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
@@ -72,7 +72,7 @@
         android:background="@drawable/btnbackgroud"
         android:paddingStart="17dp"
         android:paddingTop="7dp"
-        android:text="L"
+        android:text="R"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold" />

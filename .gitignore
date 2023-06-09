@@ -17,3 +17,4 @@ local.properties
 gradlew
 gradlew.bat
 gradle/
+app/debug/
