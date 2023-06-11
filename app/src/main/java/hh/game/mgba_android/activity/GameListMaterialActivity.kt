@@ -6,7 +6,10 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -83,22 +86,47 @@ class GameListMaterialActivity : ComponentActivity() {
     private var storageid: String? = null
     private var FOLDER_PATH: String = "folder_path"
     private var STORAGEID: String = "storageid"
+    private val managepermission = 321
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharepreferences = getSharedPreferences("mGBA", Context.MODE_PRIVATE)
-        var permissionlist = contentResolver.persistedUriPermissions
-        if (permissionlist.size > 0) {
-            storageid = sharepreferences?.getString(STORAGEID, null)
-            setupUI()
-        } else {
-            sharepreferences?.edit()?.putString(FOLDER_PATH, null)?.apply()
-            storageHelper.openFolderPicker()
-            setupStorageFolder()
-        }
-
+        checkPermission()
     }
+    private fun checkPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                try {
+                    var intent = Intent(
+                        Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+                        Uri.parse("package:" + packageName)
+                    )
+                    startActivityForResult(intent, managepermission)
+                } catch (e: Exception) {
+                    var intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                    startActivityForResult(intent, managepermission)
+                }
+            }
+            else{
+                sharepreferences = getSharedPreferences("mGBA", Context.MODE_PRIVATE)
+                var permissionlist = contentResolver.persistedUriPermissions
+                if (permissionlist.size > 0) {
+                    storageid = sharepreferences?.getString(STORAGEID, null)
+                    setupUI()
+                } else {
+                    sharepreferences?.edit()?.putString(FOLDER_PATH, null)?.apply()
+                    storageHelper.openFolderPicker()
+                    setupStorageFolder()
+                }
+            }
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == managepermission) {
+            checkPermission()
 
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
     fun setupStorageFolder() {
         storageHelper.onFolderSelected = { requestCode, folder ->
             sharepreferences?.edit()?.putString(FOLDER_PATH, folder.uri.toString())?.apply()

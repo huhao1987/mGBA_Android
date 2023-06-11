@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == managepermission) {
-           checkPermission()
+            checkPermission()
 
         }
         super.onActivityResult(requestCode, resultCode, data)
