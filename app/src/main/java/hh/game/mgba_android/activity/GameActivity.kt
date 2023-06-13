@@ -22,19 +22,13 @@ import hh.game.mgba_android.fragment.OnDialogClickListener
 import hh.game.mgba_android.fragment.PopDialogFragment
 import hh.game.mgba_android.utils.GBAcheatUtils
 import hh.game.mgba_android.utils.Gametype
-import hh.game.mgba_android.utils.Gameutils
 import hh.game.mgba_android.utils.VideoUtils.Companion.captureScreenshot
 import hh.game.mgba_android.utils.VideoUtils.Companion.saveScreenshotFile
 import hh.game.mgba_android.utils.getKey
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.libsdl.app.SDLActivity
 import java.io.File
-import java.io.FileOutputStream
-import java.nio.ByteBuffer
 import kotlin.math.roundToInt
 
 
@@ -42,6 +36,7 @@ class GameActivity : SDLActivity() {
     private val requestcode = 123
     private var surfaceparams: LayoutParams? = null
     private var runFPS = true
+    private var setFPS = 60f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mFullscreenModeActive = false
@@ -58,6 +53,7 @@ class GameActivity : SDLActivity() {
         runFPS = false
         GlobalScope.cancel()
     }
+
     fun updateScreenPosition() {
         if (surfaceparams == null) {
             surfaceparams = RelativeLayout.LayoutParams(
@@ -99,6 +95,7 @@ class GameActivity : SDLActivity() {
                             it.putExtra("gametype", Gametype.GBA.name)
                             it.putExtra("cheat", game.GameNum)
                         }
+
                     "GBC" ->
                         intent.getParcelableExtra<GBgame>("gamedetail").let { game ->
                             it.putExtra(
@@ -107,6 +104,7 @@ class GameActivity : SDLActivity() {
                             )
                             it.putExtra("gametype", Gametype.GB.name)
                         }
+
                     else ->
                         intent.getParcelableExtra<GBgame>("gamedetail").let { game ->
                             it.putExtra(
@@ -123,7 +121,7 @@ class GameActivity : SDLActivity() {
         relativeLayout.findViewById<TextView>(R.id.savestatetbtn).setOnClickListener {
             PauseGame()
             captureScreenshot(mSurface) { bitmap: Bitmap? ->
-                saveScreenshotFile(this,bitmap)
+                saveScreenshotFile(this, bitmap)
             }
 
 
@@ -135,8 +133,7 @@ class GameActivity : SDLActivity() {
                                 this@GameActivity,
                                 if (QuickSaveState()) {
                                     getString(R.string.state_saved)
-                                }
-                                else
+                                } else
                                     getString(R.string.state_save_fail),
                                 Toast.LENGTH_SHORT
                             ).show()
@@ -200,6 +197,18 @@ class GameActivity : SDLActivity() {
                 })
             }.show(supportFragmentManager, "menu")
         }
+
+        relativeLayout.findViewById<TextView>(R.id.forwardbtn).setOnClickListener {
+            setFPS = when (setFPS) {
+                60f -> setForward(it as TextView, 2)
+                60f * 2 -> setForward(it as TextView, 4)
+                else -> {
+                    (it as TextView).text = getString(R.string.forward)
+                    60f
+                }
+            }
+            Forward(setFPS)
+        }
         relativeLayout.findViewById<ImageView>(R.id.rBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.lBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.aBtn).setGBAKeyListener()
@@ -211,7 +220,11 @@ class GameActivity : SDLActivity() {
         relativeLayout.findViewById<ImageView>(R.id.leftBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.rightBtn).setGBAKeyListener()
     }
-    private val TAG = "bitmaperror::"
+
+    private fun setForward(view: TextView, times: Int): Float {
+        view.text = getString(R.string.forwarding, times.toString())
+        return 60f * times
+    }
 
     private fun Int.dpToPx(): Int {
         return TypedValue.applyDimension(
@@ -291,7 +304,8 @@ class GameActivity : SDLActivity() {
     external fun QuickLoadState(): Boolean
     external fun PauseGame()
     external fun ResumeGame()
-    external fun TakeScreenshot():ByteArray
+    external fun TakeScreenshot(): ByteArray
+    external fun Forward(speed: Float)
 }
 
 

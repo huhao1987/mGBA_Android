@@ -27,6 +27,20 @@
         android:gravity="center"
         android:text="C"
         android:textColor="@color/white" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/forwardbtn"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/forward"
+        android:layout_width="70dp"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btnbackgroud"
+        android:gravity="center"
+        android:src="@drawable/baseline_menu_24"
+        android:layout_below="@+id/cheatbtn"
+        android:textColor="@color/white"/>
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/menubtn"
         android:layout_width="50dp"
@@ -36,7 +50,7 @@
         android:background="@drawable/btnbackgroud"
         android:gravity="center"
         android:src="@drawable/baseline_menu_24"
-        android:layout_below="@+id/cheatbtn"
+        android:layout_below="@+id/forwardbtn"
         android:textColor="@color/white" />
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/loadstatebtn"

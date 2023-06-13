@@ -15,4 +15,6 @@
     <string name="switch_editor">切换编辑器</string>
     <string name="save">保存</string>
     <string name="load">读取</string>
+    <string name="forward">加速</string>
+    <string name="forwarding">%s倍加速中</string>
 </resources>

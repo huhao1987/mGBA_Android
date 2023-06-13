@@ -381,3 +381,9 @@ Java_hh_game_mgba_1android_activity_GameActivity_TakeScreenshot(JNIEnv *env, job
     free(buffer);
     return outputArray;
 }
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_Forward(JNIEnv *env, jobject thiz, jfloat speed) {
+    thread.impl->sync.fpsTarget = speed;
+    thread.core->reloadConfigOption(thread.core, NULL, NULL);
+}
