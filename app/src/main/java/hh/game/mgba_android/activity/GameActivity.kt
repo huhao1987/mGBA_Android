@@ -1,5 +1,6 @@
 package hh.game.mgba_android.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -13,6 +14,8 @@ import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import hh.game.mgba_android.fragment.GameMenuFragment
 import hh.game.mgba_android.fragment.OnMenuListener
 import hh.game.mgba_android.R
@@ -33,10 +36,20 @@ import kotlin.math.roundToInt
 
 
 class GameActivity : SDLActivity() {
-    private val requestcode = 123
     private var surfaceparams: LayoutParams? = null
     private var runFPS = true
     private var setFPS = 60f
+
+    val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val gameNum = intent.getStringExtra("cheat")
+                var internalCheatFile =
+                    getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+                reCallCheats(internalCheatFile)
+            }
+            }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mFullscreenModeActive = false
@@ -84,7 +97,7 @@ class GameActivity : SDLActivity() {
         layoutParams.rightMargin = 10.dpToPx()
         mLayout.addView(relativeLayout, layoutParams)
         relativeLayout.findViewById<TextView>(R.id.cheatbtn).setOnClickListener {
-            startActivityForResult(Intent(this, CheatsActivity::class.java).also {
+            startForResult.launch(Intent(this, CheatsActivity::class.java).also {
                 when (intent.getStringExtra("gametype")) {
                     "GBA" ->
                         intent.getParcelableExtra<GBAgame>("gamedetail").let { game ->
@@ -115,7 +128,7 @@ class GameActivity : SDLActivity() {
                         }
                 }
 
-            }, requestcode)
+            })
         }
 
         relativeLayout.findViewById<TextView>(R.id.savestatetbtn).setOnClickListener {
@@ -281,18 +294,6 @@ class GameActivity : SDLActivity() {
             )
         } else emptyArray<String>()
 
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            requestCode -> if (resultCode == RESULT_OK) {
-                val gameNum = intent.getStringExtra("cheat")
-                var internalCheatFile =
-                    getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
-                reCallCheats(internalCheatFile)
-            }
-        }
     }
 
     override fun resumeNativeThread() {
