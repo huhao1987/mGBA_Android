@@ -381,9 +381,21 @@ Java_hh_game_mgba_1android_activity_GameActivity_TakeScreenshot(JNIEnv *env, job
     free(buffer);
     return outputArray;
 }
+
+void muteVolume(bool mute){
+    androidrenderer.core->opts.mute = mute;
+    thread.core->reloadConfigOption(thread.core, NULL, NULL);
+}
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_hh_game_mgba_1android_activity_GameActivity_Forward(JNIEnv *env, jobject thiz, jfloat speed) {
     thread.impl->sync.fpsTarget = speed;
     thread.core->reloadConfigOption(thread.core, NULL, NULL);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_Mute(JNIEnv *env, jobject thiz, jboolean mute) {
+    muteVolume(mute);
 }

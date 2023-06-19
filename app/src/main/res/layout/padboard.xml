@@ -34,13 +34,26 @@
         android:text="@string/forward"
         android:layout_width="70dp"
         android:layout_height="20dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@+id/savestatetbtn"
         android:layout_marginTop="20dp"
         android:background="@drawable/btnbackgroud"
         android:gravity="center"
         android:src="@drawable/baseline_menu_24"
         android:layout_below="@+id/cheatbtn"
         android:textColor="@color/white"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/soundbtn"
+        android:layout_alignTop="@+id/forwardbtn"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/forwardbtn"
+        android:background="@drawable/btnbackgroud"
+        android:gravity="center"
+        android:src="@drawable/baseline_volume_up_24"
+        android:textColor="@color/white" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/menubtn"
         android:layout_width="50dp"

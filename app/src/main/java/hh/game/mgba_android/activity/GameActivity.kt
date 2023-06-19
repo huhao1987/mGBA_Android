@@ -39,6 +39,7 @@ class GameActivity : SDLActivity() {
     private var surfaceparams: LayoutParams? = null
     private var runFPS = true
     private var setFPS = 60f
+    private var isMute = false
 
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -222,6 +223,14 @@ class GameActivity : SDLActivity() {
             }
             Forward(setFPS)
         }
+        relativeLayout.findViewById<ImageView>(R.id.soundbtn).setOnClickListener {
+            Mute(!isMute)
+            isMute = !isMute
+            when(isMute){
+                false -> (it as ImageView).setImageDrawable(getDrawable(R.drawable.baseline_volume_up_24))
+                true -> (it as ImageView).setImageDrawable(getDrawable(R.drawable.baseline_volume_off_24))
+            }
+        }
         relativeLayout.findViewById<ImageView>(R.id.rBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.lBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.aBtn).setGBAKeyListener()
@@ -307,6 +316,7 @@ class GameActivity : SDLActivity() {
     external fun ResumeGame()
     external fun TakeScreenshot(): ByteArray
     external fun Forward(speed: Float)
+    external fun Mute(mute:Boolean)
 }
 
 
