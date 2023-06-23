@@ -24,9 +24,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ShaderSelectActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.GameListMaterialActivity"
             android:exported="true"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,9 +48,7 @@
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>
