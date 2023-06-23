@@ -45,7 +45,9 @@ class CheatsActivity : AppCompatActivity() {
             if (cheatListview!!.isVisible) {
                 editorLayout?.visibility = View.VISIBLE
                 cheatListview?.visibility = View.GONE
-                cheateditor?.setText(File(getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht").readText())
+                cheateditor?.setText(File(getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht").also {
+                    if(!it.exists()) it.createNewFile()
+                }.readText())
                 saveBtn?.setOnClickListener {
                     GBAcheatUtils.saveCheatToFile(this, gameNum!!, cheateditor?.text.toString())
                     cheatListAdapter.updateCheatList(getCheatList())
