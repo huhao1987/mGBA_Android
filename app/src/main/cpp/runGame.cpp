@@ -33,6 +33,8 @@
 #define LOG_I(...) __android_log_print(ANDROID_LOG_INFO,     TAG, __VA_ARGS__)
 #define LOG_D(...) __android_log_print(ANDROID_LOG_DEBUG,    TAG, __VA_ARGS__)
 
+extern char* _fragmentShader;
+extern char* _vertexShader;
 static void mSDLDeinit(struct mSDLRenderer* renderer);
 
 static int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args);
@@ -45,7 +47,7 @@ static void _loadState(struct mCoreThread* thread) {
 }
 struct mSDLRenderer androidrenderer;
 struct mCoreThread thread;
-int runGame(char* fname, char * internalcheatfile){
+int runGame(char** argv){
     androidrenderer = {0};
 
     struct mCoreOptions opts = {
@@ -56,7 +58,8 @@ int runGame(char* fname, char * internalcheatfile){
             .audioBuffers = 4096,
             .volume = 0x100,
             .videoSync = true,
-            .audioSync = true
+            .audioSync = true,
+            .interframeBlending = true
     };
 
     struct mArguments args;
@@ -65,9 +68,8 @@ int runGame(char* fname, char * internalcheatfile){
     struct mSubParser subparser;
 
     mSubParserGraphicsInit(&subparser, &graphicsOpts);
-    args.fname = fname;
+    args.fname =  argv[1];
     args.frameskip = 0;
-    LOG_D("thecheats %s",internalcheatfile);
     if (!args.fname && !args.showVersion) {
     }
 
@@ -100,8 +102,12 @@ int runGame(char* fname, char * internalcheatfile){
 
 
     struct mCheatDevice* device = androidrenderer.core->cheatDevice(androidrenderer.core);
-    args.cheatsFile = internalcheatfile;
-
+    if(argv[2])
+    args.cheatsFile = argv[2];
+    if(argv[3])
+        _fragmentShader = argv[3];
+    if(argv[4])
+        _vertexShader = argv[4];
     mInputMapInit(&androidrenderer.core->inputMap, &GBAInputInfo);
     mCoreInitConfig(androidrenderer.core, PORT);
     mArgumentsApply(&args, &subparser, 1, &androidrenderer.core->config);
@@ -292,7 +298,7 @@ static void mSDLDeinit(struct mSDLRenderer* renderer) {
     SDL_Quit();
 }
 int main(int argc, char** argv) {
-    return runGame(argv[1],argv[2]);
+    return runGame(argv);
 }
 
 char* convertJStringToChar(JNIEnv* env, jstring jstr) {
