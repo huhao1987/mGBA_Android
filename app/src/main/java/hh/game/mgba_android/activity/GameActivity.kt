@@ -42,15 +42,15 @@ class GameActivity : SDLActivity() {
     private var isMute = false
 
     val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val gameNum = intent.getStringExtra("cheat")
                 var internalCheatFile =
                     getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
                 reCallCheats(internalCheatFile)
             }
-        }
-
+            }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mFullscreenModeActive = false
@@ -226,7 +226,7 @@ class GameActivity : SDLActivity() {
         relativeLayout.findViewById<ImageView>(R.id.soundbtn).setOnClickListener {
             Mute(!isMute)
             isMute = !isMute
-            when (isMute) {
+            when(isMute){
                 false -> (it as ImageView).setImageDrawable(getDrawable(R.drawable.baseline_volume_up_24))
                 true -> (it as ImageView).setImageDrawable(getDrawable(R.drawable.baseline_volume_off_24))
             }
@@ -286,39 +286,21 @@ class GameActivity : SDLActivity() {
         }
     }
 
-
     override fun getArguments(): Array<String> {
         var gamepath = intent.getStringExtra("gamepath")
         val gameNum = intent.getStringExtra("cheat")
         var cheatpath = gamepath?.replace(".gba", ".cheats")
         if (!File(cheatpath).exists()) cheatpath = null
         var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
-
-        var fragmentShader = "uniform sampler2D tex;\n" +
-                "uniform vec2 texSize;\n" +
-                "varying vec2 texCoord;\n" +
-                "\n" +
-                "uniform float boundBrightness;\n" +
-                "\n" +
-                "void main()\n" +
-                "{\n" +
-                "\tvec4 color = texture2D(tex, texCoord);\n" +
-                "\n" +
-                "\tif (int(mod(texCoord.s * texSize.x * 3.0, 3.0)) == 0 ||\n" +
-                "\t\tint(mod(texCoord.t * texSize.y * 3.0, 3.0)) == 0)\n" +
-                "\t{\n" +
-                "\t\tcolor.rgb *= vec3(1.0, 1.0, 1.0) * boundBrightness;\n" +
-                "\t}\n" +
-                "\n" +
-                "\tgl_FragColor = color;\n" +
-                "}"
         return if (gamepath != null) {
-         GBAcheatUtils.generateCheat(this, gameNum, cheatpath)
+            if (GBAcheatUtils.generateCheat(this, gameNum, cheatpath))
                 arrayOf(
                     gamepath,
-                    internalCheatFile,
-                    fragmentShader
+                    internalCheatFile
                 )
+            else arrayOf(
+                gamepath
+            )
         } else emptyArray<String>()
 
     }
@@ -334,7 +316,7 @@ class GameActivity : SDLActivity() {
     external fun ResumeGame()
     external fun TakeScreenshot(): ByteArray
     external fun Forward(speed: Float)
-    external fun Mute(mute: Boolean)
+    external fun Mute(mute:Boolean)
 }
 
 

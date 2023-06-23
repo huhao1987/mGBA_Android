@@ -81,15 +81,15 @@ class GameListMaterialActivity : ComponentActivity() {
     private var FOLDER_PATH: String = "folder_path"
     private var STORAGEID: String = "storageid"
     val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            checkPermission()
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+                checkPermission()
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkPermission()
     }
-
     private fun checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {
@@ -341,7 +341,7 @@ fun GameRow(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                modifier = Modifier.padding(horizontal = 10.dp,vertical = 5.dp),
                 text = if (game is GBAgameData) game.gbaDocumentFile.name ?: ""
                 else (game as GBgameData).gbDocumentFile.name ?: "",
                 style = MaterialTheme.typography.bodyMedium

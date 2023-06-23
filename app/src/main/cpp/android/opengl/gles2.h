@@ -99,9 +99,8 @@ void mGLES2ShaderDetach(struct mGLES2Context*);
 
 struct VDir;
 bool mGLES2ShaderLoad(struct VideoShader*, struct VDir*);
-bool mGLES2ShaderLoadfromFile(struct VideoShader*);
-
 void mGLES2ShaderFree(struct VideoShader*);
+
 CXX_GUARD_END
 
 #endif
