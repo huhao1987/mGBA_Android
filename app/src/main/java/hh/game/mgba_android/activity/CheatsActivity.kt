@@ -17,7 +17,7 @@ import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
 import hh.game.mgba_android.utils.Cheat
 import hh.game.mgba_android.utils.GBACheat
-import hh.game.mgba_android.utils.GBAcheatUtils
+import hh.game.mgba_android.utils.CheatUtils
 import java.io.File
 
 class CheatsActivity : AppCompatActivity() {
@@ -49,7 +49,7 @@ class CheatsActivity : AppCompatActivity() {
                     if(!it.exists()) it.createNewFile()
                 }.readText())
                 saveBtn?.setOnClickListener {
-                    GBAcheatUtils.saveCheatToFile(this, gameNum!!, cheateditor?.text.toString())
+                    CheatUtils.saveCheatToFile(this, gameNum!!, cheateditor?.text.toString())
                     cheatListAdapter.updateCheatList(getCheatList())
                 }
             } else {
@@ -72,14 +72,14 @@ class CheatsActivity : AppCompatActivity() {
         cheatListAdapter = CheatListAdapter(this, ArrayList())
         if (gametype.equals("GBA")) {
             gameNum = (game as GBAgame).GameNum
-            if (GBAcheatUtils.generateCheat(this, gameNum)) {
+            if (CheatUtils.generateCheat(this, gameNum)) {
                 var cheatList = getCheatList()
                 cheatListview?.layoutManager = LinearLayoutManager(this)
                 cheatListAdapter.updateCheatList(cheatList)
                 cheatListview?.adapter = cheatListAdapter
                 cheatListAdapter.cheatOnCheckListener = { position, isSelect ->
                     cheatList.get(position).isSelect = isSelect
-                    GBAcheatUtils.saveCheatToFile(
+                    CheatUtils.saveCheatToFile(
                         this,
                         gameNum!!,
                         GBACheat(cheatlist = cheatList).toString()

@@ -10,7 +10,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
-class GBAcheatUtils {
+class CheatUtils {
     companion object {
         fun generateCheat(
             context: Context,
@@ -25,7 +25,7 @@ class GBAcheatUtils {
                         if (externalcheatfile == null) {
                             var cheatfromFile = context.assets.open("gbacheats/$gameNum.cht")
                             var cheat =
-                                GBAcheatUtils().convertECcodestoVba(cheatfromFile, false)
+                                CheatUtils().convertECcodestoVba(cheatfromFile, false)
                                     .toString()
                             saveCheatToFile(context, gameNum, cheat)
                             Log.d("thecheat:::", cheat)
@@ -66,6 +66,9 @@ class GBAcheatUtils {
                 str
             )
         }
+
+        external fun memorySearch(searchValue:Int)
+
     }
 
     fun convertECcodestoVba(input: InputStream, allEnable: Boolean): GBACheat {
@@ -125,47 +128,16 @@ class GBAcheatUtils {
         var retstr = ""
         var baseaddr = 0x2000000
         var codes = eccodeLine.split(";")
-        test1(ArrayList(codes))
         for (code in codes) {
             retstr += convertoneCodeToVba(code)
         }
         return retstr
     }
 
-    fun test1(list: ArrayList<String>) {
-        Log.d("theresult::", list.splitToPairs().toString())
-    }
-
     fun List<String>.splitToPairs(): List<Pair<List<String>, List<String>>> {
         return if (size < 2) emptyList()
         else zipWithNext()
             .map { (prev, curr) -> prev.split(",").toList() to curr.split(",").toList() }
-    }
-
-    fun test(list: ArrayList<String>) {
-        var result = ArrayList<String>()
-        var current = ""
-        var next = ""
-        for (i in 0..list.size - 1) {
-            if (i < list.size - 1) {
-                var currentList = list[i].split(",")
-                var nextList = list[i + 1].split(",")
-                var curheader = currentList.get(0).toInt(16)
-                if (i == 0) current = currentList.get(0)
-                var nextheader = nextList.get(0).toInt(16)
-                if (curheader + 1 == nextheader) {
-                    current += ",${nextList.drop(0).joinToString(",")}"
-                } else {
-                    result.add(current)
-                    current = currentList.get(0)
-                }
-            } else {
-                result.add(list[i])
-            }
-        }
-        result.forEach {
-            Log.d("thetestresult::", it)
-        }
     }
 
     fun convertoneCodeToVba(code: String): String {
@@ -204,4 +176,5 @@ class GBAcheatUtils {
         }
         return result
     }
+
 }

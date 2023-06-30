@@ -16,17 +16,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import hh.game.mgba_android.fragment.GameMenuFragment
-import hh.game.mgba_android.fragment.OnMenuListener
 import hh.game.mgba_android.R
 import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
+import hh.game.mgba_android.fragment.GameMenuFragment
 import hh.game.mgba_android.fragment.OnDialogClickListener
+import hh.game.mgba_android.fragment.OnMenuListener
 import hh.game.mgba_android.fragment.PopDialogFragment
-import hh.game.mgba_android.utils.GBAcheatUtils
+import hh.game.mgba_android.memory.CoreMemoryBlock
+import hh.game.mgba_android.utils.CheatUtils
 import hh.game.mgba_android.utils.Gametype
-import hh.game.mgba_android.utils.VideoUtils.Companion.captureScreenshot
-import hh.game.mgba_android.utils.VideoUtils.Companion.saveScreenshotFile
 import hh.game.mgba_android.utils.getKey
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancel
@@ -134,18 +133,14 @@ class GameActivity : SDLActivity() {
 
         relativeLayout.findViewById<TextView>(R.id.savestatetbtn).setOnClickListener {
             PauseGame()
-            captureScreenshot(mSurface) { bitmap: Bitmap? ->
-                saveScreenshotFile(this, bitmap)
-            }
-
-
             PopDialogFragment(getString(R.string.savestatetitle))
                 .also {
                     it.setOnDialogClickListener(object : OnDialogClickListener {
                         override fun onPostive() {
+                            var isSaved = QuickSaveState()
                             Toast.makeText(
                                 this@GameActivity,
-                                if (QuickSaveState()) {
+                                if (isSaved) {
                                     getString(R.string.state_saved)
                                 } else
                                     getString(R.string.state_save_fail),
@@ -243,6 +238,13 @@ class GameActivity : SDLActivity() {
         relativeLayout.findViewById<ImageView>(R.id.rightBtn).setGBAKeyListener()
     }
 
+    private fun getScreenShot(){
+        intent.getStringExtra("gamepath")?.replace(".gba",".jpg")?.apply {
+            var screenshotfile = File(this)
+            if (!screenshotfile.exists()) screenshotfile.createNewFile()
+            TakeScreenshot(this)
+        }
+    }
     private fun setForward(view: TextView, times: Int): Float {
         view.text = getString(R.string.forwarding, times.toString())
         return 60f * times
@@ -313,12 +315,12 @@ class GameActivity : SDLActivity() {
                 "\tgl_FragColor = color;\n" +
                 "}"
         return if (gamepath != null) {
-         GBAcheatUtils.generateCheat(this, gameNum, cheatpath)
-                arrayOf(
-                    gamepath,
-                    internalCheatFile,
-                    fragmentShader
-                )
+            CheatUtils.generateCheat(this, gameNum, cheatpath)
+            arrayOf(
+                gamepath,
+                internalCheatFile,
+                fragmentShader
+            )
         } else emptyArray<String>()
 
     }
@@ -332,7 +334,7 @@ class GameActivity : SDLActivity() {
     external fun QuickLoadState(): Boolean
     external fun PauseGame()
     external fun ResumeGame()
-    external fun TakeScreenshot(): ByteArray
+    external fun TakeScreenshot(path: String)
     external fun Forward(speed: Float)
     external fun Mute(mute: Boolean)
 }
