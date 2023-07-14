@@ -16,4 +16,6 @@
     <string name="load">Load</string>
     <string name="forward">forward</string>
     <string name="forwarding">%s times forwarding</string>
+    <string name="search">Search</string>
+    <string name="newsearch">New Search</string>
 </resources>

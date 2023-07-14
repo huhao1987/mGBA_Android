@@ -17,4 +17,6 @@
     <string name="load">读取</string>
     <string name="forward">加速</string>
     <string name="forwarding">%s倍加速中</string>
+    <string name="search">搜索</string>
+    <string name="newsearch">新搜索</string>
 </resources>

@@ -2,13 +2,13 @@ package hh.game.mgba_android.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
@@ -16,12 +16,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import hh.game.mgba_android.R
 import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
-import hh.game.mgba_android.fragment.GameMenuFragment
+import hh.game.mgba_android.fragment.MemorySearchFragment
+import hh.game.mgba_android.fragment.OnAddressClickListener
 import hh.game.mgba_android.fragment.OnDialogClickListener
-import hh.game.mgba_android.fragment.OnMenuListener
+import hh.game.mgba_android.fragment.OnMemSearchListener
 import hh.game.mgba_android.fragment.PopDialogFragment
 import hh.game.mgba_android.memory.CoreMemoryBlock
 import hh.game.mgba_android.utils.CheatUtils
@@ -39,7 +41,7 @@ class GameActivity : SDLActivity() {
     private var runFPS = true
     private var setFPS = 60f
     private var isMute = false
-
+    private var templateResult = ArrayList<Pair<Int,Int>>()
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -188,23 +190,73 @@ class GameActivity : SDLActivity() {
         }
         relativeLayout.findViewById<ImageView>(R.id.menubtn).setOnClickListener {
             PauseGame()
-            GameMenuFragment().also {
-                it.setOndismissListener(object : OnMenuListener {
-                    override fun onDismiss() {
-                        ResumeGame()
+            MemorySearchFragment().also {
+                it.setOnMemSearchListener(object:OnMemSearchListener{
+                    override fun onSearch(value: Int) {
+                        searchMemory(value)
+                        it.updateMemAddressList(templateResult)
                     }
 
-                    override fun onSaveState() {
-                    }
-
-                    override fun onLoadState() {
+                    override fun onNewSearch(value: Int) {
+                        searchMemory(value,true)
+                        it.updateMemAddressList(templateResult)
                     }
 
                     override fun onExit() {
-                        System.exit(0)
+                        it.dismiss()
+                        ResumeGame()
                     }
                 })
-            }.show(supportFragmentManager, "menu")
+                it.setOnAddressClickListener(object:OnAddressClickListener{
+                    override fun onClick(address: Pair<Int, Int>) {
+                        val editText = EditText(this@GameActivity)
+                        val builder: AlertDialog.Builder = AlertDialog.Builder(this@GameActivity)
+                        builder.setTitle("Set value to ${address.first.toString(16)}")
+                            .setView(editText)
+                            .setNegativeButton("Cancel",
+                                { dialog, which -> dialog.dismiss() })
+                        builder.setPositiveButton("OK",
+                            { dialog, which ->
+                                writeMem(address.first,editText.text.toString().toInt())
+                            })
+                        builder.show()
+                    }
+                })
+            }.show(supportFragmentManager, "search")
+//          getMemoryBlock().forEach {
+//              Log.d("Thememory::",it.toString())
+//              it.valuearray.forEach {
+//                  if(it.first.toString(16).equals("2000250")) {
+//                      Log.d(
+//                          "Memory:::",
+//                          "address:${it.first.toString(16)} value:${it.second.toString(16)}"
+//                      )
+//                  }
+////                  if(it==9999){
+////                      Log.d("getvalue:::",it.toString())
+////                  }
+//              }
+//          }
+
+//            ResumeGame()
+//            PauseGame()
+//            GameMenuFragment().also {
+//                it.setOndismissListener(object : OnMenuListener {
+//                    override fun onDismiss() {
+//                        ResumeGame()
+//                    }
+//
+//                    override fun onSaveState() {
+//                    }
+//
+//                    override fun onLoadState() {
+//                    }
+//
+//                    override fun onExit() {
+//                        System.exit(0)
+//                    }
+//                })
+//            }.show(supportFragmentManager, "menu")
         }
 
         relativeLayout.findViewById<TextView>(R.id.forwardbtn).setOnClickListener {
@@ -225,6 +277,9 @@ class GameActivity : SDLActivity() {
                 false -> (it as ImageView).setImageDrawable(getDrawable(R.drawable.baseline_volume_up_24))
                 true -> (it as ImageView).setImageDrawable(getDrawable(R.drawable.baseline_volume_off_24))
             }
+//            PauseGame()
+//            CheatUtils.memorySearch(999900)
+//            ResumeGame()
         }
         relativeLayout.findViewById<ImageView>(R.id.rBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.lBtn).setGBAKeyListener()
@@ -236,6 +291,31 @@ class GameActivity : SDLActivity() {
         relativeLayout.findViewById<ImageView>(R.id.downBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.leftBtn).setGBAKeyListener()
         relativeLayout.findViewById<ImageView>(R.id.rightBtn).setGBAKeyListener()
+    }
+
+    private fun searchMemory(value:Int,isNewSearch:Boolean = false){
+        var mem = ArrayList<Pair<Int,Int>>()
+         getMemoryBlock().filter {
+            it.id == 2.toLong()||it.id == 3.toLong()
+        }.forEach{
+             mem+=it.valuearray
+         }
+        if(isNewSearch) {
+            templateResult = ArrayList(mem.filter {
+                it.second == value
+            })
+        }
+        else {
+            templateResult = ArrayList(findMatchingPairs(templateResult,mem).filter {
+                it.second == value
+            })
+        }
+    }
+    private fun findMatchingPairs(a: ArrayList<Pair<Int, Int>>, b: ArrayList<Pair<Int, Int>>): ArrayList<Pair<Int, Int>> {
+        val set = HashSet<Int>()
+        val aFirstValues = a.map { it.first }.toSet()
+        val result = b.filter { it.first in aFirstValues } as ArrayList<Pair<Int, Int>>
+        return result
     }
 
     private fun getScreenShot(){
@@ -337,6 +417,8 @@ class GameActivity : SDLActivity() {
     external fun TakeScreenshot(path: String)
     external fun Forward(speed: Float)
     external fun Mute(mute: Boolean)
+    external fun getMemoryBlock(): ArrayList<CoreMemoryBlock>
+    external fun writeMem(address:Int,value: Int)
 }
 
 

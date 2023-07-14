@@ -21,6 +21,8 @@
 #include <errno.h>
 #include <signal.h>
 
+#include <mgba/core/mem-search.h>
+#include "mgba/core/interface.h"
 #define PORT "sdl"
 #include <android/log.h>
 #include "android/sdl/android_sdl_events.h"
@@ -47,6 +49,7 @@ static void _loadState(struct mCoreThread* thread) {
 }
 struct mSDLRenderer androidrenderer;
 struct mCoreThread thread;
+
 int runGame(char** argv){
     androidrenderer = {0};
 
@@ -59,7 +62,9 @@ int runGame(char** argv){
             .volume = 0x100,
             .videoSync = true,
             .audioSync = true,
-            .interframeBlending = true
+            .interframeBlending = true,
+            .lockIntegerScaling = true,
+            .resampleVideo = true
     };
 
     struct mArguments args;
@@ -377,4 +382,112 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_hh_game_mgba_1android_activity_GameActivity_Mute(JNIEnv *env, jobject thiz, jboolean mute) {
     muteVolume(mute);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_utils_CheatUtils_00024Companion_memorySearch(JNIEnv *env, jobject thiz,jint search_value) {
+    struct mCoreMemorySearchParams* params;
+    params->memoryFlags = mCORE_MEMORY_RW;
+    params->type = mCORE_MEMORY_SEARCH_INT;
+    params->op = mCORE_MEMORY_SEARCH_EQUAL;
+    params->valueInt =search_value;
+    params->width = sizeof(params->valueInt);
+    params->align = -1;
+    struct mCoreMemorySearchResults* out;
+    mCoreMemorySearch(thread.core,params,out,10000);
+    out;
+}
+
+#include <jni.h>
+
+jobject createIntArray(JNIEnv* env, uint32_t* memresult, uint32_t start, int length) {
+    jclass arrayListClass = env->FindClass("java/util/ArrayList");
+    if (arrayListClass == NULL) {
+        return NULL;
+    }
+    jclass pairClass = env->FindClass("kotlin/Pair");
+    if (pairClass == NULL) {
+        return NULL;
+    }
+    jmethodID arrayListConstructor = env->GetMethodID(arrayListClass, "<init>", "()V");
+    if (arrayListConstructor == NULL) {
+        return NULL;
+    }
+    jobject arrayList = env->NewObject(arrayListClass, arrayListConstructor);
+    if (arrayList == NULL) {
+        return NULL;
+    }
+    jmethodID arrayListAdd = env->GetMethodID(arrayListClass, "add", "(Ljava/lang/Object;)Z");
+    if (arrayListAdd == NULL) {
+        return NULL;
+    }
+    jmethodID pairConstructor = env->GetMethodID(pairClass, "<init>", "(Ljava/lang/Object;Ljava/lang/Object;)V");
+    if (pairConstructor == NULL) {
+        return NULL;
+    }
+    for (int i = 0; i < length; i += 4) {
+        uint32_t address = start + i;
+        jobject pair = env->NewObject(pairClass, pairConstructor, env->NewObject(env->FindClass("java/lang/Integer"), env->GetMethodID(env->FindClass("java/lang/Integer"), "<init>", "(I)V"),  (jint)address), env->NewObject(env->FindClass("java/lang/Integer"), env->GetMethodID(env->FindClass("java/lang/Integer"), "<init>", "(I)V"), (jint)memresult[i >> 2]));
+        env->CallBooleanMethod(arrayList, arrayListAdd, pair);
+        env->DeleteLocalRef(pair);
+    }
+    return arrayList;
+}
+
+
+extern "C"
+JNIEXPORT jobject JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_getMemoryBlock(JNIEnv *env, jobject thiz) {
+    mCoreThreadInterrupt(&thread);
+    const struct mCoreMemoryBlock* blocks;
+    size_t nBlocks = androidrenderer.core->listMemoryBlocks(androidrenderer.core, &blocks);
+    jclass arrayListClass = env->FindClass("java/util/ArrayList");
+    jmethodID arrayListConstructor = env->GetMethodID(arrayListClass, "<init>", "()V");
+    jmethodID arrayListAddMethod = env->GetMethodID(arrayListClass, "add", "(Ljava/lang/Object;)Z");
+    jobject arrayListObject = env->NewObject(arrayListClass, arrayListConstructor);
+    jclass kotlinClass = env->FindClass("hh/game/mgba_android/memory/CoreMemoryBlock");
+    jmethodID constructor = env->GetMethodID(kotlinClass, "<init>",
+                                             "(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIISILjava/util/ArrayList;)V");
+
+    for (int i = 0; i < nBlocks; i++) {
+        jclass arrayListClass = env->FindClass("java/util/ArrayList");
+        jmethodID arrayListConstructor = env->GetMethodID(arrayListClass, "<init>", "()V");
+        jobject arrayList = env->NewObject(arrayListClass, arrayListConstructor);
+        const struct mCoreMemoryBlock* block = &blocks[i];
+        if(block->id == 2|| block->id ==3){
+            size_t size;
+            void* mem = androidrenderer.core->getMemoryBlock(androidrenderer.core, block->id, &size);
+            if(mem){
+                uint32_t* memresult = getBlock(mem);
+                uint32_t start = block->start;
+                arrayList = createIntArray(env, memresult, start, block->size);
+            }
+        }
+
+        jobject kotlinObject = env->NewObject(kotlinClass, constructor,
+                                              (jlong)block->id,
+                                              env->NewStringUTF(block->internalName),
+                                              env->NewStringUTF(block->shortName),
+                                              env->NewStringUTF(block->longName),
+                                              (jint)block->start,
+                                              (jint)block->end,
+                                              (jint)block->size,
+                                              (jint)block->flags,
+                                              (jshort)block->maxSegment,
+                                              (jint)block->segmentStart,
+                                              arrayList
+        );
+        env->CallBooleanMethod(arrayListObject, arrayListAddMethod, kotlinObject);
+    }
+    mCoreThreadContinue(&thread);
+    return arrayListObject;
+
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_writeMem(JNIEnv *env, jobject thiz, jint address,
+                                                          jint value) {
+    androidrenderer.core->busWrite32(androidrenderer.core,(uint32_t)address,(int32_t)value);
 }

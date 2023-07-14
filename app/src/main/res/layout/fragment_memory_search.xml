@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<com.google.android.material.textfield.TextInputEditText
+    android:id="@+id/searchValue"
+    android:layout_width="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResult"
+        android:layout_below="@+id/searchValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+<com.google.android.material.button.MaterialButton
+    android:id="@+id/searchBtn"
+    android:text="@string/search"
+    android:layout_below="@+id/searchResult"
+    android:layout_marginTop="10dp"
+    android:layout_centerHorizontal="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/newsearchBtn"
+        android:text="@string/newsearch"
+        android:layout_below="@+id/searchBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/exitBtn"
+        android:text="@string/exit"
+        android:layout_below="@+id/newsearchBtn"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
