@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hh.game.mgba_android.R
 import hh.game.mgba_android.adapter.AddressListAdapter
 
-class MemorySearchFragment : DialogFragment() {
+class MemorySearchFragment(var addressList : ArrayList<Pair<Int, Int>>) : DialogFragment() {
     private var onMemSearchListener: OnMemSearchListener? = null
     private lateinit var addressListAdapter: AddressListAdapter
     private var onAddressClickListener: OnAddressClickListener? = null
@@ -33,17 +33,23 @@ class MemorySearchFragment : DialogFragment() {
             onMemSearchListener?.onExit()
         }
         view.findViewById<Button>(R.id.searchBtn).setOnClickListener {
-            onMemSearchListener?.onSearch(
-                view.findViewById<EditText>(R.id.searchValue).text.toString().toInt()
-            )
+            var searchvalue = view.findViewById<EditText>(R.id.searchValue).text.toString()
+                if(searchvalue.isNotBlank()) {
+                    onMemSearchListener?.onSearch(
+                        searchvalue.toInt()
+                    )
+                }
         }
         view.findViewById<Button>(R.id.newsearchBtn).setOnClickListener {
-            onMemSearchListener?.onNewSearch(
-                view.findViewById<EditText>(R.id.searchValue).text.toString().toInt()
-            )
+            var searchvalue = view.findViewById<EditText>(R.id.searchValue).text.toString()
+            if(searchvalue.isNotBlank()) {
+                onMemSearchListener?.onNewSearch(
+                    searchvalue.toInt()
+                )
+            }
         }
         searchResult = view.findViewById<RecyclerView>(R.id.searchResult)
-        addressListAdapter = AddressListAdapter(ArrayList())
+        addressListAdapter = AddressListAdapter(addressList)
         searchResult.layoutManager = LinearLayoutManager(context)
         searchResult.adapter = addressListAdapter
         addressListAdapter.addressOnClickListener = { position, address ->

@@ -190,7 +190,7 @@ class GameActivity : SDLActivity() {
         }
         relativeLayout.findViewById<ImageView>(R.id.menubtn).setOnClickListener {
             PauseGame()
-            MemorySearchFragment().also {
+            MemorySearchFragment(templateResult).also {
                 it.setOnMemSearchListener(object:OnMemSearchListener{
                     override fun onSearch(value: Int) {
                         searchMemory(value)
@@ -211,7 +211,7 @@ class GameActivity : SDLActivity() {
                     override fun onClick(address: Pair<Int, Int>) {
                         val editText = EditText(this@GameActivity)
                         val builder: AlertDialog.Builder = AlertDialog.Builder(this@GameActivity)
-                        builder.setTitle("Set value to ${address.first.toString(16)}")
+                        builder.setTitle("Set value to ${address.first.toString(16).padStart(8, '0')}")
                             .setView(editText)
                             .setNegativeButton("Cancel",
                                 { dialog, which -> dialog.dismiss() })
