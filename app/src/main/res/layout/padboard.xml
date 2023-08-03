@@ -22,7 +22,6 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:background="@drawable/btnbackgroud"
         android:gravity="center"
         android:text="C"
