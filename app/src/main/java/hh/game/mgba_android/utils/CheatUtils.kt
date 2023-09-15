@@ -18,6 +18,7 @@ class CheatUtils {
             externalcheatfile: String? = null
         ): Boolean {
             gameNum?.apply {
+                Log.d("gamecode::",gameNum)
                 var internalCheatFile =
                     context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht"
                 if (!File(internalCheatFile).exists()) {
@@ -81,20 +82,20 @@ class CheatUtils {
             var cheat = Cheat()
             line = reader.readLine()
             if (line != null && !line.equals("")) {
-                if (line.contains("[") && line.contains("]") && !line.contains("GameInfo")) {
+                if (line.contains("[") && line.contains("]") && !line.contains("GameInfo",ignoreCase = true)) {
                     currentTitle = line.replace("[", "").replace("]", "")
                 } else if (line.contains("=")) {
                     val parts = line.split("=")
                     currentSubtitle = parts[0]
-                    when (currentSubtitle) {
-                        "Name" -> gbaCheat.gameTitle = parts[1]
-                        "System" -> gbaCheat.gameSystem = when (parts[1]) {
-                            "GBA" -> Gametype.GBA
-                            "GBC" -> Gametype.GBC
+                    when (currentSubtitle.toLowerCase()) {
+                        "name" -> gbaCheat.gameTitle = parts[1]
+                        "system" -> gbaCheat.gameSystem = when (parts[1].toLowerCase()) {
+                            "gba" -> Gametype.GBA
+                            "gbc" -> Gametype.GBC
                             else -> Gametype.GB
                         }
 
-                        "Text" -> gbaCheat.gameDes = parts[1]
+                        "text" -> gbaCheat.gameDes = parts[1]
                         else -> {
                             var cachecode = parts[1]
                             while (cachecode.endsWith(",")) {
