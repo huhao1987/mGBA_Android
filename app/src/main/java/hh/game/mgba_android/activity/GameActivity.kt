@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -17,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import hh.game.mgba_android.R
 import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
@@ -32,11 +34,18 @@ import hh.game.mgba_android.utils.getKey
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancel
 import org.libsdl.app.SDLActivity
+import org.libsdl.app.SDLUtils
+import org.libsdl.app.SDLUtils.libraries
+import org.libsdl.app.SDLUtils.mFullscreenModeActive
+import org.libsdl.app.SDLUtils.mLayout
+import org.libsdl.app.SDLUtils.mSurface
+import org.libsdl.app.SDLUtils.onNativeKeyDown
+import org.libsdl.app.SDLUtils.onNativeKeyUp
 import java.io.File
 import kotlin.math.roundToInt
 
 
-class GameActivity : SDLActivity() {
+class GameActivity : AppCompatActivity() {
     private var surfaceparams: LayoutParams? = null
     private var runFPS = true
     private var setFPS = 60f
@@ -55,8 +64,44 @@ class GameActivity : SDLActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mFullscreenModeActive = false
-        Log.d("GameActivity::", "create")
-        updateScreenPosition()
+        setContentView(R.layout.activity_game)
+        var gamepath = intent.getStringExtra("gamepath")
+        val gameNum = intent.getStringExtra("cheat")
+        var cheatpath = gamepath?.replace(".gba", ".cheats")
+        if (!File(cheatpath).exists()) cheatpath = null
+        var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+
+        var fragmentShader = "uniform sampler2D tex;\n" +
+                "uniform vec2 texSize;\n" +
+                "varying vec2 texCoord;\n" +
+                "\n" +
+                "uniform float boundBrightness;\n" +
+                "\n" +
+                "void main()\n" +
+                "{\n" +
+                "\tvec4 color = texture2D(tex, texCoord);\n" +
+                "\n" +
+                "\tif (int(mod(texCoord.s * texSize.x * 3.0, 3.0)) == 0 ||\n" +
+                "\t\tint(mod(texCoord.t * texSize.y * 3.0, 3.0)) == 0)\n" +
+                "\t{\n" +
+                "\t\tcolor.rgb *= vec3(1.0, 1.0, 1.0) * boundBrightness;\n" +
+                "\t}\n" +
+                "\n" +
+                "\tgl_FragColor = color;\n" +
+                "}"
+        if (gamepath != null)
+            CheatUtils.generateCheat(this, gameNum, cheatpath)
+        SDLUtils.init(this,findViewById(R.id.gameView))
+            .setLibraries(
+                "SDL2",
+                "mgba",
+                "mgba_android"
+            )
+            .setArguments(
+                gamepath,
+                internalCheatFile,
+//                fragmentShader
+            )
         addGameControler()
 //        GlobalScope.launch {
 //            Gameutils.getFPS().toString()
@@ -66,39 +111,13 @@ class GameActivity : SDLActivity() {
     override fun onDestroy() {
         super.onDestroy()
         runFPS = false
-        GlobalScope.cancel()
+//        GlobalScope.cancel()
     }
-
-    fun updateScreenPosition() {
-        if (surfaceparams == null) {
-            surfaceparams = RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-            )
-            val screenWidth = windowManager.defaultDisplay.width
-            surfaceparams?.topMargin = 0
-            surfaceparams?.leftMargin = 0
-            surfaceparams?.width = screenWidth
-            surfaceparams?.height = (screenWidth * 0.7).roundToInt()
-            mSurface.layoutParams = surfaceparams
-        }
-    }
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean =
+        SDLUtils.dispatchKeyEvent(event)
 
     private fun addGameControler() {
-        val inflater = LayoutInflater.from(this)
-        val relativeLayout =
-            inflater.inflate(R.layout.padboard, mLayout, false) as RelativeLayout
-        val layoutParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
-
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-        layoutParams.bottomMargin = 30.dpToPx()
-        layoutParams.leftMargin = 10.dpToPx()
-        layoutParams.rightMargin = 10.dpToPx()
-        mLayout.addView(relativeLayout, layoutParams)
-        relativeLayout.findViewById<TextView>(R.id.cheatbtn).setOnClickListener {
+        findViewById<TextView>(R.id.cheatbtn).setOnClickListener {
             startForResult.launch(Intent(this, CheatsActivity::class.java).also {
                 when (intent.getStringExtra("gametype")) {
                     "GBA" ->
@@ -133,7 +152,7 @@ class GameActivity : SDLActivity() {
             })
         }
 
-        relativeLayout.findViewById<TextView>(R.id.savestatetbtn).setOnClickListener {
+        findViewById<TextView>(R.id.savestatetbtn).setOnClickListener {
             PauseGame()
             PopDialogFragment(getString(R.string.savestatetitle))
                 .also {
@@ -162,7 +181,7 @@ class GameActivity : SDLActivity() {
                 }
                 .show(supportFragmentManager, "loadstate")
         }
-        relativeLayout.findViewById<TextView>(R.id.loadstatebtn).setOnClickListener {
+        findViewById<TextView>(R.id.loadstatebtn).setOnClickListener {
             PauseGame()
             PopDialogFragment(getString(R.string.loadstatetitle))
                 .also {
@@ -188,7 +207,7 @@ class GameActivity : SDLActivity() {
                 }
                 .show(supportFragmentManager, "loadstate")
         }
-        relativeLayout.findViewById<ImageView>(R.id.menubtn).setOnClickListener {
+        findViewById<ImageView>(R.id.menubtn).setOnClickListener {
             PauseGame()
             MemorySearchFragment(templateResult).also {
                 it.setOnMemSearchListener(object:OnMemSearchListener{
@@ -259,7 +278,7 @@ class GameActivity : SDLActivity() {
 //            }.show(supportFragmentManager, "menu")
         }
 
-        relativeLayout.findViewById<TextView>(R.id.forwardbtn).setOnClickListener {
+        findViewById<TextView>(R.id.forwardbtn).setOnClickListener {
             setFPS = when (setFPS) {
                 60f -> setForward(it as TextView, 2)
                 60f * 2 -> setForward(it as TextView, 4)
@@ -270,7 +289,7 @@ class GameActivity : SDLActivity() {
             }
             Forward(setFPS)
         }
-        relativeLayout.findViewById<ImageView>(R.id.soundbtn).setOnClickListener {
+        findViewById<ImageView>(R.id.soundbtn).setOnClickListener {
             Mute(!isMute)
             isMute = !isMute
             when (isMute) {
@@ -281,16 +300,16 @@ class GameActivity : SDLActivity() {
 //            CheatUtils.memorySearch(999900)
 //            ResumeGame()
         }
-        relativeLayout.findViewById<ImageView>(R.id.rBtn).setGBAKeyListener()
-        relativeLayout.findViewById<ImageView>(R.id.lBtn).setGBAKeyListener()
-        relativeLayout.findViewById<ImageView>(R.id.aBtn).setGBAKeyListener()
-        relativeLayout.findViewById<ImageView>(R.id.bBtn).setGBAKeyListener()
-        relativeLayout.findViewById<ImageView>(R.id.selectBtn).setGBAKeyListener()
-        relativeLayout.findViewById<ImageView>(R.id.startBtn).setGBAKeyListener()
-        relativeLayout.findViewById<ImageView>(R.id.upBtn).setGBAKeyListener()
-        relativeLayout.findViewById<ImageView>(R.id.downBtn).setGBAKeyListener()
-        relativeLayout.findViewById<ImageView>(R.id.leftBtn).setGBAKeyListener()
-        relativeLayout.findViewById<ImageView>(R.id.rightBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.rBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.lBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.aBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.bBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.selectBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.startBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.upBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.downBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.leftBtn).setGBAKeyListener()
+        findViewById<ImageView>(R.id.rightBtn).setGBAKeyListener()
     }
 
     private fun searchMemory(value:Int,isNewSearch:Boolean = false){
@@ -367,48 +386,41 @@ class GameActivity : SDLActivity() {
             true
         }
     }
-
-
-    override fun getArguments(): Array<String> {
-        var gamepath = intent.getStringExtra("gamepath")
-        val gameNum = intent.getStringExtra("cheat")
-        var cheatpath = gamepath?.replace(".gba", ".cheats")
-        if (!File(cheatpath).exists()) cheatpath = null
-        var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
-
-        var fragmentShader = "uniform sampler2D tex;\n" +
-                "uniform vec2 texSize;\n" +
-                "varying vec2 texCoord;\n" +
-                "\n" +
-                "uniform float boundBrightness;\n" +
-                "\n" +
-                "void main()\n" +
-                "{\n" +
-                "\tvec4 color = texture2D(tex, texCoord);\n" +
-                "\n" +
-                "\tif (int(mod(texCoord.s * texSize.x * 3.0, 3.0)) == 0 ||\n" +
-                "\t\tint(mod(texCoord.t * texSize.y * 3.0, 3.0)) == 0)\n" +
-                "\t{\n" +
-                "\t\tcolor.rgb *= vec3(1.0, 1.0, 1.0) * boundBrightness;\n" +
-                "\t}\n" +
-                "\n" +
-                "\tgl_FragColor = color;\n" +
-                "}"
-        return if (gamepath != null) {
-            CheatUtils.generateCheat(this, gameNum, cheatpath)
-            arrayOf(
-                gamepath,
-                internalCheatFile,
-                fragmentShader
-            )
-        } else emptyArray<String>()
-
-    }
-
-    override fun resumeNativeThread() {
-        super.resumeNativeThread()
-    }
-
+//    override fun getArguments(): Array<String> {
+//        var gamepath = intent.getStringExtra("gamepath")
+//        val gameNum = intent.getStringExtra("cheat")
+//        var cheatpath = gamepath?.replace(".gba", ".cheats")
+//        if (!File(cheatpath).exists()) cheatpath = null
+//        var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+//
+//        var fragmentShader = "uniform sampler2D tex;\n" +
+//                "uniform vec2 texSize;\n" +
+//                "varying vec2 texCoord;\n" +
+//                "\n" +
+//                "uniform float boundBrightness;\n" +
+//                "\n" +
+//                "void main()\n" +
+//                "{\n" +
+//                "\tvec4 color = texture2D(tex, texCoord);\n" +
+//                "\n" +
+//                "\tif (int(mod(texCoord.s * texSize.x * 3.0, 3.0)) == 0 ||\n" +
+//                "\t\tint(mod(texCoord.t * texSize.y * 3.0, 3.0)) == 0)\n" +
+//                "\t{\n" +
+//                "\t\tcolor.rgb *= vec3(1.0, 1.0, 1.0) * boundBrightness;\n" +
+//                "\t}\n" +
+//                "\n" +
+//                "\tgl_FragColor = color;\n" +
+//                "}"
+//        return if (gamepath != null) {
+//            CheatUtils.generateCheat(this, gameNum, cheatpath)
+//            arrayOf(
+//                gamepath,
+//                internalCheatFile,
+//                fragmentShader
+//            )
+//        } else emptyArray<String>()
+//
+//    }
     external fun reCallCheats(cheatfile: String)
     external fun QuickSaveState(): Boolean
     external fun QuickLoadState(): Boolean
