@@ -109,10 +109,10 @@ int runGame(char** argv){
     struct mCheatDevice* device = androidrenderer.core->cheatDevice(androidrenderer.core);
     if(argv[2])
     args.cheatsFile = argv[2];
-    if(argv[3])
-        _fragmentShader = argv[3];
-    if(argv[4])
-        _vertexShader = argv[4];
+//    if(argv[3])
+//        _fragmentShader = argv[3];
+//    if(argv[4])
+//        _vertexShader = argv[4];
     mInputMapInit(&androidrenderer.core->inputMap, &GBAInputInfo);
     mCoreInitConfig(androidrenderer.core, PORT);
     mArgumentsApply(&args, &subparser, 1, &androidrenderer.core->config);

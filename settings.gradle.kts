@@ -17,5 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "mgba_Android"
+rootProject.name = "mGBA_Android"
 include(":app")
