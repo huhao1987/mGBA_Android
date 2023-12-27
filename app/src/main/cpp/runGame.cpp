@@ -35,8 +35,8 @@
 #define LOG_I(...) __android_log_print(ANDROID_LOG_INFO,     TAG, __VA_ARGS__)
 #define LOG_D(...) __android_log_print(ANDROID_LOG_DEBUG,    TAG, __VA_ARGS__)
 
-extern char* _fragmentShader;
-extern char* _vertexShader;
+//extern char* _fragmentShader;
+//extern char* _vertexShader;
 static void mSDLDeinit(struct mSDLRenderer* renderer);
 
 static int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args);

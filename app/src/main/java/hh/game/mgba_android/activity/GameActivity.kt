@@ -6,12 +6,20 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.KeyEvent
-import android.view.LayoutInflater
+import android.view.KeyEvent.KEYCODE_BUTTON_A
+import android.view.KeyEvent.KEYCODE_BUTTON_B
+import android.view.KeyEvent.KEYCODE_BUTTON_L1
+import android.view.KeyEvent.KEYCODE_BUTTON_L2
+import android.view.KeyEvent.KEYCODE_BUTTON_SELECT
+import android.view.KeyEvent.KEYCODE_BUTTON_START
+import android.view.KeyEvent.KEYCODE_DPAD_DOWN
+import android.view.KeyEvent.KEYCODE_DPAD_LEFT
+import android.view.KeyEvent.KEYCODE_DPAD_RIGHT
+import android.view.KeyEvent.KEYCODE_DPAD_UP
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
 import android.widget.TextView
 import android.widget.Toast
@@ -29,24 +37,20 @@ import hh.game.mgba_android.fragment.OnMemSearchListener
 import hh.game.mgba_android.fragment.PopDialogFragment
 import hh.game.mgba_android.memory.CoreMemoryBlock
 import hh.game.mgba_android.utils.CheatUtils
+import hh.game.mgba_android.utils.GBAKeys
 import hh.game.mgba_android.utils.Gametype
 import hh.game.mgba_android.utils.getKey
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.cancel
-import org.libsdl.app.SDLActivity
 import org.libsdl.app.SDLUtils
-import org.libsdl.app.SDLUtils.libraries
+import org.libsdl.app.SDLUtils.getDirectionPressed
+import org.libsdl.app.SDLUtils.lastDirect
 import org.libsdl.app.SDLUtils.mFullscreenModeActive
-import org.libsdl.app.SDLUtils.mLayout
-import org.libsdl.app.SDLUtils.mSurface
 import org.libsdl.app.SDLUtils.onNativeKeyDown
 import org.libsdl.app.SDLUtils.onNativeKeyUp
 import java.io.File
-import kotlin.math.roundToInt
+import java.lang.Float.compare
 
 
 class GameActivity : AppCompatActivity() {
-    private var surfaceparams: LayoutParams? = null
     private var runFPS = true
     private var setFPS = 60f
     private var isMute = false
@@ -113,8 +117,29 @@ class GameActivity : AppCompatActivity() {
         runFPS = false
 //        GlobalScope.cancel()
     }
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean =
-        SDLUtils.dispatchKeyEvent(event)
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return super.onKeyDown(keyCode, event)
+    }
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+//        Game controler
+        var handled = false
+        var gbaKey = getKey(event.keyCode)
+        if(gbaKey != GBAKeys.GBA_KEY_NONE.key) {
+            when(event.action){
+                KeyEvent.ACTION_DOWN -> {
+                    onNativeKeyDown(gbaKey)
+                    handled = true
+                }
+                KeyEvent.ACTION_UP -> {
+                    onNativeKeyUp(gbaKey)
+                    handled = true
+                }
+
+            }
+        }
+        return handled || SDLUtils.dispatchKeyEvent(event)
+    }
 
     private fun addGameControler() {
         findViewById<TextView>(R.id.cheatbtn).setOnClickListener {
@@ -312,6 +337,7 @@ class GameActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.rightBtn).setGBAKeyListener()
     }
 
+
     private fun searchMemory(value:Int,isNewSearch:Boolean = false){
         var mem = ArrayList<Pair<Int,Int>>()
          getMemoryBlock().filter {
@@ -357,6 +383,27 @@ class GameActivity : AppCompatActivity() {
         ).toInt()
     }
 
+    override fun dispatchGenericMotionEvent(ev: MotionEvent?): Boolean {
+        var handled = false
+        ev?.let {
+            getDirectionPressed(ev).let {
+                if(it == 0) {
+                    onNativeKeyUp(lastDirect)
+                    lastDirect = 0
+                    handled = true
+                }
+                else {
+                    var gbaKey = getKey(it)
+                    if (gbaKey != GBAKeys.GBA_KEY_NONE.key) {
+                        onNativeKeyDown(gbaKey)
+                        handled = true
+                    }
+                }
+            }
+        }
+        return  handled || super.dispatchGenericMotionEvent(ev)
+    }
+
     private fun View.setGBAKeyListener() {
         var keyText = getKey(
             when (this.id) {
@@ -376,6 +423,7 @@ class GameActivity : AppCompatActivity() {
         this.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
+                    Log.d("thetouchkey:::",keyText.toString())
                     onNativeKeyDown(keyText)
                 }
 
@@ -386,6 +434,7 @@ class GameActivity : AppCompatActivity() {
             true
         }
     }
+
 //    override fun getArguments(): Array<String> {
 //        var gamepath = intent.getStringExtra("gamepath")
 //        val gameNum = intent.getStringExtra("cheat")

@@ -19,10 +19,10 @@ void mSDLInitBindingsGBAforAndroid(struct mInputMap *inputMap) {
     mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_u, GBA_KEY_R);
     mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_y, GBA_KEY_START);
     mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_n, GBA_KEY_SELECT);
-    mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_w, GBA_KEY_UP);
-    mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_s, GBA_KEY_DOWN);
-    mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_a, GBA_KEY_LEFT);
-    mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_d, GBA_KEY_RIGHT);
+    mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_UP, GBA_KEY_UP);
+    mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_DOWN, GBA_KEY_DOWN);
+    mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_LEFT, GBA_KEY_LEFT);
+    mInputBindKey(inputMap, SDL_BINDING_KEY, SDLK_RIGHT, GBA_KEY_RIGHT);
 //	struct mInputAxis description = { GBA_KEY_RIGHT, GBA_KEY_LEFT, 0x4000, -0x4000 };
 //	mInputBindAxis(inputMap, SDL_BINDING_BUTTON, 0, &description);
 //	description = (struct mInputAxis) { GBA_KEY_DOWN, GBA_KEY_UP, 0x4000, -0x4000 };
