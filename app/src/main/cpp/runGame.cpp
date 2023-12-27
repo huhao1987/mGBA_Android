@@ -57,13 +57,13 @@ int runGame(char** argv){
             .useBios = true,
             .logLevel = mLOG_WARN | mLOG_ERROR | mLOG_FATAL,
             .rewindEnable = false,
-            .rewindBufferCapacity = 600,
             .audioBuffers = 8192,
             .volume = 0x100,
             .videoSync = true,
             .audioSync = true,
             .interframeBlending = true,
             .lockIntegerScaling = true,
+            .lockAspectRatio = true,
             .resampleVideo = true
     };
 
