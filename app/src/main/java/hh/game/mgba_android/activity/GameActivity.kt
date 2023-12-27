@@ -39,10 +39,10 @@ import hh.game.mgba_android.memory.CoreMemoryBlock
 import hh.game.mgba_android.utils.CheatUtils
 import hh.game.mgba_android.utils.GBAKeys
 import hh.game.mgba_android.utils.Gametype
+import hh.game.mgba_android.utils.controllerUtil.getDirectionPressed
+import hh.game.mgba_android.utils.controllerUtil.lastDirect
 import hh.game.mgba_android.utils.getKey
 import org.libsdl.app.SDLUtils
-import org.libsdl.app.SDLUtils.getDirectionPressed
-import org.libsdl.app.SDLUtils.lastDirect
 import org.libsdl.app.SDLUtils.mFullscreenModeActive
 import org.libsdl.app.SDLUtils.onNativeKeyDown
 import org.libsdl.app.SDLUtils.onNativeKeyUp
