@@ -388,8 +388,10 @@ class GameActivity : AppCompatActivity() {
         ev?.let {
             getDirectionPressed(ev).let {
                 if(it == 0) {
-                    onNativeKeyUp(lastDirect)
-                    lastDirect = 0
+                    lastDirect.forEach {
+                        onNativeKeyUp(it)
+                        lastDirect.remove(it)
+                    }
                     handled = true
                 }
                 else {
@@ -423,7 +425,6 @@ class GameActivity : AppCompatActivity() {
         this.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    Log.d("thetouchkey:::",keyText.toString())
                     onNativeKeyDown(keyText)
                 }
 

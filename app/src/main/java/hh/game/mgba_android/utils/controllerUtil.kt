@@ -6,7 +6,7 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 
 object controllerUtil {
-    var lastDirect = 0
+    var lastDirect = ArrayList<Int>()
     fun getDirectionPressed(event: InputEvent): Int {
         var directionPressed = -1
 
@@ -25,7 +25,7 @@ object controllerUtil {
 
             }
             else{
-                lastDirect = directionPressed
+                lastDirect.add(directionPressed)
             }
         } else if (event is KeyEvent) {
             event.keyCode
