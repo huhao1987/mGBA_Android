@@ -3,24 +3,13 @@ package hh.game.mgba_android.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_BUTTON_A
-import android.view.KeyEvent.KEYCODE_BUTTON_B
-import android.view.KeyEvent.KEYCODE_BUTTON_L1
-import android.view.KeyEvent.KEYCODE_BUTTON_L2
-import android.view.KeyEvent.KEYCODE_BUTTON_SELECT
-import android.view.KeyEvent.KEYCODE_BUTTON_START
-import android.view.KeyEvent.KEYCODE_DPAD_DOWN
-import android.view.KeyEvent.KEYCODE_DPAD_LEFT
-import android.view.KeyEvent.KEYCODE_DPAD_RIGHT
-import android.view.KeyEvent.KEYCODE_DPAD_UP
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.RelativeLayout.LayoutParams
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -46,15 +35,16 @@ import org.libsdl.app.SDLUtils
 import org.libsdl.app.SDLUtils.mFullscreenModeActive
 import org.libsdl.app.SDLUtils.onNativeKeyDown
 import org.libsdl.app.SDLUtils.onNativeKeyUp
+import java.io.BufferedWriter
 import java.io.File
-import java.lang.Float.compare
+import java.io.FileWriter
 
 
 class GameActivity : AppCompatActivity() {
     private var runFPS = true
     private var setFPS = 60f
     private var isMute = false
-    private var templateResult = ArrayList<Pair<Int,Int>>()
+    private var templateResult = ArrayList<Pair<Int, Int>>()
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -95,7 +85,7 @@ class GameActivity : AppCompatActivity() {
                 "}"
         if (gamepath != null)
             CheatUtils.generateCheat(this, gameNum, cheatpath)
-        SDLUtils.init(this,findViewById(R.id.gameView))
+        SDLUtils.init(this, findViewById(R.id.gameView))
             .setLibraries(
                 "SDL2",
                 "mgba",
@@ -121,16 +111,18 @@ class GameActivity : AppCompatActivity() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return super.onKeyDown(keyCode, event)
     }
+
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
 //        Game controler
         var handled = false
         var gbaKey = getKey(event.keyCode)
-        if(gbaKey != GBAKeys.GBA_KEY_NONE.key) {
-            when(event.action){
+        if (gbaKey != GBAKeys.GBA_KEY_NONE.key) {
+            when (event.action) {
                 KeyEvent.ACTION_DOWN -> {
                     onNativeKeyDown(gbaKey)
                     handled = true
                 }
+
                 KeyEvent.ACTION_UP -> {
                     onNativeKeyUp(gbaKey)
                     handled = true
@@ -142,6 +134,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun addGameControler() {
+        val gameNum = intent.getStringExtra("cheat")
         findViewById<TextView>(R.id.cheatbtn).setOnClickListener {
             startForResult.launch(Intent(this, CheatsActivity::class.java).also {
                 when (intent.getStringExtra("gametype")) {
@@ -235,14 +228,14 @@ class GameActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.menubtn).setOnClickListener {
             PauseGame()
             MemorySearchFragment(templateResult).also {
-                it.setOnMemSearchListener(object:OnMemSearchListener{
+                it.setOnMemSearchListener(object : OnMemSearchListener {
                     override fun onSearch(value: Int) {
                         searchMemory(value)
                         it.updateMemAddressList(templateResult)
                     }
 
                     override fun onNewSearch(value: Int) {
-                        searchMemory(value,true)
+                        searchMemory(value, true)
                         it.updateMemAddressList(templateResult)
                     }
 
@@ -251,18 +244,68 @@ class GameActivity : AppCompatActivity() {
                         ResumeGame()
                     }
                 })
-                it.setOnAddressClickListener(object:OnAddressClickListener{
+                it.setOnAddressClickListener(object : OnAddressClickListener {
                     override fun onClick(address: Pair<Int, Int>) {
                         val editText = EditText(this@GameActivity)
+                        val savetocheattitle = EditText(this@GameActivity)
+                        val savetocheatvalue = EditText(this@GameActivity)
+                        val layout = LinearLayout(this@GameActivity).also {
+                            it.orientation = LinearLayout.VERTICAL
+                            it.addView(savetocheattitle)
+                            it.addView(savetocheatvalue)
+                        }
                         val builder: AlertDialog.Builder = AlertDialog.Builder(this@GameActivity)
-                        builder.setTitle("Set value to ${address.first.toString(16).padStart(8, '0')}")
+                        builder.setTitle(
+                            getString(
+                                R.string.setcheatvalue,
+                                address.first.toString(16).padStart(8, '0')
+                            )
+                        )
                             .setView(editText)
-                            .setNegativeButton("Cancel",
+                            .setNegativeButton(getString(R.string.cancel),
                                 { dialog, which -> dialog.dismiss() })
-                        builder.setPositiveButton("OK",
+                        builder.setPositiveButton(getString(R.string.ok),
                             { dialog, which ->
-                                writeMem(address.first,editText.text.toString().toInt())
+                                if (editText.text.toString().isNotBlank())
+                                    writeMem(address.first, editText.text.toString().toInt())
                             })
+                        builder.setNeutralButton(getString(R.string.addtocheatlist)) { dialog, which ->
+                            var builder2 = AlertDialog.Builder(this@GameActivity)
+                            builder2.setTitle(
+                                getString(R.string.savecheattolist)
+                            )
+                                .setView(layout)
+                                .setNegativeButton(getString(R.string.cancel),
+                                    { dialog, which -> dialog.dismiss() })
+                            builder2.setPositiveButton(getString(R.string.ok),
+                                { dialog, which ->
+                                    if (!savetocheattitle.text.toString().equals("")
+                                        &&
+                                        !savetocheatvalue.text.toString().equals("")
+                                    ) {
+                                        var internalCheatFile =
+                                            getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht"
+                                        File(internalCheatFile).let {
+                                            if (!it.exists()) {
+                                                it.createNewFile()
+                                            }
+                                            BufferedWriter(FileWriter(it, true)).also {
+                                                it.write("# ${savetocheattitle.text.toString()}")
+                                                it.newLine()
+                                                var cheataddress = address.first.toString(16)
+                                                    .padStart(
+                                                        8,
+                                                        '0'
+                                                    ) + ":" + savetocheatvalue.text.toString().toIntOrNull(16)
+                                                it.write(cheataddress)
+                                                it.close()
+                                            }
+                                        }
+
+                                    }
+                                })
+                            builder2.show()
+                        }
                         builder.show()
                     }
                 })
@@ -338,38 +381,42 @@ class GameActivity : AppCompatActivity() {
     }
 
 
-    private fun searchMemory(value:Int,isNewSearch:Boolean = false){
-        var mem = ArrayList<Pair<Int,Int>>()
-         getMemoryBlock().filter {
-            it.id == 2.toLong()||it.id == 3.toLong()
-        }.forEach{
-             mem+=it.valuearray
-         }
-        if(isNewSearch) {
+    private fun searchMemory(value: Int, isNewSearch: Boolean = false) {
+        var mem = ArrayList<Pair<Int, Int>>()
+        getMemoryBlock().filter {
+            it.id == 2.toLong() || it.id == 3.toLong()
+        }.forEach {
+            mem += it.valuearray
+        }
+        if (isNewSearch) {
             templateResult = ArrayList(mem.filter {
                 it.second == value
             })
-        }
-        else {
-            templateResult = ArrayList(findMatchingPairs(templateResult,mem).filter {
+        } else {
+            templateResult = ArrayList(findMatchingPairs(templateResult, mem).filter {
                 it.second == value
             })
         }
     }
-    private fun findMatchingPairs(a: ArrayList<Pair<Int, Int>>, b: ArrayList<Pair<Int, Int>>): ArrayList<Pair<Int, Int>> {
+
+    private fun findMatchingPairs(
+        a: ArrayList<Pair<Int, Int>>,
+        b: ArrayList<Pair<Int, Int>>
+    ): ArrayList<Pair<Int, Int>> {
         val set = HashSet<Int>()
         val aFirstValues = a.map { it.first }.toSet()
         val result = b.filter { it.first in aFirstValues } as ArrayList<Pair<Int, Int>>
         return result
     }
 
-    private fun getScreenShot(){
-        intent.getStringExtra("gamepath")?.replace(".gba",".jpg")?.apply {
+    private fun getScreenShot() {
+        intent.getStringExtra("gamepath")?.replace(".gba", ".jpg")?.apply {
             var screenshotfile = File(this)
             if (!screenshotfile.exists()) screenshotfile.createNewFile()
             TakeScreenshot(this)
         }
     }
+
     private fun setForward(view: TextView, times: Int): Float {
         view.text = getString(R.string.forwarding, times.toString())
         return 60f * times
@@ -387,14 +434,13 @@ class GameActivity : AppCompatActivity() {
         var handled = false
         ev?.let {
             getDirectionPressed(ev).let {
-                if(it == 0) {
+                if (it == 0) {
                     lastDirect.forEach {
                         onNativeKeyUp(it)
                         lastDirect.remove(it)
                     }
                     handled = true
-                }
-                else {
+                } else {
                     var gbaKey = getKey(it)
                     if (gbaKey != GBAKeys.GBA_KEY_NONE.key) {
                         onNativeKeyDown(gbaKey)
@@ -403,7 +449,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
         }
-        return  handled || super.dispatchGenericMotionEvent(ev)
+        return handled || super.dispatchGenericMotionEvent(ev)
     }
 
     private fun View.setGBAKeyListener() {
@@ -436,7 +482,7 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-//    override fun getArguments(): Array<String> {
+    //    override fun getArguments(): Array<String> {
 //        var gamepath = intent.getStringExtra("gamepath")
 //        val gameNum = intent.getStringExtra("cheat")
 //        var cheatpath = gamepath?.replace(".gba", ".cheats")
@@ -480,7 +526,7 @@ class GameActivity : AppCompatActivity() {
     external fun Forward(speed: Float)
     external fun Mute(mute: Boolean)
     external fun getMemoryBlock(): ArrayList<CoreMemoryBlock>
-    external fun writeMem(address:Int,value: Int)
+    external fun writeMem(address: Int, value: Int)
 }
 
 

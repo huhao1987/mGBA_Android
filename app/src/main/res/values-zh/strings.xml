@@ -19,4 +19,7 @@
     <string name="forwarding">%s倍加速中</string>
     <string name="search">搜索</string>
     <string name="newsearch">新搜索</string>
+    <string name="setcheatvalue">设置 %1$s 数值</string>
+    <string name="addtocheatlist">添加到金手指列表</string>
+    <string name="savecheattolist">将地址添加到金手指列表</string>
 </resources>

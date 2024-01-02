@@ -92,7 +92,9 @@ class GameListActivity : AppCompatActivity() {
                                 is GBAgameData -> {
                                     it.putExtra("gamedetail", (game as GBAgameData).gbaGame)
                                     it.putExtra("gametype",Gametype.GBA.name)
-                                    it.putExtra("cheat", game.gbaGame.GameNum)
+                                    it.putExtra("cheat", if(game.gbaGame.GameNum?.isNotBlank() == true)game.gbaGame.GameNum
+                                    else game.gbaDocumentFile.name?.replace(".gba","")
+                                    )
 
                                 }
                                 is GBgameData -> {
