@@ -20,7 +20,7 @@ class CheatUtils {
             gameNum?.apply {
                 Log.d("gamecode::",gameNum)
                 var internalCheatFile =
-                    context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht"
+                    context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
                 if (!File(internalCheatFile).exists()) {
                     try {
                         if (externalcheatfile == null) {

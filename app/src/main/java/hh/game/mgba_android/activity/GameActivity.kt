@@ -3,6 +3,7 @@ package hh.game.mgba_android.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -65,6 +66,7 @@ class GameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game)
         var gamepath = intent.getStringExtra("gamepath")
         val gameNum = intent.getStringExtra("cheat")
+        Log.d("GameActivity", "onCreate: gameNum='$gameNum', gamepath='$gamepath'")
         var cheatpath = gamepath?.replace(".gba", ".cheats")
         if (!File(cheatpath).exists()) cheatpath = null
         var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"

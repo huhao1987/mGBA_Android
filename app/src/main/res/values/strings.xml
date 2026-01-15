@@ -21,4 +21,7 @@
     <string name="setcheatvalue">Set value to %1$s</string>
     <string name="addtocheatlist">Add to cheat list</string>
     <string name="savecheattolist">Add the cheat address to cheat list</string>
+    <string name="check_added">Current</string>
+    <string name="edit_code">Edit File</string>
+    <string name="assets_cheat">Assets</string>
 </resources>

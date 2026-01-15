@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.documentfile.provider.DocumentFile
 import com.anggrayudi.storage.file.getAbsolutePath
 import hh.game.mgba_android.database.GB.GBgameData
+import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
 import hh.game.mgba_android.database.GBA.GBAgameData
 import hh.game.mgba_android.database.GameDatabase
@@ -41,47 +42,84 @@ class Gameutils(var context: Context, var path: String) {
             gameListListener: GameListListener
         ) {
             runBlocking {
-                withContext(Dispatchers.IO) {
+                 withContext(Dispatchers.IO) {
                     var gbaList = ArrayList<GBAgameData>()
                     var gbList = ArrayList<GBgameData>()
                     list.forEach {
                         if (it.name!!.contains(".gba", true)) {
+                            var gameCode = ""
                             try {
-                                GameDatabase.getInstance(context).gbagameDao()
-                                    .getGamelistwithCode(
-                                        Gameutils(
-                                            context,
-                                            it.getAbsolutePath(context)
-                                        ).init().getGameCode()
-                                    )[0].apply {
-                                    gbaList.add(GBAgameData(this, it))
+                                val utils = Gameutils(context, it.getAbsolutePath(context)).init()
+                                gameCode = utils.getGameCode()
+                                Log.d("Gameutils", "Parsed GameCode: '$gameCode' for file: ${it.name}")
+                                
+                                val dbGames = GameDatabase.getInstance(context).gbagameDao()
+                                    .getGamelistwithCode(gameCode)
+                                
+                                if (dbGames.isNotEmpty()) {
+                                    val dbGame = dbGames[0]
+                                    // Override GameNum with our mapping to ensure consistency with cheats.json
+                                    val mappedId = CheatDatabaseUtils.getGameIdForSerial(context, gameCode)
+                                    val fixedGame = if (mappedId != null) dbGame.copy(GameNum = mappedId) else dbGame
+                                    gbaList.add(GBAgameData(fixedGame, it))
+                                } else {
+                                    // Fallback when not found in internal DB
+                                    throw Exception("Game not found in DB")
                                 }
                             } catch (e: Exception) {
+                                // Expected fallback for unknown games
+                                val mappedId = CheatDatabaseUtils.getGameIdForSerial(context, gameCode)
+                                val finalGameNum = mappedId ?: gameCode
+                                val cheatGameName = CheatDatabaseUtils.getGameName(context, finalGameNum)
+                                
                                 gbaList.add(
                                     GBAgameData(
                                         GBAgame(
                                             uid = 9999,
-                                            GameNum = "",
+                                            GameNum = finalGameNum,
                                             Internalname = "",
-                                            Serial = "",
-                                            EngGamename = it.name?.replace(".gba", ""),
-                                            ChiGamename = it.name?.replace(".gba", "")
+                                            Serial = gameCode,
+                                            EngGamename = cheatGameName ?: it.name?.replace(".gba", ""),
+                                            ChiGamename = cheatGameName ?: it.name?.replace(".gba", "")
                                         ), it
                                     )
                                 )
                             }
                         } else {
-                            gbList.add(
-                                GBgameData(
-                                    GameDatabase.getInstance(context).gbgameDao()
-                                        .getGamelistwithCode(
-                                            Gameutils(
-                                                context,
-                                                it.getAbsolutePath(context)
-                                            ).init().getGameCode()
-                                        )[0], it
+                            try {
+                                val utils = Gameutils(context, it.getAbsolutePath(context)).init()
+                                val gameCode = utils.getGameCode()
+                                val dbGames = GameDatabase.getInstance(context).gbgameDao().getGamelistwithCode(gameCode)
+                                
+                                if (dbGames.isNotEmpty()) {
+                                    gbList.add(GBgameData(dbGames[0], it))
+                                } else {
+                                     // Create dummy GB entry
+                                     gbList.add(
+                                        GBgameData(
+                                            GBgame(
+                                                uid = 9999,
+                                                Serial = gameCode,
+                                                EngGamename = it.name?.replace(".gbc", "")?.replace(".gb", ""),
+                                                crc = ""
+                                            ), it
+                                        )
+                                    )
+                                }
+                            } catch (e: Exception) {
+                                Log.e("Gameutils", "Error processing GB game: ${it.name}", e)
+                                // Minimal fallback to prevent loss
+                                gbList.add(
+                                    GBgameData(
+                                        GBgame(
+                                            uid = 9999,
+                                            Serial = "",
+                                            EngGamename = it.name,
+                                            crc = ""
+                                        ), it
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
                     gameListListener.onGetGamelist(

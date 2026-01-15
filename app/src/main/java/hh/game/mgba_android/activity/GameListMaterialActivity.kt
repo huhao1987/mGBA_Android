@@ -172,6 +172,7 @@ fun onClickgame(game: Any) {
             )
             when (game) {
                 is GBAgameData -> {
+                    Log.d("GameListActivity", "onClickgame: GameNum='${(game as GBAgameData).gbaGame.GameNum}'")
                     it.putExtra("gamedetail", (game as GBAgameData).gbaGame)
                     it.putExtra("gametype", Gametype.GBA.name)
                     it.putExtra("cheat", game.gbaGame.GameNum)
