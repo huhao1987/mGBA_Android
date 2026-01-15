@@ -24,7 +24,7 @@ CXX_GUARD_START
 #include <GLES2/gl2.h>
 #endif
 
-#include "../video-backend.h"
+#include <mgba/feature/video-backend.h>
 
 union mGLES2UniformValue {
 	GLfloat f;
@@ -70,6 +70,7 @@ struct mGLES2Shader {
 	GLuint texLocation;
 	GLuint texSizeLocation;
 	GLuint positionLocation;
+	GLuint outputSizeLocation;
 
 	struct mGLES2Uniform* uniforms;
 	size_t nUniforms;
@@ -78,12 +79,20 @@ struct mGLES2Shader {
 struct mGLES2Context {
 	struct VideoBackend d;
 
-	GLuint tex;
+	GLuint tex[VIDEO_LAYER_MAX];
 	GLuint vbo;
+
+	struct mRectangle layerDims[VIDEO_LAYER_MAX];
+	struct mSize imageSizes[VIDEO_LAYER_MAX];
+	int x;
+	int y;
+	int width;
+	int height;
 
 	struct mGLES2Shader initialShader;
 	struct mGLES2Shader finalShader;
 	struct mGLES2Shader interframeShader;
+	struct mGLES2Shader overlayShader;
 
 	struct mGLES2Shader* shaders;
 	size_t nShaders;
@@ -97,11 +106,12 @@ void mGLES2ShaderDeinit(struct mGLES2Shader*);
 void mGLES2ShaderAttach(struct mGLES2Context*, struct mGLES2Shader*, size_t nShaders);
 void mGLES2ShaderDetach(struct mGLES2Context*);
 
+#ifdef ENABLE_VFS
 struct VDir;
 bool mGLES2ShaderLoad(struct VideoShader*, struct VDir*);
-bool mGLES2ShaderLoadfromFile(struct VideoShader*);
-
+#endif
 void mGLES2ShaderFree(struct VideoShader*);
+
 CXX_GUARD_END
 
 #endif

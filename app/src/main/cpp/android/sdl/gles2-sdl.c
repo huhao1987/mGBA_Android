@@ -50,7 +50,9 @@ bool mSDLGLES2Init(struct mSDLRenderer* renderer) {
 	renderer->gl2.d.swap = mSDLGLCommonSwap;
 #endif
 	renderer->gl2.d.init(&renderer->gl2.d, 0);
-	renderer->gl2.d.setDimensions(&renderer->gl2.d, renderer->width, renderer->height);
+	renderer->gl2.d.setImageSize(&renderer->gl2.d, VIDEO_LAYER_BACKGROUND, renderer->width, renderer->height);
+	struct mRectangle dims = { 0, 0, renderer->width, renderer->height };
+	renderer->gl2.d.setLayerDimensions(&renderer->gl2.d, VIDEO_LAYER_BACKGROUND, &dims);
 
 	mSDLGLDoViewport(renderer->viewportWidth, renderer->viewportHeight, &renderer->gl2.d);
 	return true;
@@ -79,7 +81,7 @@ void mSDLGLES2Runloop(struct mSDLRenderer* renderer, void* user) {
 		}
 
 		if (mCoreSyncWaitFrameStart(&context->impl->sync)) {
-			v->postFrame(v, renderer->outputBuffer);
+			v->setImage(v, VIDEO_LAYER_BACKGROUND, renderer->outputBuffer);
 		}
 		mCoreSyncWaitFrameEnd(&context->impl->sync);
 		v->drawFrame(v);

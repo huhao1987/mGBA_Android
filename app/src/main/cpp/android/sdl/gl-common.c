@@ -5,7 +5,7 @@
 float g_fps = 0.0f;
 
 void mSDLGLDoViewport(int w, int h, struct VideoBackend* v) {
-	v->resized(v, w, h);
+	v->contextResized(v, w, h, w, h);
 	v->clear(v);
 	v->swap(v);
 	v->clear(v);
@@ -30,6 +30,7 @@ void mSDLGLCommonSwap(struct VideoBackend* context) {
         SDL_GL_SwapWindow(renderer->window);
     } else {
         SwappyGL_swap(dpy, surf);
+        // SDL_GL_SwapWindow(renderer->window); // Disabled to prevent double swap
     }
     
     

@@ -16,10 +16,9 @@ JNIEXPORT jstring JNICALL
 Java_hh_game_mgba_1android_utils_Gameutils_getGameTitle(JNIEnv *env, jobject thiz) {
     jstring str = nullptr;
     if (mCoreLoadFile(core, jstr)) {
-        char title[32] = {0};
-        core->getGameTitle(core, title);
-        const char *s(title);
-         str = env->NewStringUTF(s);
+        struct mGameInfo info;
+        core->getGameInfo(core, &info);
+        str = env->NewStringUTF(info.title);
     }
     return str;
 }
@@ -29,10 +28,9 @@ JNIEXPORT jstring JNICALL
 Java_hh_game_mgba_1android_utils_Gameutils_getGameCode(JNIEnv *env, jobject thiz) {
     jstring str = nullptr;
     if (mCoreLoadFile(core, jstr)) {
-        char title[32] = {0};
-        core->getGameCode(core, title);
-        const char *code(title);
-        str = env->NewStringUTF(code);
+        struct mGameInfo info;
+        core->getGameInfo(core, &info);
+        str = env->NewStringUTF(info.code);
     }
     return str;
 }

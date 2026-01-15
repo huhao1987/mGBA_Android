@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 #ifndef SDL_MAIN_H
 #define SDL_MAIN_H
+
 #include <mgba-util/common.h>
 
 CXX_GUARD_START
@@ -15,17 +16,6 @@ CXX_GUARD_START
 #ifdef BUILD_GL
 #include "gl-common.h"
 #include "../opengl/gl.h"
-#endif
-
-#ifdef BUILD_RASPI
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-function"
-#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
-#include <SDL/SDL.h>
-#include <EGL/egl.h>
-
-#include <bcm_host.h>
-#pragma GCC diagnostic pop
 #endif
 
 #if defined(BUILD_GLES2) || defined(BUILD_GLES3) || defined(USE_EPOXY)
@@ -40,7 +30,7 @@ CXX_GUARD_START
 struct mCore;
 struct mSDLRenderer {
 	struct mCore* core;
-	color_t* outputBuffer;
+	mColor* outputBuffer;
 
 	struct mSDLAudio audio;
 	struct mSDLEvents events;
@@ -75,22 +65,11 @@ struct mSDLRenderer {
 	struct mGLES2Context gl2;
 #endif
 
+	struct VideoBackend* backend;
+
 #ifdef USE_PIXMAN
 	pixman_image_t* pix;
 	pixman_image_t* screenpix;
-#endif
-
-#ifdef BUILD_RASPI
-	EGLDisplay eglDisplay;
-	EGLSurface eglSurface;
-	EGLContext eglContext;
-	EGL_DISPMANX_WINDOW_T eglWindow;
-#endif
-
-#ifdef BUILD_PANDORA
-	int fb;
-	int odd;
-	void* base[2];
 #endif
 };
 

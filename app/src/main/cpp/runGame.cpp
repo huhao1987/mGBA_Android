@@ -22,11 +22,15 @@
 #include <signal.h>
 
 #include <mgba/core/mem-search.h>
-#include "mgba/core/interface.h"
+#include <mgba/core/interface.h>
+#include <mgba/feature/video-backend.h>
 #define PORT "sdl"
 #include <android/log.h>
 #include "android/sdl/android_sdl_events.h"
 #include <jni.h>
+#include "mgba/src/platform/sdl/gl-common.h"
+
+#define EVENT_SHADER_LOAD (SDL_USEREVENT + 1)
 
 extern "C" {
     bool mOboeInit(struct mCoreThread* thread);
@@ -44,6 +48,9 @@ extern "C" {
 //extern char* _vertexShader;
 static void mSDLDeinit(struct mSDLRenderer* renderer);
 
+static void mSDLDeinit(struct mSDLRenderer* renderer);
+static void androidShaderRunloop(struct mSDLRenderer* renderer, void* user);
+
 static int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args);
 
 static struct mStandardLogger _logger;
@@ -54,6 +61,7 @@ static void _loadState(struct mCoreThread* thread) {
 }
 struct mSDLRenderer androidrenderer;
 struct mCoreThread thread;
+static struct VideoShader currentShader = {0};
 
 int runGame(char** argv){
     androidrenderer = {0};
@@ -101,7 +109,7 @@ int runGame(char** argv){
         return 1;
     }
 
-    androidrenderer.core->desiredVideoDimensions(androidrenderer.core, &androidrenderer.width, &androidrenderer.height);
+    androidrenderer.core->baseVideoSize(androidrenderer.core, &androidrenderer.width, &androidrenderer.height);
     androidrenderer.ratio = graphicsOpts.multiplier;
     if (androidrenderer.ratio == 0) {
         androidrenderer.ratio = 1;
@@ -153,6 +161,9 @@ int runGame(char** argv){
     {
         mSDLSWCreate(&androidrenderer);
     }
+    
+    // Override runloop to handle shader events on the correct thread
+    androidrenderer.runloop = androidShaderRunloop;
 
     if (!androidrenderer.init(&androidrenderer)) {
         mArgumentsDeinit(&args);
@@ -193,8 +204,80 @@ int runGame(char** argv){
     mCoreConfigDeinit(&androidrenderer.core->config);
     androidrenderer.core->deinit(androidrenderer.core);
 
+    androidrenderer.core->deinit(androidrenderer.core);
+
     return ret;
 }
+
+static void androidShaderRunloop(struct mSDLRenderer* renderer, void* user) {
+    struct mCoreThread* context = (struct mCoreThread*)user;
+    SDL_Event event;
+    struct VideoBackend* v = &renderer->gl2.d;
+
+    while (mCoreThreadIsActive(context)) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == EVENT_SHADER_LOAD) {
+                char* path = (char*)event.user.data1;
+                // If path is null or empty, clear the shader
+                if (!path || path[0] == '\0') {
+                    mGLES2ShaderDetach(&renderer->gl2);
+                    if (currentShader.passes) {
+                        mGLES2ShaderFree(&currentShader);
+                        memset(&currentShader, 0, sizeof(currentShader));
+                    }
+                } else {
+                    struct VDir* dir = VDirOpen(path);
+                    if (dir) {
+                        struct VideoShader newShader = {0};
+                        if (mGLES2ShaderLoad(&newShader, dir)) {
+                            // Detach old one and free it
+                            mGLES2ShaderDetach(&renderer->gl2);
+                             if (currentShader.passes) {
+                                mGLES2ShaderFree(&currentShader);
+                            }
+                            
+                            currentShader = newShader;
+                            mGLES2ShaderAttach(&renderer->gl2, (struct mGLES2Shader*)currentShader.passes, currentShader.nPasses);
+                            LOG_I("Loaded shader: %s", path);
+                            
+                        } else {
+                             LOG_E("Could not load shader from: %s", path);
+                        }
+                        dir->close(dir);
+                    } else {
+                         LOG_E("Could not open shader directory: %s", path);
+                    }
+                }
+                if (path) {
+                    free(path); 
+                }
+            } else {
+                mSDLHandleEvent(context, &renderer->player, &event);
+            }
+            
+            // Event handling can change the size of the screen
+            if (renderer->player.windowUpdated) {
+#if SDL_VERSION_ATLEAST(2, 0, 0)
+                SDL_GetWindowSize(renderer->window, &renderer->viewportWidth, &renderer->viewportHeight);
+#else
+                renderer->viewportWidth = renderer->player.newWidth;
+                renderer->viewportHeight = renderer->player.newHeight;
+                mSDLGLCommonInit(renderer);
+#endif
+                mSDLGLDoViewport(renderer->viewportWidth, renderer->viewportHeight, v);
+                renderer->player.windowUpdated = 0;
+            }
+        }
+
+        if (mCoreSyncWaitFrameStart(&context->impl->sync)) {
+            v->setImage(v, VIDEO_LAYER_BACKGROUND, renderer->outputBuffer);
+        }
+        mCoreSyncWaitFrameEnd(&context->impl->sync);
+        v->drawFrame(v);
+        v->swap(v);
+    }
+}
+
 int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
     thread = {
             .core = renderer->core
@@ -248,7 +331,7 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
     bool didFail = !mCoreThreadStart(&thread);
     if (!didFail) {
 //#if SDL_VERSION_ATLEAST(2, 0, 0)
-        renderer->core->desiredVideoDimensions(renderer->core, &renderer->width, &renderer->height);
+        renderer->core->baseVideoSize(renderer->core, &renderer->width, &renderer->height);
         unsigned width = renderer->width * renderer->ratio;
         unsigned height = renderer->height * renderer->ratio;
         if (width != (unsigned) renderer->viewportWidth && height != (unsigned) renderer->viewportHeight) {
@@ -323,16 +406,8 @@ char* convertJStringToChar(JNIEnv* env, jstring jstr) {
     if (str == NULL) {
         return NULL;
     }
-    jsize len = env->GetStringUTFLength(jstr);
-    jbyteArray bytes = env->NewByteArray(len);
-    if (bytes == NULL) {
-        env->ReleaseStringUTFChars(jstr, str);
-        return NULL;
-    }
-    env->SetByteArrayRegion(bytes, 0, len, reinterpret_cast<const jbyte*>(str));
-    char* result = reinterpret_cast<char*>(env->GetByteArrayElements(bytes, NULL));
+    char* result = strdup(str);
     env->ReleaseStringUTFChars(jstr, str);
-    env->DeleteLocalRef(bytes);
     return result;
 }
 
@@ -357,12 +432,16 @@ Java_hh_game_mgba_1android_activity_GameActivity_QuickLoadState(JNIEnv *env, job
 extern "C"
 JNIEXPORT void JNICALL
 Java_hh_game_mgba_1android_activity_GameActivity_PauseGame(JNIEnv *env, jobject thiz) {
-    mCoreThreadInterrupt(&thread);
+    if (thread.core) {
+        mCoreThreadInterrupt(&thread);
+    }
 }
 extern "C"
 JNIEXPORT void JNICALL
 Java_hh_game_mgba_1android_activity_GameActivity_ResumeGame(JNIEnv *env, jobject thiz) {
-    mCoreThreadContinue(&thread);
+    if (thread.core) {
+        mCoreThreadContinue(&thread);
+    }
 }
 
 extern "C"
@@ -396,16 +475,17 @@ Java_hh_game_mgba_1android_activity_GameActivity_Mute(JNIEnv *env, jobject thiz,
 extern "C"
 JNIEXPORT void JNICALL
 Java_hh_game_mgba_1android_utils_CheatUtils_00024Companion_memorySearch(JNIEnv *env, jobject thiz,jint search_value) {
-    struct mCoreMemorySearchParams* params;
-    params->memoryFlags = mCORE_MEMORY_RW;
-    params->type = mCORE_MEMORY_SEARCH_INT;
-    params->op = mCORE_MEMORY_SEARCH_EQUAL;
-    params->valueInt =search_value;
-    params->width = sizeof(params->valueInt);
-    params->align = -1;
-    struct mCoreMemorySearchResults* out;
-    mCoreMemorySearch(thread.core,params,out,10000);
-    out;
+    struct mCoreMemorySearchParams params;
+    params.memoryFlags = mCORE_MEMORY_RW;
+    params.type = mCORE_MEMORY_SEARCH_INT;
+    params.op = mCORE_MEMORY_SEARCH_EQUAL;
+    params.valueInt = search_value;
+    params.width = sizeof(params.valueInt);
+    params.align = -1;
+    struct mCoreMemorySearchResults out;
+    	mCoreMemorySearchResultsInit(&out, 16);
+    mCoreMemorySearch(thread.core, &params, &out, 10000);
+    mCoreMemorySearchResultsDeinit(&out);
 }
 
 #include <jni.h>
@@ -518,4 +598,35 @@ extern "C"
 JNIEXPORT jfloat JNICALL
 Java_hh_game_mgba_1android_activity_GameActivity_getFPS(JNIEnv *env, jobject thiz) {
     return g_fps;
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_setResampleVideo(JNIEnv *env, jobject thiz, jboolean resample) {
+    androidrenderer.filter = resample;
+    if (androidrenderer.backend) {
+        androidrenderer.backend->filter = resample;
+    }
+}
+
+extern "C"
+JNIEXPORT jboolean JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_setShader(JNIEnv *env, jobject thiz, jstring path) {
+    char* shaderPath = convertJStringToChar(env, path);
+    
+    // If path is null or empty, clear the shader
+    // Push event to SDL thread
+    SDL_Event event;
+    event.type = EVENT_SHADER_LOAD;
+    event.user.code = 0;
+    
+    if (!shaderPath || shaderPath[0] == '\0') {
+        event.user.data1 = NULL;
+    } else {
+        event.user.data1 = strdup(shaderPath);
+    }
+    event.user.data2 = NULL;
+    
+    SDL_PushEvent(&event);
+    return JNI_TRUE;
 }

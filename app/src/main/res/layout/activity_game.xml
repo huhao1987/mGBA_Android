@@ -31,4 +31,18 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:elevation="10dp"/>
+    <TextView
+        android:id="@+id/shader_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Shader"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="#800000FF"
+        android:padding="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fps_text"
+        android:elevation="10dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

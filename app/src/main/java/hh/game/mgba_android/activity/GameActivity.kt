@@ -105,6 +105,53 @@ class GameActivity : AppCompatActivity() {
 //            Gameutils.getFPS().toString()
 //        }
         initSwappy()
+        
+        // Copy shaders from assets to files dir
+        // Always copy to ensure we have the latest shaders (e.g. after app update)
+        val shaderDir = File(filesDir, "shaders")
+        copyAssets("shaders", shaderDir.absolutePath)
+        
+        // Load xBRZ shader
+        val shaderBtn = findViewById<TextView>(R.id.shader_btn)
+        var currentShaderName = "None"
+        
+        shaderBtn.setOnClickListener {
+            val shaderDir = File(filesDir, "shaders")
+            if (!shaderDir.exists()) shaderDir.mkdirs()
+            
+            // Filter for directories (shaders are usually folders with manifest.ini) or .shader files
+            val shaderFiles = shaderDir.listFiles { file -> 
+                file.isDirectory || file.extension == "shader" 
+            }?.map { it.name }?.toMutableList() ?: mutableListOf()
+            
+            shaderFiles.add(0, "Clear")
+            
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Select Shader")
+            builder.setItems(shaderFiles.toTypedArray()) { dialog, which ->
+                val selectedName = shaderFiles[which]
+                if (selectedName == "Clear") {
+                    setShader("")
+                    currentShaderName = "None"
+                    shaderBtn.text = "Set Shader"
+                    shaderBtn.setBackgroundColor(0x800000FF.toInt()) // Blue
+                } else {
+                    val selectedFile = File(shaderDir, selectedName)
+                    val path = selectedFile.absolutePath
+                    val success = setShader(path)
+                    if (success) {
+                        currentShaderName = selectedName
+                        shaderBtn.text = "Shader: $selectedName"
+                        shaderBtn.setBackgroundColor(0x8000FF00.toInt()) // Green
+                    } else {
+                        shaderBtn.text = "Shader: ERR"
+                        shaderBtn.setBackgroundColor(0x80FF0000.toInt()) // Red
+                    }
+                }
+            }
+            builder.show()
+        }
+
         val fpsText = findViewById<TextView>(R.id.fps_text)
         lifecycleScope.launch(Dispatchers.Main) {
             while (runFPS) {
@@ -114,10 +161,59 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    private fun copyAssets(assetPath: String, destPath: String) {
+        val assetManager = assets
+        var files: Array<String>? = null
+        try {
+            files = assetManager.list(assetPath)
+        } catch (e: java.io.IOException) {
+            e.printStackTrace()
+        }
+        if (files != null) {
+            if (files.isEmpty()) {
+                // It's a file
+                try {
+                    val `in` = assetManager.open(assetPath)
+                    val out = java.io.FileOutputStream(destPath)
+                    val buffer = ByteArray(1024)
+                    var read: Int
+                    while (`in`.read(buffer).also { read = it } != -1) {
+                        out.write(buffer, 0, read)
+                    }
+                    `in`.close()
+                    out.flush()
+                    out.close()
+                } catch (e: java.io.IOException) {
+                    e.printStackTrace()
+                }
+            } else {
+                // It's a directory
+                val dir = File(destPath)
+                if (!dir.exists()) dir.mkdirs()
+                for (fileName in files) {
+                    copyAssets(
+                        if (assetPath == "") fileName else "$assetPath/$fileName",
+                        "$destPath/$fileName"
+                    )
+                }
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         runFPS = false
 //        GlobalScope.cancel()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        PauseGame()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ResumeGame()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -540,6 +636,7 @@ class GameActivity : AppCompatActivity() {
     external fun getMemoryBlock(): ArrayList<CoreMemoryBlock>
     external fun writeMem(address: Int, value: Int)
     external fun initSwappy()
+    external fun setShader(path: String): Boolean
     external fun getFPS(): Float
 }
 

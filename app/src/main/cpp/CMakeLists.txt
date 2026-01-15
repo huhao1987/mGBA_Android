@@ -7,6 +7,7 @@ add_definitions(-DHAVE_STRTOF_L=1)
 add_definitions(-DHAVE_LOCALE=1)
 add_definitions(-DBUILD_GLES2=1)
 add_definitions(-DUSE_PTHREADS=1)
+add_definitions(-DENABLE_VFS -DENABLE_VFS_FD -DENABLE_DIRECTORIES)
 
 add_subdirectory(SDL2)
 add_subdirectory(mgba)
