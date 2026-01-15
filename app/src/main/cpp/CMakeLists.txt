@@ -18,16 +18,24 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 		runGame.cpp
 		mgba/src/platform/sdl/sw-sdl2.c
 		android/sdl/gl-common.c
+    mgba/src/platform/android/oboe-audio.cpp
 		android/sdl/gles2-sdl.c
 		android/sdl/android_sdl_events.cpp
 		${PLATFORM_SRC}
 		${GBA_UTIL_SRC}
 		)
 
+
+find_package(games-frame-pacing REQUIRED CONFIG)
+find_package(oboe REQUIRED CONFIG)
+
 target_link_libraries(${CMAKE_PROJECT_NAME}
 		mgba
 		SDL2
 		android
 		GLESv2
+        EGL
 		OpenSLES
-		log)
+		log
+        games-frame-pacing::swappy_static
+        oboe::oboe)

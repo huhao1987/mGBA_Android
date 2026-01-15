@@ -1,11 +1,8 @@
-/* Copyright (c) 2013-2015 Jeffrey Pfau
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 #include "main.h"
 
 #include <mgba/core/version.h>
+
+float g_fps = 0.0f;
 
 void mSDLGLDoViewport(int w, int h, struct VideoBackend* v) {
 	v->resized(v, w, h);
@@ -14,10 +11,43 @@ void mSDLGLDoViewport(int w, int h, struct VideoBackend* v) {
 	v->clear(v);
 }
 
+#include <android/log.h>
+#define LOG_TAG "gl-common"
+#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+
+#include "swappy/swappyGL.h"
+#include <EGL/egl.h>
+
 void mSDLGLCommonSwap(struct VideoBackend* context) {
 	struct mSDLRenderer* renderer = (struct mSDLRenderer*) context->user;
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-	SDL_GL_SwapWindow(renderer->window);
+	// SDL_GL_SwapWindow(renderer->window);
+    
+    EGLDisplay dpy = eglGetCurrentDisplay();
+    EGLSurface surf = eglGetCurrentSurface(EGL_DRAW);
+    if (dpy == EGL_NO_DISPLAY || surf == EGL_NO_SURFACE) {
+        LOGD("Swappy Warning: Invalid EGL Display (%p) or Surface (%p). Fallback to SDL Swap.", dpy, surf);
+        SDL_GL_SwapWindow(renderer->window);
+    } else {
+        SwappyGL_swap(dpy, surf);
+    }
+    
+    
+    static uint32_t lastTime = 0;
+    static int frames = 0;
+    uint32_t now = SDL_GetTicks();
+    uint32_t delta = now - lastTime;
+    
+    // Log delta every frame to see jitter (warning: spammy, but necessary for diagnosis)
+    // LOGD("Frame Delta: %u ms", delta); 
+
+    frames++;
+    if (delta >= 1000) {
+        g_fps = frames * 1000.0f / delta;
+        LOGD("Game FPS: %.2f", g_fps);
+        frames = 0;
+        lastTime = now;
+    }
 #else
 	UNUSED(renderer);
 	SDL_GL_SwapBuffers();
@@ -46,7 +76,7 @@ bool mSDLGLCommonInit(struct mSDLRenderer* renderer) {
 		SDL_DestroyWindow(renderer->window);
 		return false;
 	}
-	SDL_GL_SetSwapInterval(1);
+	SDL_GL_SetSwapInterval(0); // Disable SDL vsync, let Swappy handle it
 	SDL_GetWindowSize(renderer->window, &renderer->viewportWidth, &renderer->viewportHeight);
 	renderer->player.window = renderer->window;
 	if (renderer->lockIntegerScaling) {

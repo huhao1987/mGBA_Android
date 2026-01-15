@@ -27,6 +27,11 @@ import java.util.zip.ZipInputStream
 class Gameutils(var context: Context, var path: String) {
     companion object {
         init {
+            try {
+                System.loadLibrary("oboe")
+            } catch (e: UnsatisfiedLinkError) {
+                // Fallback or log if needed, but usually it should be present
+            }
             System.loadLibrary("mgba_android")
         }
 

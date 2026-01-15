@@ -28,6 +28,11 @@
 #include "android/sdl/android_sdl_events.h"
 #include <jni.h>
 
+extern "C" {
+    bool mOboeInit(struct mCoreThread* thread);
+    void mOboeDeinit();
+}
+
 #define TAG "mgba_android_Test:::"
 
 #define LOG_E(...) __android_log_print(ANDROID_LOG_ERROR,    TAG, __VA_ARGS__)
@@ -57,18 +62,18 @@ int runGame(char** argv){
             .useBios = true,
             .logLevel = mLOG_WARN | mLOG_ERROR | mLOG_FATAL,
             .rewindEnable = false,
-            .audioBuffers = 8192,
-            .volume = 0x100,
-            .videoSync = true,
-            .audioSync = true,
-            .interframeBlending = true,
-            .lockIntegerScaling = true,
+            .audioBuffers = 2048,
             .lockAspectRatio = true,
-            .resampleVideo = true
+            .lockIntegerScaling = true,
+            .interframeBlending = true,
+            .resampleVideo = true,
+            .volume = 0x100,
+            .videoSync = false,
+            .audioSync = true, // Re-enable for Oboe
     };
 
-    struct mArguments args;
-    struct mGraphicsOpts graphicsOpts;
+    struct mArguments args = {0};
+    struct mGraphicsOpts graphicsOpts = {0};
 
     struct mSubParser subparser;
 
@@ -237,7 +242,7 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
     }
 
     renderer->audio.samples = renderer->core->opts.audioBuffers;
-    renderer->audio.sampleRate = 44100;
+    renderer->audio.sampleRate = 48000;
     thread.logger.logger = &_logger.d;
 
     bool didFail = !mCoreThreadStart(&thread);
@@ -253,7 +258,8 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
         mSDLSetScreensaverSuspendable(&renderer->events, renderer->core->opts.suspendScreensaver);
         mSDLSuspendScreensaver(&renderer->events);
 //#endif
-        if (mSDLInitAudio(&renderer->audio, &thread)) {
+        // if (mSDLInitAudio(&renderer->audio, &thread)) {
+        if (mOboeInit(&thread)) {
             if (args->savestate) {
                 struct VFile* state = VFileOpen(args->savestate, O_RDONLY);
                 if (state) {
@@ -264,7 +270,7 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
                 }
             }
             renderer->runloop(renderer, &thread);
-            mSDLPauseAudio(&renderer->audio);
+            // mSDLPauseAudio(&renderer->audio);
             if (mCoreThreadHasCrashed(&thread)) {
                 didFail = true;
                 LOG_D("The game crashed!\n");
@@ -291,9 +297,12 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
     return didFail;
 }
 
+
+
 static void mSDLDeinit(struct mSDLRenderer* renderer) {
     mSDLDeinitEvents(&renderer->events);
-    mSDLDeinitAudio(&renderer->audio);
+    // mSDLDeinitAudio(&renderer->audio);
+    mOboeDeinit();
 #if SDL_VERSION_ATLEAST(2, 0, 0)
     SDL_DestroyWindow(renderer->window);
 #endif
@@ -490,4 +499,23 @@ JNIEXPORT void JNICALL
 Java_hh_game_mgba_1android_activity_GameActivity_writeMem(JNIEnv *env, jobject thiz, jint address,
                                                           jint value) {
     androidrenderer.core->busWrite32(androidrenderer.core,(uint32_t)address,(int32_t)value);
+}
+
+#include "swappy/swappyGL.h"
+
+extern float g_fps;
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_initSwappy(JNIEnv *env, jobject thiz) {
+    SwappyGL_init(env, thiz);
+    SwappyGL_setSwapIntervalNS(16666667L); // 60 FPS
+    // SwappyGL_setAutoSwapInterval(true);
+    // SwappyGL_setAutoPipelineMode(true);
+}
+
+extern "C"
+JNIEXPORT jfloat JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_getFPS(JNIEnv *env, jobject thiz) {
+    return g_fps;
 }

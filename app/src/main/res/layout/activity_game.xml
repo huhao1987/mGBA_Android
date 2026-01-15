@@ -18,4 +18,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameView"/>
+    <TextView
+        android:id="@+id/fps_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FPS: 0"
+        android:textColor="#00FF00"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="#80000000"
+        android:padding="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="10dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

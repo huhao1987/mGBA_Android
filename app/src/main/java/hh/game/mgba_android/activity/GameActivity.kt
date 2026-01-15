@@ -16,6 +16,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import hh.game.mgba_android.R
 import hh.game.mgba_android.database.GB.GBgame
 import hh.game.mgba_android.database.GBA.GBAgame
@@ -31,6 +32,10 @@ import hh.game.mgba_android.utils.Gametype
 import hh.game.mgba_android.utils.controllerUtil.getDirectionPressed
 import hh.game.mgba_android.utils.controllerUtil.lastDirect
 import hh.game.mgba_android.utils.getKey
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.libsdl.app.SDLUtils
 import org.libsdl.app.SDLUtils.mFullscreenModeActive
 import org.libsdl.app.SDLUtils.onNativeKeyDown
@@ -38,7 +43,6 @@ import org.libsdl.app.SDLUtils.onNativeKeyUp
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
-
 
 class GameActivity : AppCompatActivity() {
     private var runFPS = true
@@ -100,6 +104,14 @@ class GameActivity : AppCompatActivity() {
 //        GlobalScope.launch {
 //            Gameutils.getFPS().toString()
 //        }
+        initSwappy()
+        val fpsText = findViewById<TextView>(R.id.fps_text)
+        lifecycleScope.launch(Dispatchers.Main) {
+            while (runFPS) {
+                fpsText.text = "FPS: %.1f".format(getFPS())
+                delay(500)
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -527,6 +539,8 @@ class GameActivity : AppCompatActivity() {
     external fun Mute(mute: Boolean)
     external fun getMemoryBlock(): ArrayList<CoreMemoryBlock>
     external fun writeMem(address: Int, value: Int)
+    external fun initSwappy()
+    external fun getFPS(): Float
 }
 
 

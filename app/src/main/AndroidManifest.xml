@@ -13,6 +13,7 @@
         android:required="true" />
 
     <application
+        android:extractNativeLibs="true"
         android:name=".mGBAApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
