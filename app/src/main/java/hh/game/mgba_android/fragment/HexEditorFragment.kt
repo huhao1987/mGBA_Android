@@ -362,22 +362,73 @@ class HexEditorFragment : DialogFragment() {
                 .setNeutralButton("Add Cheat") { _, _ ->
                      // Helper: get current value as Hex
                      var hexVal = ""
+                     var fullValue: Long = 0 // Use Long to support > Int max if needed (though EditText input is limited)
                      try {
                          val newStr = input.text.toString()
-                         var valInt = 0
                          if (rbHex.isChecked) {
-                             valInt = newStr.toInt(16)
+                             fullValue = newStr.toLong(16)
+                             hexVal = newStr // Keep original string to determine length
                          } else {
-                             valInt = newStr.toInt(10)
+                             fullValue = newStr.toLong(10)
+                             hexVal = fullValue.toString(16)
                          }
-                         hexVal = "%02X".format(valInt and 0xFF)
                      } catch (e: Exception) {
                          hexVal = "00"
+                         fullValue = 0
                      }
                 
-                     // Add Cheat Code: Addr:Value (8-bit)
-                     val code = "${startAddress.toString(16).toUpperCase().padStart(8, '0')}:$hexVal"
-                     showAddCheatDialogWithCode(context, code)
+                     // Add Cheat Code: Autodetect Length and Split
+                     val byteCount = (hexVal.length + 1) / 2
+                     val finalCodeBuilder = StringBuilder()
+                     
+                     // If value is small (<= 255), treat as single byte
+                     if (fullValue <= 255) {
+                         // ... Existing single byte logic ...
+                         val prefix = (startAddress ushr 24) and 0xFF
+                         if (prefix == 0x02 || prefix == 0x03) {
+                             val cbAddr = (startAddress and 0x0FFFFFFF) or 0x30000000
+                             finalCodeBuilder.append("%08X %04X".format(cbAddr, fullValue and 0xFF))
+                         } else {
+                             finalCodeBuilder.append("${startAddress.toString(16).toUpperCase().padStart(8, '0')}:${"%02X".format(fullValue and 0xFF)}")
+                         }
+                     } else {
+                         // Multi-byte splitting logic
+                         // We assume Little Endian? OR Big Endian?
+                         // User typed "FFFFFF". Usually means [25]=FF, [26]=FF, [27]=FF.
+                         // But if user typed "1234", GBA Little Endian means [25]=34, [26]=12.
+                         // However, for "Cheat Code", user usually expects "Value as seen".
+                         // If I write "Raw", mGBA auto-parses.
+                         // But we want SECURE 8-bit writes.
+                         // Let's assume input is Big Endian string ("1234" -> 0x12, 0x34) or Little Endian value?
+                         // In Hex Editor, values are usually shown Big Endian (Human Readable).
+                         // So "1234" -> 0x12 at Addr, 0x34 at Addr+1?
+                         // NO. In standard hex editors, "1234" usually means 16-bit value 0x1234.
+                         // In Little Endian memory: 34 12.
+                         // So Addr=34, Addr+1=12.
+                         
+                         // Decision: Treat input as a Number. 
+                         // Split into bytes (Little Endian for GBA).
+                         var tempVal = fullValue
+                         for (i in 0 until byteCount) {
+                             val byte = (tempVal and 0xFF).toInt()
+                             tempVal = tempVal ushr 8
+                             
+                             val currentAddr = startAddress + i
+                             val prefix = (currentAddr ushr 24) and 0xFF
+                             if (prefix == 0x02 || prefix == 0x03) {
+                                 val cbAddr = (currentAddr and 0x0FFFFFFF) or 0x30000000
+                                 if (finalCodeBuilder.isNotEmpty()) finalCodeBuilder.append("\n")
+                                 finalCodeBuilder.append("%08X %04X".format(cbAddr, byte))
+                             } else {
+                                  if (finalCodeBuilder.isNotEmpty()) finalCodeBuilder.append("\n")
+                                  finalCodeBuilder.append("${currentAddr.toString(16).toUpperCase().padStart(8, '0')}:${"%02X".format(byte)}")
+                             }
+                             
+                             if (tempVal == 0L && i >= (hexVal.length / 2)) break // Stop if no more data
+                         }
+                     }
+                     
+                     showAddCheatDialogWithCode(context, finalCodeBuilder.toString())
                 }
                 .setNegativeButton("Cancel", null)
                 .show()
