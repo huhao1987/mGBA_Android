@@ -54,11 +54,58 @@ class GameActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val gameNum = intent.getStringExtra("cheat")
-                var internalCheatFile =
-                    getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
-                reCallCheats(internalCheatFile)
+                val gamePath = intent.getStringExtra("gamepath")
+                
+                // Priority Load: Game Directory -> Private Directory
+                var cheatFileToLoad = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+                if (gamePath != null) {
+                    val gameDirCheat = File(File(gamePath).parent, "$gameNum.cheats")
+                    // Check .cheats
+                    if (gameDirCheat.exists()) {
+                         cheatFileToLoad = gameDirCheat.absolutePath
+                    } else {
+                         // Check .cht
+                         val gameDirCht = File(File(gamePath).parent, "$gameNum.cht")
+                         if (gameDirCht.exists()) {
+                             cheatFileToLoad = gameDirCht.absolutePath
+                         }
+                    }
+                }
+                Log.d("GameActivity", "Reloading cheats from: $cheatFileToLoad")
+                reCallCheats(convertAndGetNativePath(cheatFileToLoad))
             }
         }
+
+    // Helper to convert Legacy Format (User preferred) to Libretro Format (Native required) on the fly
+    private fun convertAndGetNativePath(path: String): String {
+         val legacyFile = File(path)
+         if (!legacyFile.exists()) return path
+         
+         // Parse using the Legacy parser (which we reverted to)
+         val cheats = CheatUtils.parseUserCheatFile(legacyFile)
+         
+         // Generate Libretro content manually
+         val sb = StringBuilder()
+         sb.append("cheats = ${cheats.size}\n\n")
+         cheats.forEachIndexed { i, cheat ->
+             sb.append("cheat${i}_desc = \"${cheat.cheatTitle}\"\n")
+             val code = cheat.cheatCode.replace("\n", "+")
+             sb.append("cheat${i}_code = \"$code\"\n")
+             sb.append("cheat${i}_enable = ${cheat.isSelect}\n\n")
+         }
+         
+         // Save to a temp location that native core will read
+         val nativeFile = File(cacheDir, "running_cheats.cht")
+         try {
+             val writer = java.io.BufferedWriter(java.io.FileWriter(nativeFile))
+             writer.write(sb.toString())
+             writer.close()
+             return nativeFile.absolutePath
+         } catch (e: Exception) {
+             e.printStackTrace()
+             return path // Fallback
+         }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,9 +114,17 @@ class GameActivity : AppCompatActivity() {
         var gamepath = intent.getStringExtra("gamepath")
         val gameNum = intent.getStringExtra("cheat")
         Log.d("GameActivity", "onCreate: gameNum='$gameNum', gamepath='$gamepath'")
-        var cheatpath = gamepath?.replace(".gba", ".cheats")
-        if (!File(cheatpath).exists()) cheatpath = null
-        var internalCheatFile = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+        
+        // Initial Cheat Load Logic (Matching Reload Logic)
+        var cheatRefPath = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+        if (gamepath != null) {
+             val gameDirCheat = File(File(gamepath).parent, "$gameNum.cheats")
+             val gameDirCht = File(File(gamepath).parent, "$gameNum.cht")
+             if (gameDirCheat.exists()) cheatRefPath = gameDirCheat.absolutePath
+             else if (gameDirCht.exists()) cheatRefPath = gameDirCht.absolutePath
+        }
+
+        var internalCheatFile = convertAndGetNativePath(cheatRefPath) // Use selected path, converted to Native Format
 
         var fragmentShader = "uniform sampler2D tex;\n" +
                 "uniform vec2 texSize;\n" +
@@ -90,7 +145,7 @@ class GameActivity : AppCompatActivity() {
                 "\tgl_FragColor = color;\n" +
                 "}"
         if (gamepath != null)
-            CheatUtils.generateCheat(this, gameNum, cheatpath)
+            CheatUtils.generateCheat(this, gameNum, null) // Don't overwrite if exists? generateCheat handles checks.
         SDLUtils.init(this, findViewById(R.id.gameView))
             .setLibraries(
                 "SDL2",
@@ -255,6 +310,9 @@ class GameActivity : AppCompatActivity() {
         val gameNum = intent.getStringExtra("cheat")
         findViewById<TextView>(R.id.cheatbtn).setOnClickListener {
             startForResult.launch(Intent(this, CheatsActivity::class.java).also {
+                // Pass gamepath so CheatsActivity knows where to look
+                it.putExtra("gamepath", intent.getStringExtra("gamepath"))
+
                 when (intent.getStringExtra("gametype")) {
                     "GBA" ->
                         intent.getParcelableExtra<GBAgame>("gamedetail").let { game ->
