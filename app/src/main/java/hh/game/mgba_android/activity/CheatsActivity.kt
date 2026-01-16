@@ -83,10 +83,12 @@ class CheatsActivity : AppCompatActivity() {
             cheatListAdapter.updateCheatList(cheatList)
             cheatListAdapter.cheatOnCheckListener = { position, isSelect ->
                 cheatList.get(position).isSelect = isSelect
+                val parentDir = if (gamePath != null) File(gamePath).parentFile else null
                 CheatUtils.saveCheatToFile(
                     this,
                     gameNum!!,
-                    GBACheat(cheatlist = cheatList).toString()
+                    GBACheat(cheatlist = cheatList).toString(),
+                    parentDir
                 )
             }
         }
@@ -109,12 +111,29 @@ class CheatsActivity : AppCompatActivity() {
                         cheatListview?.visibility = View.GONE
                         editorLayout?.visibility = View.VISIBLE
                         assetsListView?.visibility = View.GONE
-                        cheateditor?.setText(File(getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats").let {
-                            if(!it.exists()) it.createNewFile()
-                            it
-                        }.readText())
+                        
+                        val parentDir = if (gamePath != null) File(gamePath).parentFile else null
+                        var userFile = File(parentDir, "$gameNum.cheats")
+                        
+                        // Check if Game Dir file exists, if not, check Private Dir
+                        var loadedFrom = "None"
+                        if (userFile.exists()) {
+                            loadedFrom = "Game Dir"
+                        } else {
+                            userFile = File(getExternalFilesDir("cheats"), "$gameNum.cheats")
+                            if (userFile.exists()) loadedFrom = "Private Dir"
+                        }
+                        
+                        if (loadedFrom != "None") {
+                            cheateditor?.setText(userFile.readText())
+                            android.widget.Toast.makeText(this@CheatsActivity, "Loaded from $loadedFrom: ${userFile.name}", android.widget.Toast.LENGTH_SHORT).show()
+                        } else {
+                            cheateditor?.setText("")
+                            android.widget.Toast.makeText(this@CheatsActivity, "No saved cheats found.", android.widget.Toast.LENGTH_SHORT).show()
+                        }
+                        
                         saveBtn?.setOnClickListener {
-                            CheatUtils.saveCheatToFile(this@CheatsActivity, gameNum!!, cheateditor?.text.toString())
+                            CheatUtils.saveCheatToFile(this@CheatsActivity, gameNum!!, cheateditor?.text.toString(), parentDir)
                             // No automatic switch back, user stays in edit
                         }
                     }
@@ -169,11 +188,31 @@ class CheatsActivity : AppCompatActivity() {
     private var gamePath: String? = null
 
     fun getCheatList(): ArrayList<Cheat> {
-        var parentDir: File? = null
-        if (gamePath != null) {
-            parentDir = File(gamePath).parentFile
+        val parentDir = if (gamePath != null) File(gamePath).parentFile else null
+        
+        // 1. Try to load user saved cheats from Game Directory
+        if (parentDir != null) {
+            val gameDirFile = File(parentDir, "$gameNum.cheats")
+            if (gameDirFile.exists()) {
+                 val userCheats = CheatUtils.parseUserCheatFile(gameDirFile)
+                 if (userCheats.isNotEmpty()) {
+                     Log.d("CheatsActivity", "Loaded from Game Dir: ${gameDirFile.absolutePath}")
+                     return userCheats
+                 }
+            }
         }
 
+        // 2. Try App Private Directory
+        val userFile = File(getExternalFilesDir("cheats"), "$gameNum.cheats")
+        if (userFile.exists()) {
+             val userCheats = CheatUtils.parseUserCheatFile(userFile)
+             if (userCheats.isNotEmpty()) {
+                 Log.d("CheatsActivity", "Loaded from Private Dir: ${userFile.absolutePath}")
+                 return userCheats
+             }
+        }
+    
+        // 3. Fallback to Database
         val dbCheats = CheatDatabaseUtils.getCheatsForGame(this, gameNum ?: "", parentDir)
         return if (!dbCheats.isNullOrEmpty()) {
             CheatDatabaseUtils.convertToCheatList(dbCheats)

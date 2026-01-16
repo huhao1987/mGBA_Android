@@ -595,6 +595,89 @@ Java_hh_game_mgba_1android_activity_GameActivity_initSwappy(JNIEnv *env, jobject
 }
 
 extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_writeMem8(JNIEnv *env, jobject thiz, jint address, jint value) {
+    if (!thread.core) return;
+    androidrenderer.core->busWrite8(androidrenderer.core, (uint32_t)address, (uint8_t)value);
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_getMemoryRange(JNIEnv *env, jobject thiz, jint address, jint length) {
+    if (!thread.core) return NULL;
+    
+    // Ensure we don't read too much
+    if (length <= 0 || length > 1024 * 1024) return NULL; // Cap at 1MB
+
+    jbyteArray result = env->NewByteArray(length);
+    jbyte* buf = new jbyte[length];
+    
+    for (int i = 0; i < length; i++) {
+        uint8_t val = androidrenderer.core->busRead8(androidrenderer.core, (uint32_t)(address + i));
+        buf[i] = (jbyte)val;
+    }
+    
+    env->SetByteArrayRegion(result, 0, length, buf);
+    delete[] buf;
+    return result;
+}
+
+#include <vector>
+
+extern "C"
+JNIEXPORT jintArray JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_nativeMemorySearch(JNIEnv *env, jobject thiz, jint value, jint size) {
+    if (!thread.core) return NULL;
+    
+    std::vector<int> matches;
+    // Regions to search: WRAM (0x02000000 - 0x0203FFFF), IRAM (0x03000000 - 0x03007FFF)
+    // TODO: Support ROM/SRAM if needed.
+    
+    struct Region {
+        uint32_t start;
+        uint32_t end;
+    };
+    
+    Region regions[] = {
+        {0x02000000, 0x0203FFFF},
+        {0x03000000, 0x03007FFF}
+    };
+    
+    for (const auto& r : regions) {
+         for (uint32_t addr = r.start; addr <= r.end - size + 1; addr += size) { // Aligned search for matching size
+             // Note: If user wants unaligned search (e.g., finding a 32-bit value at 0x...1), we need step=1.
+             // But for now, aligned search is standard for game values. 
+             // Actually, Cheat Engine usually does byte-level scanning by default but aligned is faster.
+             // Let's stick to 'size'.
+             
+             bool match = false;
+             if (size == 1) {
+                 uint8_t val = androidrenderer.core->busRead8(androidrenderer.core, addr);
+                 if (val == (uint8_t)value) match = true;
+             } else if (size == 2) {
+                 uint16_t val = androidrenderer.core->busRead16(androidrenderer.core, addr);
+                 if (val == (uint16_t)value) match = true;
+             } else if (size == 4) {
+                 uint32_t val = androidrenderer.core->busRead32(androidrenderer.core, addr);
+                 if (val == (uint32_t)value) match = true;
+             }
+             
+             if (match) {
+                 matches.push_back((int)addr);
+                 if (matches.size() >= 10000) break; // Hard limit to prevent OOM
+             }
+         }
+         if (matches.size() >= 10000) break;
+    }
+
+    if (matches.empty()) return NULL;
+    
+    jintArray result = env->NewIntArray(matches.size());
+    env->SetIntArrayRegion(result, 0, matches.size(), matches.data());
+    return result;
+}
+
+extern "C"
 JNIEXPORT jfloat JNICALL
 Java_hh_game_mgba_1android_activity_GameActivity_getFPS(JNIEnv *env, jobject thiz) {
     return g_fps;

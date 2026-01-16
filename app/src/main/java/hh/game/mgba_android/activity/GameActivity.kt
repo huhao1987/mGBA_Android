@@ -114,44 +114,18 @@ class GameActivity : AppCompatActivity() {
         copyAssets("shaders", shaderDir.absolutePath)
         
         // Load xBRZ shader
-        val shaderBtn = findViewById<TextView>(R.id.shader_btn)
-        var currentShaderName = "None"
-        
-        shaderBtn.setOnClickListener {
-            val shaderDir = File(filesDir, "shaders")
-            if (!shaderDir.exists()) shaderDir.mkdirs()
-            
-            // Filter for directories (shaders are usually folders with manifest.ini) or .shader files
-            val shaderFiles = shaderDir.listFiles { file -> 
-                file.isDirectory || file.extension == "shader" 
-            }?.map { it.name }?.toMutableList() ?: mutableListOf()
-            
-            shaderFiles.add(0, "Clear")
-            
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Select Shader")
-            builder.setItems(shaderFiles.toTypedArray()) { dialog, which ->
-                val selectedName = shaderFiles[which]
-                if (selectedName == "Clear") {
-                    setShader("")
-                    currentShaderName = "None"
-                    shaderBtn.text = "Set Shader"
-                    shaderBtn.setBackgroundColor(0x800000FF.toInt()) // Blue
-                } else {
-                    val selectedFile = File(shaderDir, selectedName)
-                    val path = selectedFile.absolutePath
-                    val success = setShader(path)
-                    if (success) {
-                        currentShaderName = selectedName
-                        shaderBtn.text = "Shader: $selectedName"
-                        shaderBtn.setBackgroundColor(0x8000FF00.toInt()) // Green
-                    } else {
-                        shaderBtn.text = "Shader: ERR"
-                        shaderBtn.setBackgroundColor(0x80FF0000.toInt()) // Red
+        // Initialize Tools Button
+        findViewById<View>(R.id.tools_btn).setOnClickListener {
+            val options = arrayOf("Shaders", "Memory Tools")
+            AlertDialog.Builder(this)
+                .setTitle("Tools")
+                .setItems(options) { _, which ->
+                    when (which) {
+                        0 -> showShaderMenu()
+                        1 -> openHexEditor()
                     }
                 }
-            }
-            builder.show()
+                .show()
         }
 
         val fpsText = findViewById<TextView>(R.id.fps_text)
@@ -161,6 +135,40 @@ class GameActivity : AppCompatActivity() {
                 delay(500)
             }
         }
+    }
+
+    private fun showShaderMenu() {
+        val shaderDir = File(filesDir, "shaders")
+        if (!shaderDir.exists()) shaderDir.mkdirs()
+        
+        val shaderFiles = shaderDir.listFiles { file -> 
+            file.isDirectory || file.extension == "shader" 
+        }?.map { it.name }?.toMutableList() ?: mutableListOf()
+        
+        shaderFiles.add(0, "Clear")
+        
+        AlertDialog.Builder(this)
+            .setTitle("Select Shader")
+            .setItems(shaderFiles.toTypedArray()) { _, which ->
+                val selectedName = shaderFiles[which]
+                if (selectedName == "Clear") {
+                    setShader("")
+                    // Toast.makeText(this, "Shader Cleared", Toast.LENGTH_SHORT).show()
+                } else {
+                    val selectedFile = File(shaderDir, selectedName)
+                    setShader(selectedFile.absolutePath)
+                    // Toast.makeText(this, "Applied: $selectedName", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .show()
+    }
+
+    private fun openHexEditor() {
+        PauseGame()
+        hh.game.mgba_android.fragment.HexEditorFragment().apply {
+            // Dismiss listener handles ResumeGame
+        }
+        .show(supportFragmentManager, "hex_editor")
     }
 
     private fun copyAssets(assetPath: String, destPath: String) {
@@ -637,9 +645,12 @@ class GameActivity : AppCompatActivity() {
     external fun Mute(mute: Boolean)
     external fun getMemoryBlock(): ArrayList<CoreMemoryBlock>
     external fun writeMem(address: Int, value: Int)
+    external fun writeMem8(address: Int, value: Int)
     external fun initSwappy()
     external fun setShader(path: String): Boolean
     external fun getFPS(): Float
+    external fun getMemoryRange(address: Int, length: Int): ByteArray?
+    external fun nativeMemorySearch(value: Int, size: Int): IntArray?
 }
 
 

@@ -12,6 +12,43 @@ import java.io.InputStreamReader
 
 class CheatUtils {
     companion object {
+        fun parseUserCheatFile(file: File): ArrayList<Cheat> {
+            val list = ArrayList<Cheat>()
+            if (!file.exists()) return list
+            
+            try {
+                val text = file.readText()
+                // Regex to match: (!enabled|!disabled) followed by content, until next !xxx or End.
+                // Pattern: (!enabled|!disabled)\s*(.*?)(?=(!enabled|!disabled|$))
+                // Flags: DOTALL (to match newlines)
+                val pattern = java.util.regex.Pattern.compile("(!enabled|!disabled)\\s+(.*?)(?=(!enabled|!disabled|$))", java.util.regex.Pattern.DOTALL)
+                val matcher = pattern.matcher(text)
+                
+                while (matcher.find()) {
+                    val status = matcher.group(1) ?: "!disabled"
+                    val content = matcher.group(2)?.trim() ?: ""
+                    
+                    val cheat = Cheat()
+                    cheat.isSelect = (status == "!enabled")
+                    
+                    // Content implies "Title\nCode"
+                    // Split by first newline
+                    val lines = content.lines().filter { it.isNotBlank() }
+                    if (lines.isNotEmpty()) {
+                        cheat.cheatTitle = lines[0].trim()
+                        if (lines.size > 1) {
+                            // Join the rest as code
+                            cheat.cheatCode = lines.drop(1).joinToString("\n") { it.trim() }
+                        }
+                        list.add(cheat)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return list
+        }
+
         fun generateCheat(
             context: Context,
             gameNum: String?,
@@ -57,7 +94,24 @@ class CheatUtils {
             return stringBuilder.toString()
         }
 
-        fun saveCheatToFile(context: Context, gameNum: String, str: String) {
+        fun saveCheatToFile(context: Context, gameNum: String, str: String, targetDir: File? = null) {
+            // Priority: Target Dir (Game Folder) -> App Private Dir
+            if (targetDir != null && targetDir.exists() && targetDir.canWrite()) {
+                 try {
+                     FileIOUtils.writeFileFromString(
+                        File(targetDir, "$gameNum.cheats").absolutePath,
+                        str
+                     )
+                     FileIOUtils.writeFileFromString(
+                        File(targetDir, "$gameNum.cht").absolutePath,
+                        str
+                     )
+                     return 
+                 } catch (e: Exception) {
+                     e.printStackTrace()
+                 }
+            }
+
             FileIOUtils.writeFileFromString(
                 context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cht",
                 str
@@ -66,6 +120,16 @@ class CheatUtils {
                 context.getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats",
                 str
             )
+        }
+        
+        fun appendCheat(context: Context, gameNum: String, cheat: Cheat, targetDir: File? = null) {
+            val fileToRead = if (targetDir != null) File(targetDir, "$gameNum.cheats") 
+                             else File(context.getExternalFilesDir("cheats"), "$gameNum.cheats")
+            
+            val currentList = if (fileToRead.exists()) parseUserCheatFile(fileToRead) else ArrayList()
+            currentList.add(cheat)
+            
+            saveCheatToFile(context, gameNum, GBACheat(cheatlist = currentList).toString(), targetDir)
         }
 
         external fun memorySearch(searchValue:Int)

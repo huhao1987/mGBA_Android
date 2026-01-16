@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1E1E1E">
+
+    <!-- Row 1: Region Selection & Jump -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:gravity="center_vertical">
+
+        <Spinner
+            android:id="@+id/region_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:minHeight="48dp" />
+
+        <Button
+            android:id="@+id/btn_jump"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jump"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <!-- Row 2: Search Options (Type & Base) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:gravity="center_vertical">
+
+        <Spinner
+            android:id="@+id/type_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:minWidth="100dp"
+            android:minHeight="48dp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp">
+
+            <RadioButton
+                android:id="@+id/rb_hex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hex"
+                android:textColor="#FFFFFF"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rb_dec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dec"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="8dp"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <!-- Row 3: Search Input & Action -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <EditText
+            android:id="@+id/search_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Value (e.g. 100 or 0x64)"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888"
+            android:inputType="textNoSuggestions"
+            android:minHeight="48dp"/>
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:background="#333333">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textColor="#AAAAAA"
+            android:typeface="monospace"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F"
+            android:textColor="#AAAAAA"
+            android:typeface="monospace"
+            android:gravity="center"
+            android:textSize="10sp"/>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="ASCII"
+            android:textColor="#AAAAAA"
+            android:typeface="monospace"
+            android:gravity="end"/>
+    </LinearLayout>
+
+    <!-- Recycler -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hex_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

@@ -13,7 +13,7 @@ data class GBACheat(
     override fun toString(): String {
         return "${
             cheatlist?.joinToString(
-                separator = " ",
+                separator = "\n",
                 prefix = "",
                 postfix = ""
             )
