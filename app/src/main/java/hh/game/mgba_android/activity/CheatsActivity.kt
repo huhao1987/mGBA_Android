@@ -178,6 +178,37 @@ class CheatsActivity : AppCompatActivity() {
                              // For now, read-only or copy logic could go here
                         }
                     }
+                    3 -> { // Pro (AR DS)
+                        cheatListview?.visibility = View.GONE
+                         editorLayout?.visibility = View.VISIBLE
+                        assetsListView?.visibility = View.GONE
+
+                        cheateditor?.hint = "Enter Action Replay DS codes:\nXXXXXXXX YYYYYYYY\nD9000000 02001234"
+                        cheateditor?.setText("")
+                        saveBtn?.text = "Apply to Engine"
+                        
+                        saveBtn?.setOnClickListener {
+                            val rawText = cheateditor?.text.toString()
+                            val lines = rawText.split("\n")
+                            // (activity as GameActivity).resetARDSCheats() // We can't cast directly if not in GameActivity context? 
+                            // Wait, CheatsActivity is separate. We need to send intent or binding?
+                            // Actually, CheatsActivity runs ON TOP of GameActivity usually? No, it's a separate Activity.
+                            // We need to pass data back or use a singleton/service.
+                            // But usually intents are used.
+                            
+                            // Ah, mGBA Android architecture usually has GameActivity launch CheatsActivity.
+                            // Communication back happens via onActivityResult or shared Prefs/Files.
+                            // But these logic cheats are RUNTIME memory constructs. They might not persist easily in old formats?
+                            // Or we save them to a file distinct from .cheats? e.g. .ards
+                            
+                            // For now, let's save to a file, and make GameActivity load it on Resume.
+                             val parentDir = if (gamePath != null) File(gamePath).parentFile else null
+                             val ardsFile = File(parentDir, "$gameNum.ards")
+                             ardsFile.writeText(rawText)
+                             android.widget.Toast.makeText(this@CheatsActivity, "Saved AR DS Cheats!", android.widget.Toast.LENGTH_SHORT).show()
+                             // The GameActivity will need to load this file.
+                        }
+                    }
                 }
             }
             override fun onTabUnselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {}

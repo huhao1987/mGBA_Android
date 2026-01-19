@@ -30,6 +30,12 @@
 #include <jni.h>
 #include "mgba/src/platform/sdl/gl-common.h"
 
+// Multiplayer Support - SIO Headers (Removed)
+// #include <mgba/internal/gba/gba.h>
+// #include <mgba/internal/gba/sio.h>
+// #include <mgba/gba/interface.h>
+#include "ards.cpp" // Include Action Replay DS Interpreter directly
+
 #define EVENT_SHADER_LOAD (SDL_USEREVENT + 1)
 
 extern "C" {
@@ -62,6 +68,17 @@ static void _loadState(struct mCoreThread* thread) {
 struct mSDLRenderer androidrenderer;
 struct mCoreThread thread;
 static struct VideoShader currentShader = {0};
+
+// Multiplayer Support - Global Variables (Removed)
+// static int g_playerRole = 1; 
+// ... (Removed for cleanup)
+
+// Multiplayer Support - SIO Driver Callback (Removed)
+// static void _finishMultiplayer(...)
+
+// Multiplayer Support - JNI Functions (Removed)
+// extern "C" JNIEXPORT void JNICALL Java_org_libsdl_app_SDLUtils_setPlayerRole(...)
+// extern "C" JNIEXPORT void JNICALL Java_hh_game_mgba_1android_utils_MultiplayerSyncManager_nativeDataReceived(...)
 
 int runGame(char** argv){
     androidrenderer = {0};
@@ -128,7 +145,14 @@ int runGame(char** argv){
 //        _vertexShader = argv[4];
     mInputMapInit(&androidrenderer.core->inputMap, &GBAInputInfo);
     mCoreInitConfig(androidrenderer.core, PORT);
+    
+    // Multiplayer Save Isolation (Removed)
+    // if (g_playerRole == 2) { ... }
+    
     mArgumentsApply(&args, &subparser, 1, &androidrenderer.core->config);
+
+    // Attach SIO Driver (Removed)
+    // if (androidrenderer.core->platform(androidrenderer.core) == mPLATFORM_GBA) { ... }
 
     mCoreConfigSetDefaultIntValue(&androidrenderer.core->config, "logToStdout", true);
     mCoreConfigLoadDefaults(&androidrenderer.core->config, &opts);
@@ -270,6 +294,9 @@ static void androidShaderRunloop(struct mSDLRenderer* renderer, void* user) {
         }
 
         if (mCoreSyncWaitFrameStart(&context->impl->sync)) {
+            // Execute Action Replay DS Logic Engine (Per Frame)
+            ARDS_Run(context->core);
+            
             v->setImage(v, VIDEO_LAYER_BACKGROUND, renderer->outputBuffer);
         }
         mCoreSyncWaitFrameEnd(&context->impl->sync);
@@ -353,6 +380,10 @@ int mSDLRun(struct mSDLRenderer* renderer, struct mArguments* args) {
                 }
             }
             renderer->runloop(renderer, &thread);
+            
+            // Execute Action Replay DS Logic Engine
+            ARDS_Run(androidrenderer.core);
+
             // mSDLPauseAudio(&renderer->audio);
             if (mCoreThreadHasCrashed(&thread)) {
                 didFail = true;
@@ -712,4 +743,17 @@ Java_hh_game_mgba_1android_activity_GameActivity_setShader(JNIEnv *env, jobject 
     
     SDL_PushEvent(&event);
     return JNI_TRUE;
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_resetARDSCheats(JNIEnv *env, jobject thiz) {
+    ARDS_Reset();
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_hh_game_mgba_1android_activity_GameActivity_addARDSCheat(JNIEnv *env, jobject thiz, jint op, jint val) {
+
+    ARDS_AddCheat((uint32_t)op, (uint32_t)val);
 }

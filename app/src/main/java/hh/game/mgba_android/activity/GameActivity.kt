@@ -45,7 +45,7 @@ import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 
-class GameActivity : AppCompatActivity() {
+open class GameActivity : AppCompatActivity() {
     private var runFPS = true
     private var setFPS = 60f
     private var isMute = false
@@ -72,33 +72,85 @@ class GameActivity : AppCompatActivity() {
                     }
                 }
                 Log.d("GameActivity", "Reloading cheats from: $cheatFileToLoad")
-                reCallCheats(convertAndGetNativePath(cheatFileToLoad))
+                reCallCheats(processCheatsAndGetNativePath(cheatFileToLoad))
             }
         }
 
     // Helper to convert Legacy Format (User preferred) to Libretro Format (Native required) on the fly
-    private fun convertAndGetNativePath(path: String): String {
+    private fun isARDSCheat(cheat: hh.game.mgba_android.utils.Cheat): Boolean {
+        // Simple Heuristic: Check for AR DS exclusive opcodes in the code lines
+        // AR DS Opcodes: D0-DF (Data/Flow), E0 (Patch)
+        // Also 30-6F are conditional but we'll focus on the structural ones first to avoid false positives with GBA addresses
+        // But the user specifically mentioned "AR DS"
+        val lines = cheat.cheatCode.lines()
+        for (line in lines) {
+            val parts = line.trim().split(" ")
+            if (parts.size == 2 && parts[0].length == 8 && parts[1].length == 8) {
+               val opStart = parts[0][0].toUpperCase()
+               if (opStart == 'D' || opStart == 'E') {
+                   return true
+               }
+            }
+        }
+        return false
+    }
+
+    private fun processCheatsAndGetNativePath(path: String): String {
          val legacyFile = File(path)
          if (!legacyFile.exists()) return path
          
-         // Parse using the Legacy parser (which we reverted to)
+         // Parse using the CheatUtils
          val cheats = CheatUtils.parseUserCheatFile(legacyFile)
          
-         // Generate Libretro content manually
+         // Reset Native AR DS Engine First
+         resetARDSCheats()
+         var ardsCount = 0
+         
+         // Generate Libretro content manually for Standard Cheats
          val sb = StringBuilder()
-         sb.append("cheats = ${cheats.size}\n\n")
+         var stdCount = 0
+         
          cheats.forEachIndexed { i, cheat ->
-             sb.append("cheat${i}_desc = \"${cheat.cheatTitle}\"\n")
-             val code = cheat.cheatCode.replace("\n", "+")
-             sb.append("cheat${i}_code = \"$code\"\n")
-             sb.append("cheat${i}_enable = ${cheat.isSelect}\n\n")
+             if (cheat.isSelect) {
+                 if (isARDSCheat(cheat)) {
+                     // Route to AR DS Engine
+                     cheat.cheatCode.lines().forEach { line ->
+                         val parts = line.trim().split(" ")
+                         if (parts.size >= 2) {
+                             try {
+                                  val op = parts[0].toLong(16).toInt()
+                                  val value = parts[1].toLong(16).toInt()
+                                  addARDSCheat(op, value)
+                             } catch (e: Exception) {
+                                 Log.e("GameActivity", "Error parsing ARDS code: $line")
+                             }
+                         }
+                     }
+                     ardsCount++
+                     Log.d("GameActivity", "Loaded AR DS Cheat: ${cheat.cheatTitle}")
+                 } else {
+                     // Route to Standard Engine
+                     sb.append("cheat${stdCount}_desc = \"${cheat.cheatTitle}\"\n")
+                     val code = cheat.cheatCode.replace("\n", "+")
+                     sb.append("cheat${stdCount}_code = \"$code\"\n")
+                     sb.append("cheat${stdCount}_enable = true\n\n")
+                     stdCount++
+                 }
+             }
+         }
+         
+         // Add header count for standard cheats
+         val finalContent = "cheats = $stdCount\n\n" + sb.toString()
+         
+         if (ardsCount > 0) {
+             Log.d("GameActivity", "Total AR DS Cheats Loaded: $ardsCount")
          }
          
          // Save to a temp location that native core will read
          val nativeFile = File(cacheDir, "running_cheats.cht")
          try {
              val writer = java.io.BufferedWriter(java.io.FileWriter(nativeFile))
-             writer.write(sb.toString())
+             writer.write(finalContent)
              writer.close()
              return nativeFile.absolutePath
          } catch (e: Exception) {
@@ -115,37 +167,18 @@ class GameActivity : AppCompatActivity() {
         val gameNum = intent.getStringExtra("cheat")
         Log.d("GameActivity", "onCreate: gameNum='$gameNum', gamepath='$gamepath'")
         
-        // Initial Cheat Load Logic (Matching Reload Logic)
+        // Initial Cheat Load Logic (Unified)
         var cheatRefPath = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
         if (gamepath != null) {
              val gameDirCheat = File(File(gamepath).parent, "$gameNum.cheats")
-             val gameDirCht = File(File(gamepath).parent, "$gameNum.cht")
              if (gameDirCheat.exists()) cheatRefPath = gameDirCheat.absolutePath
-             else if (gameDirCht.exists()) cheatRefPath = gameDirCht.absolutePath
         }
 
-        var internalCheatFile = convertAndGetNativePath(cheatRefPath) // Use selected path, converted to Native Format
-
-        var fragmentShader = "uniform sampler2D tex;\n" +
-                "uniform vec2 texSize;\n" +
-                "varying vec2 texCoord;\n" +
-                "\n" +
-                "uniform float boundBrightness;\n" +
-                "\n" +
-                "void main()\n" +
-                "{\n" +
-                "\tvec4 color = texture2D(tex, texCoord);\n" +
-                "\n" +
-                "\tif (int(mod(texCoord.s * texSize.x * 3.0, 3.0)) == 0 ||\n" +
-                "\t\tint(mod(texCoord.t * texSize.y * 3.0, 3.0)) == 0)\n" +
-                "\t{\n" +
-                "\t\tcolor.rgb *= vec3(1.0, 1.0, 1.0) * boundBrightness;\n" +
-                "\t}\n" +
-                "\n" +
-                "\tgl_FragColor = color;\n" +
-                "}"
+        // Generate default if missing
         if (gamepath != null)
-            CheatUtils.generateCheat(this, gameNum, null) // Don't overwrite if exists? generateCheat handles checks.
+             CheatUtils.generateCheat(this, gameNum, null)
+
+        var internalCheatFile = processCheatsAndGetNativePath(cheatRefPath)
         SDLUtils.init(this, findViewById(R.id.gameView))
             .setLibraries(
                 "SDL2",
@@ -278,6 +311,23 @@ class GameActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // Reload cheats on resume in case they were edited in CheatsActivity
+         if (intent.getStringExtra("gamepath") != null) {
+            val gamePath = intent.getStringExtra("gamepath")
+            val parentDir = File(gamePath).parentFile
+            // Use the same gameNum logic as onCreate
+            val gameNum = intent.getStringExtra("cheat") ?: File(gamePath).nameWithoutExtension
+            
+            // Unified Cheat Reloading
+            var cheatRefPath = getExternalFilesDir("cheats")?.absolutePath + "/$gameNum.cheats"
+            val gameDirCheat = File(parentDir, "$gameNum.cheats") // Priority to game dir
+            if (gameDirCheat.exists()) cheatRefPath = gameDirCheat.absolutePath
+            
+            // Process (Reload AR DS, Update .cht file)
+            // Note: Updated .cht file might not be re-read by core without restart, 
+            // but AR DS cheats are updated immediately via JNI.
+            processCheatsAndGetNativePath(cheatRefPath)
+         }
         ResumeGame()
     }
 
@@ -709,6 +759,8 @@ class GameActivity : AppCompatActivity() {
     external fun getFPS(): Float
     external fun getMemoryRange(address: Int, length: Int): ByteArray?
     external fun nativeMemorySearch(value: Int, size: Int): IntArray?
+    external fun resetARDSCheats()
+    external fun addARDSCheat(op: Int, valVal: Int)
 }
 
 

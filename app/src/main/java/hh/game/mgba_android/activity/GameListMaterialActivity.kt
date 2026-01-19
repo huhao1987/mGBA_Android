@@ -1,6 +1,7 @@
 package hh.game.mgba_android.activity
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -9,6 +10,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResult
@@ -72,6 +74,8 @@ import hh.game.mgba_android.database.GBA.GBAgameData
 import hh.game.mgba_android.mGBAApplication
 import hh.game.mgba_android.utils.Gametype
 import java.io.File
+
+
 
 class GameListMaterialActivity : ComponentActivity() {
     private val viewModel: GameListViewmodel by viewModels<GameListViewmodel>()
@@ -187,33 +191,42 @@ fun onClickgame(game: Any) {
         })
 }
 
-fun onLongclickGame(game: Any) {
-    startActivity(
-        Intent(
-            mGBAApplication.context,
-            CheatsActivity::class.java
-        ).also {
-            when (game) {
-                is GBAgameData -> {
-                    it.putExtra("gamedetail", (game as GBAgameData).gbaGame)
-                    it.putExtra(
-                        "gamepath",
-                        game.gbaDocumentFile.getAbsolutePath(mGBAApplication.context)
-                    )
-                    it.putExtra("gametype", Gametype.GBA.name)
+fun onLongclickGame(game: Any, context: Context) {
+    val options = arrayOf("Cheats")
+    AlertDialog.Builder(context).apply {
+        setTitle("Options")
+        setItems(options) { dialog: DialogInterface, which: Int ->
+            when (which) {
+                0 -> {
+                    startActivity(Intent(context, CheatsActivity::class.java).also {
+                        setupGameIntent(it, game)
+                    })
                 }
-
-                is GBgameData -> {
-                    it.putExtra("gamedetail", (game as GBgameData).gbgame)
-                    it.putExtra(
-                        "gamepath",
-                        game.gbDocumentFile.getAbsolutePath(mGBAApplication.context)
-                    )
-                    it.putExtra("gametype", Gametype.GB.name)
-                }
+                // 1 -> { // Multiplayer Removed }
+                else -> {}
             }
-        })
+        }
+        show()
+    }
 }
+
+private fun setupGameIntent(intent: Intent, game: Any) {
+    val context = mGBAApplication.context
+    when (game) {
+        is GBAgameData -> {
+            intent.putExtra("gamedetail", game.gbaGame)
+            intent.putExtra("gamepath", game.gbaDocumentFile.getAbsolutePath(context))
+            intent.putExtra("gametype", Gametype.GBA.name)
+            intent.putExtra("cheat", game.gbaGame.GameNum)
+        }
+        is GBgameData -> {
+            intent.putExtra("gamedetail", game.gbgame)
+            intent.putExtra("gamepath", game.gbDocumentFile.getAbsolutePath(context))
+            intent.putExtra("gametype", Gametype.GB.name)
+        }
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -233,12 +246,14 @@ fun TopbarView() {
 
 @Composable
 fun GameList(gameList: List<Any>, coverfilefolder: DocumentFile?) {
+    val context = LocalContext.current
     LazyColumn {
         items(gameList) { game ->
-            GameRow(game, coverfilefolder, { onClickgame(game) }, { onLongclickGame(game) })
+            GameRow(game, coverfilefolder, { onClickgame(game) }, { onLongclickGame(game, context) })
         }
     }
 }
+
 
 @Composable
 private fun CustomCircularProgressBar() {
